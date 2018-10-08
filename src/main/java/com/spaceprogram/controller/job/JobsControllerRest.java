@@ -58,7 +58,7 @@ public class JobsControllerRest {
 	 */
 	@RequestMapping(value = path + "/{id}", method = RequestMethod.GET)
 	@ApiMethod(description = "Get job")
-	public @ApiResponseObject Job getJob(@ApiPathParam @PathVariable("id") int id) {
+	public @ApiResponseObject Job getJob(@ApiPathParam @PathVariable("id") Integer id) {
 
 		return jobsRepository.findOne(id);
 	}

@@ -58,7 +58,7 @@ public class SpaceshipTypesControllerRest {
 	 */
 	@RequestMapping(value = path + "/{id}", method = RequestMethod.GET)
 	@ApiMethod(description = "Get spaceshipType")
-	public @ApiResponseObject SpaceshipType getSpaceshipType(@ApiPathParam @PathVariable("id") int id) {
+	public @ApiResponseObject SpaceshipType getSpaceshipType(@ApiPathParam @PathVariable("id") Integer id) {
 
 		return spaceshipTypesRepository.findOne(id);
 	}

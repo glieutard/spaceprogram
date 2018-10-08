@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.spaceprogram.model.spaceship.engine;
+package com.spaceprogram.model.spaceship.crew;
 
 import java.io.Serializable;
 
@@ -15,18 +15,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * @author GLieutard
  * 
- * Id Entity SpaceshipEngine
+ * Id Entity SpaceshipCrew
  *
  */
 @Embeddable
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiObject(description = "Id Entity SpaceshipEngine", show = false)
-public class IdSpaceshipEngine implements Serializable {
+@ApiObject(description = "Id Entity SpaceshipCrew", show = false)
+public class IdSpaceshipCrew implements Serializable {
 
 	/**
 	 * Id de version
 	 */
-	private static final long serialVersionUID = 3691567717791099817L;
+	private static final long serialVersionUID = -1390552035630340201L;
 	
 	/**
 	 * id Spaceship
@@ -35,10 +35,10 @@ public class IdSpaceshipEngine implements Serializable {
 	private Integer idSpaceship;
 	
 	/**
-	 * Id Engine
+	 * Id Crew
 	 */
-	@ApiObjectField(description = "Id Engine")
-	private Integer idEngine;
+	@ApiObjectField(description = "Id Crew")
+	private Integer idCrew;
 
 	/**
 	 * @return the idSpaceship
@@ -55,17 +55,18 @@ public class IdSpaceshipEngine implements Serializable {
 	}
 
 	/**
-	 * @return the idEngine
+	 * @return the idCrew
 	 */
-	public Integer getIdEngine() {
-		return idEngine;
+	public Integer getIdCrew() {
+		return idCrew;
 	}
 
 	/**
-	 * @param idEngine the idEngine to set
+	 * @param idCrew the idCrew to set
 	 */
-	public void setIdEngine(Integer idEngine) {
-		this.idEngine = idEngine;
+	public void setIdCrew(Integer idCrew) {
+		this.idCrew = idCrew;
 	}
+
 
 }

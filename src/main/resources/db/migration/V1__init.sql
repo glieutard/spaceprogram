@@ -78,3 +78,19 @@ if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_engine_pk' AND
 create unique index idx_spaceship_engine_pk
 	on spaceship_engine (idSpaceship, idEngine)
 go
+
+----------------------------
+-- Table spaceship_crew --
+----------------------------
+iF OBJECT_ID('spaceship_crew') is null
+create table spaceship_crew (
+    idSpaceship int not null foreign key references spaceship (id) on delete cascade on update cascade,
+    idCrew int not null foreign key references crew (id) on delete cascade on update cascade
+)
+go
+
+-- Index(es)
+if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_crew_pk' AND object_id = OBJECT_ID('spaceship_crew'))
+create unique index idx_spaceship_crew_pk
+	on spaceship_crew (idSpaceship, idCrew)
+go

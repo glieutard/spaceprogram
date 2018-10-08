@@ -58,7 +58,7 @@ public class CrewsControllerRest {
 	 */
 	@RequestMapping(value = path + "/{id}", method = RequestMethod.GET)
 	@ApiMethod(description = "Get crew")
-	public @ApiResponseObject Crew getCrew(@ApiPathParam @PathVariable("id") int id) {
+	public @ApiResponseObject Crew getCrew(@ApiPathParam @PathVariable("id") Integer id) {
 
 		return crewsRepository.findOne(id);
 	}

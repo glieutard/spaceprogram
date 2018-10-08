@@ -58,7 +58,7 @@ public class EnginesControllerRest {
 	 */
 	@RequestMapping(value = path + "/{id}", method = RequestMethod.GET)
 	@ApiMethod(description = "Get engine")
-	public @ApiResponseObject Engine getEngine(@ApiPathParam @PathVariable("id") int id) {
+	public @ApiResponseObject Engine getEngine(@ApiPathParam @PathVariable("id") Integer id) {
 
 		return enginesRepository.findOne(id);
 	}
