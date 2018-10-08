@@ -1,0 +1,13 @@
+jsondoc:
+  version: 1.0
+  packages: [com.spaceprogram.controller, com.spaceprogram.model]
+  base-path: http://${host.name}:${server.port}
+         
+spring:
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+  application:
+    name: spaceprogram

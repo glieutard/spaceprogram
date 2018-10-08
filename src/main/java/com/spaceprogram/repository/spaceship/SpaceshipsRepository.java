@@ -17,5 +17,5 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	
 	// find all
 	List<Spaceship> findAll();
-
+	
 }

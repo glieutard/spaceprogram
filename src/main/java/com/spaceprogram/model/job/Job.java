@@ -1,11 +1,13 @@
 /**
  * 
  */
-package com.spaceprogram.model.spaceship;
+package com.spaceprogram.model.job;
 
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.jsondoc.core.annotation.ApiObject;
@@ -16,26 +18,27 @@ import org.jsondoc.core.annotation.ApiObjectField;
  *
  */
 @Entity
-@ApiObject(name = "Spaceship", description = "Entity Spaceship")
-public class Spaceship implements Serializable {
+@ApiObject(name = "Job", description = "Entity Job")
+public class Job implements Serializable {
 
 	/**
-	 * idversion
+	 * id version
 	 */
-	private static final long serialVersionUID = 8355428496156661105L;
+	private static final long serialVersionUID = -61244652428693107L;
 	
 	/*
 	 * id
 	 */
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiObjectField(description = "Id")
-	Integer id;
+	private Integer id;
 	
 	/*
 	 * Name
 	 */
 	@ApiObjectField(description = "Name")
-	String name;
+	private String name;
 
 	/**
 	 * @return the id

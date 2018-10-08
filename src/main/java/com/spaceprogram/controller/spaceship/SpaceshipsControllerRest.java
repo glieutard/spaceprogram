@@ -21,7 +21,7 @@ import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
  *
  */
 @RestController
-@Api(name = "SpaceshipControllerRest", description = "Spacehsip Cotroller Rest")
+@Api(name = "SpaceshipsControllerRest", description = "Spacehsips Cotroller Rest")
 public class SpaceshipsControllerRest {
 	
 	// URL en constante
