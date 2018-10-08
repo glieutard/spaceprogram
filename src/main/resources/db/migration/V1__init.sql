@@ -62,3 +62,19 @@ create table engine (
 	[weight] int not null
 )
 go
+
+----------------------------
+-- Table spaceship_engine --
+----------------------------
+iF OBJECT_ID('spaceship_engine') is null
+create table spaceship_engine (
+    idSpaceship int not null foreign key references spaceship (id) on delete cascade on update cascade,
+    idEngine int not null foreign key references engine (id) on delete cascade on update cascade
+)
+go
+
+-- Index(es)
+if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_engine_pk' AND object_id = OBJECT_ID('spaceship_engine'))
+create unique index idx_spaceship_engine_pk
+	on spaceship_engine (idSpaceship, idEngine)
+go

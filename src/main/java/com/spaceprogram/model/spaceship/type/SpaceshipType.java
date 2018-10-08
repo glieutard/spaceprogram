@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.spaceprogram.model.spaceship;
+package com.spaceprogram.model.spaceship.type;
 
 import java.io.Serializable;
 
@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -16,19 +17,20 @@ import org.jsondoc.core.annotation.ApiObjectField;
 /**
  * @author GLieutard
  * 
- * Entity Spaceship
+ * Entity SpaceshipType
  *
  */
 @Entity
-@ApiObject(name = "Spaceship", description = "Entity Spaceship")
-public class Spaceship implements Serializable {
+@Table(name = "spaceship_type")
+@ApiObject(name = "SpaceshipType", description = "Entity SpaceshipType")
+public class SpaceshipType implements Serializable {
 
 	/**
-	 * idversion
+	 * Id de version
 	 */
-	private static final long serialVersionUID = 8355428496156661105L;
+	private static final long serialVersionUID = -4884134238962677905L;
 	
-	/*
+	/**
 	 * id
 	 */
 	@Id
@@ -36,7 +38,7 @@ public class Spaceship implements Serializable {
 	@ApiObjectField(description = "Id")
 	private Integer id;
 	
-	/*
+	/**
 	 * Name
 	 */
 	@ApiObjectField(description = "Name")

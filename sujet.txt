@@ -1,0 +1,24 @@
+Je veux pouvoir manipuler plusieurs vaisseaux (Spaceship).
+Un vaisseau comporte à minima :
+
+    un équipage (Crew) composé de plusieurs personnes bien distinctes.
+    au moins deux moteurs (Engine)
+    un type
+    un nom
+
+Il s'agit là de la forme la plus simple d'un vaisseau, vous êtes libre aussi bien concernant l'enrichissement de cette liste que des fonctionnalités présentes dans le sujet.
+Je peux tout aussi bien construire que détruire ou même améliorer mes vaisseaux. Évidemment, je veux aussi avoir accès aussi bien à l'ensemble de ma flotte qu'à chaque élément individuellement.
+Pour chaque vaisseau, il est possible d'accéder à un historique complet de celui-ci et de retourner, au besoin, à un état antérieur
+Au minimum, j'ai besoin de services REST intuitifs et fonctionnels afin d'interagir avec mes vaisseaux.
+Les vaisseaux peuvent partir en mission.
+
+    j'ai besoin d'un CRUD complet sur les missions
+    j'aimerais pouvoir consulter par mission, les vaisseaux y participant.
+    chaque mission à une coordonnées
+    les vaisseaux en mission ont eux aussi une coordonnée dépendant à la fois de leur vélocité et de leur temps de départ
+    lorsque j'estime que la mission est un succès, j'aimerais que tous les vaisseaux rentrent à la base
+
+Lorsque j'exécuterai le jar, je veux qu'un premier jeu de de données soit crée.
+obligatoire : java 8, spring-boot
+
+Le code effectué sera à déployer sur un compte GitHub crée par le candidat. Le nom du dépôt crée sera à transmettre au point de contact.

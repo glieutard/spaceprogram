@@ -19,6 +19,8 @@ import com.spaceprogram.repository.job.JobsRepository;
 
 /**
  * @author GLieutard
+ * 
+ * Job Controlelr REST
  *
  */
 @RestController
@@ -64,6 +66,8 @@ public class JobsControllerRest {
 	/**
 	 * Post jobs
 	 * 
+	 * @param List<Job>
+	 * 
 	 * @Return List<Job>
 	 * 
 	 */
@@ -77,6 +81,8 @@ public class JobsControllerRest {
 	/**
 	 * Put jobs
 	 * 
+	 * @param List<Job>
+	 * 
 	 * @Return List<Job>
 	 * 
 	 */
@@ -85,6 +91,19 @@ public class JobsControllerRest {
 	public @ApiResponseObject Iterable<Job> putJobs(@RequestBody(required = true) Iterable<Job> jobs) {
 
 		return jobsRepository.save(jobs);
+	}
+
+	/**
+	 * Delete jobs
+	 * 
+	 * @param List<Job>
+	 * 
+	 */
+	@RequestMapping(value = path, method = RequestMethod.DELETE)
+	@ApiMethod(description = "Post jobs")
+	public @ApiResponseObject void deleteJobs(@RequestBody(required = true) Iterable<Job> jobs) {
+
+		jobsRepository.delete(jobs);
 	}
 	
 }

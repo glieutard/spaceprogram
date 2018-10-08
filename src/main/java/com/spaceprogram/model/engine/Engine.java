@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.spaceprogram.model.spaceship;
+package com.spaceprogram.model.engine;
 
 import java.io.Serializable;
 
@@ -16,31 +16,43 @@ import org.jsondoc.core.annotation.ApiObjectField;
 /**
  * @author GLieutard
  * 
- * Entity Spaceship
+ * Entity Engine
  *
  */
 @Entity
-@ApiObject(name = "Spaceship", description = "Entity Spaceship")
-public class Spaceship implements Serializable {
+@ApiObject(name = "Engine", description = "Entity Engine")
+public class Engine implements Serializable {
 
 	/**
-	 * idversion
+	 * Id de version
 	 */
-	private static final long serialVersionUID = 8355428496156661105L;
+	private static final long serialVersionUID = -6269845674900200921L;
 	
-	/*
-	 * id
+	/**
+	 * Id
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiObjectField(description = "Id")
 	private Integer id;
 	
-	/*
+	/**
 	 * Name
 	 */
 	@ApiObjectField(description = "Name")
 	private String name;
+	
+	/**
+	 * Horse Power
+	 */
+	@ApiObjectField(description = "Horse Power")
+	private Integer horsePower;
+	
+	/**
+	 * Weight
+	 */
+	@ApiObjectField(description = "Weight")
+	private Integer weight;
 
 	/**
 	 * @return the id
@@ -68,6 +80,34 @@ public class Spaceship implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the horsePower
+	 */
+	public Integer getHorsePower() {
+		return horsePower;
+	}
+
+	/**
+	 * @param horsePower the horsePower to set
+	 */
+	public void setHorsePower(Integer horsePower) {
+		this.horsePower = horsePower;
+	}
+
+	/**
+	 * @return the weight
+	 */
+	public Integer getWeight() {
+		return weight;
+	}
+
+	/**
+	 * @param weight the weight to set
+	 */
+	public void setWeight(Integer weight) {
+		this.weight = weight;
 	}
 
 }
