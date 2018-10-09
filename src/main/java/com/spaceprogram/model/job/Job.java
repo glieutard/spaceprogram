@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
@@ -18,6 +19,7 @@ import org.jsondoc.core.annotation.ApiObjectField;
  *
  */
 @Entity
+@Audited
 @ApiObject(name = "Job", description = "Entity Job")
 public class Job implements Serializable {
 
