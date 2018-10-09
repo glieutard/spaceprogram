@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -15,13 +16,14 @@ import org.jsondoc.core.annotation.ApiObjectField;
 /**
  * @author GLieutard
  * 
- * SpaceshipEngine Entity
+ * Entity SpaceshipEngines
  *
  */
 @Entity
-@IdClass(IdSpaceshipEngine.class)
-@ApiObject(name = "SpaceshipEngine", description = "Entity SpaceshipEngine")
-public class SpaceshipEngine implements Serializable {
+@Table(name = "spaceship_engines")
+@IdClass(IdSpaceshipEngines.class)
+@ApiObject(name = "SpaceshipEngines", description = "Entity SpaceshipEngines", show = false)
+public class SpaceshipEngines implements Serializable {
 
 	/**
 	 * Id de version

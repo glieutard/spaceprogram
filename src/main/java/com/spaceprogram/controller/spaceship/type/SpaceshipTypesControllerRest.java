@@ -3,6 +3,9 @@
  */
 package com.spaceprogram.controller.spaceship.type;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
@@ -35,9 +38,9 @@ public class SpaceshipTypesControllerRest {
 	private SpaceshipTypesRepository spaceshipTypesRepository;
 	
 	/**
-	 * Get all spceshipTypes
+	 * Get all spaceshipTypes
 	 * 
-	 * @Return List<SpceshipType>
+	 * @Return List<SpaceshipType>
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.GET)
@@ -73,8 +76,12 @@ public class SpaceshipTypesControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.POST)
 	@ApiMethod(description = "Post spaceshipTypes")
-	public @ApiResponseObject Iterable<SpaceshipType> postSpaceshipTypes(@RequestBody(required = true) Iterable<SpaceshipType> spaceshipTypes) {
+	public @ApiResponseObject Iterable<SpaceshipType> postSpaceshipTypes(@RequestBody(required = true) List<SpaceshipType> spaceshipTypes) {
 
+		// Suppression des enregistrement dont l'id n'est pas null
+		Predicate<SpaceshipType> spaceshipTypePredicate = p -> p.getId() != null;
+		spaceshipTypes.removeIf(spaceshipTypePredicate);
+		
 		return spaceshipTypesRepository.save(spaceshipTypes);
 	}
 	
@@ -88,8 +95,12 @@ public class SpaceshipTypesControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
 	@ApiMethod(description = "Post spaceshipTypes")
-	public @ApiResponseObject Iterable<SpaceshipType> putSpaceshipTypes(@RequestBody(required = true) Iterable<SpaceshipType> spaceshipTypes) {
+	public @ApiResponseObject Iterable<SpaceshipType> putSpaceshipTypes(@RequestBody(required = true) List<SpaceshipType> spaceshipTypes) {
 
+		// Suppression des enregistrement dont l'id est null ou à 0
+		Predicate<SpaceshipType> spaceshipTypePredicate = p -> p.getId() == null || p.getId() == 0;
+		spaceshipTypes.removeIf(spaceshipTypePredicate);
+		
 		return spaceshipTypesRepository.save(spaceshipTypes);
 	}
 

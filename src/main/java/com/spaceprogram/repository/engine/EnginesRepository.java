@@ -14,7 +14,7 @@ import com.spaceprogram.model.engine.Engine;
 /**
  * @author GLieutard
  * 
- * Engine Repository
+ * Engines Repository
  *
  */
 public interface EnginesRepository extends CrudRepository<Engine, Integer> {
@@ -22,7 +22,7 @@ public interface EnginesRepository extends CrudRepository<Engine, Integer> {
 	/*
 	 * find engines by spaceships
 	 */
-	@Query(value = "select e.* from engine e join spaceship_engine se on(e.id = se.idEngine) where se.idSpaceship = :idSpaceship", 
+	@Query(value = "select e.* from engine e join spaceship_engines se on(e.id = se.idEngine) where se.idSpaceship = :idSpaceship", 
 			nativeQuery = true)
 	List<Engine> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);

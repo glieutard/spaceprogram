@@ -4,6 +4,7 @@
 package com.spaceprogram.controller.spaceship;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.crew.Crew;
 import com.spaceprogram.model.engine.Engine;
+import com.spaceprogram.model.module.Module;
 import com.spaceprogram.model.spaceship.Spaceship;
 import com.spaceprogram.repository.crew.CrewsRepository;
 import com.spaceprogram.repository.engine.EnginesRepository;
+import com.spaceprogram.repository.module.ModulesRepository;
 import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
 
 /**
@@ -45,6 +48,9 @@ public class SpaceshipsControllerRest {
 	
 	@Autowired
 	private EnginesRepository enginesRepository;
+	
+	@Autowired
+	private ModulesRepository modulesRepository;
 	
 	/**
 	 * Get all spaceships
@@ -80,8 +86,16 @@ public class SpaceshipsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
 	@ApiMethod(description = "Put spaceships")
-	public @ApiResponseObject Iterable<Spaceship> putSpaceships(@RequestBody(required = true) Iterable<Spaceship> spaceships) {
+	public @ApiResponseObject Iterable<Spaceship> putSpaceships(@RequestBody(required = true) List<Spaceship> spaceships) {
 
+		// Suppression des enregistrement dont l'id est null ou à 0
+		Predicate<Spaceship> spaceshipPredicateId = p -> p.getId() == null || p.getId() == 0;
+		spaceships.removeIf(spaceshipPredicateId);
+
+		// Suppression des enregistrement si moins de deux moteurs
+		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() == null || p.getEngines().size() < 2;
+		spaceships.removeIf(spaceshipPredicateEngine);
+		
 		return spaceshipsRepository.save(spaceships);
 	}
 	
@@ -93,8 +107,16 @@ public class SpaceshipsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.POST)
 	@ApiMethod(description = "Post spaceships")
-	public @ApiResponseObject Iterable<Spaceship> postSpaceships(@RequestBody(required = true) Iterable<Spaceship> spaceships) {
+	public @ApiResponseObject Iterable<Spaceship> postSpaceships(@RequestBody(required = true) List<Spaceship> spaceships) {
 
+		// Suppression des enregistrement dont l'id n'est pas null
+		Predicate<Spaceship> spaceshipPredicate = p -> p.getId() != null;
+		spaceships.removeIf(spaceshipPredicate);
+
+		// Suppression des enregistrement si moins de deux moteurs
+		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() == null || p.getEngines().size() < 2;
+		spaceships.removeIf(spaceshipPredicateEngine);
+		
 		return spaceshipsRepository.save(spaceships);
 	}
 	
@@ -135,6 +157,19 @@ public class SpaceshipsControllerRest {
 	public @ApiResponseObject List<Engine> getEnginesBySpaceship(@ApiPathParam @PathVariable("id") Integer id) {
 
 		return enginesRepository.findByIdSpaceship(id);
+	}
+	
+	/**
+	 * Get modules by spaceship
+	 * 
+	 * @Return List<Module>
+	 * 
+	 */
+	@RequestMapping(value = path + "/{id}/modules", method = RequestMethod.GET)
+	@ApiMethod(description = "Get modules by spaceships")
+	public @ApiResponseObject List<Module> getModulesBySpaceship(@ApiPathParam @PathVariable("id") Integer id) {
+
+		return modulesRepository.findByIdSpaceship(id);
 	}
 
 }

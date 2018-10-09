@@ -22,7 +22,7 @@ public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 	/*
 	 * find crews by spaceships
 	 */
-	@Query(value = "select c.* from crew c join spaceship_crew sc on(c.id = sc.idCrew) where sc.idSpaceship = :idSpaceship", 
+	@Query(value = "select c.* from crew c join spaceship_crews sc on(c.id = sc.idCrew) where sc.idSpaceship = :idSpaceship", 
 			nativeQuery = true)
 	List<Crew> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);

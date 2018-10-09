@@ -3,6 +3,9 @@
  */
 package com.spaceprogram.controller.job;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
@@ -73,8 +76,12 @@ public class JobsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.POST)
 	@ApiMethod(description = "Post jobs")
-	public @ApiResponseObject Iterable<Job> postJobs(@RequestBody(required = true) Iterable<Job> jobs) {
+	public @ApiResponseObject Iterable<Job> postJobs(@RequestBody(required = true) List<Job> jobs) {
 
+		// Suppression des enregistrement dont l'id n'est pas null
+		Predicate<Job> jobPredicate = p -> p.getId() != null;
+		jobs.removeIf(jobPredicate);
+		
 		return jobsRepository.save(jobs);
 	}
 	
@@ -88,8 +95,12 @@ public class JobsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
 	@ApiMethod(description = "Post jobs")
-	public @ApiResponseObject Iterable<Job> putJobs(@RequestBody(required = true) Iterable<Job> jobs) {
+	public @ApiResponseObject Iterable<Job> putJobs(@RequestBody(required = true) List<Job> jobs) {
 
+		// Suppression des enregistrement dont l'id est null ou à 0
+		Predicate<Job> jobPredicate = p -> p.getId() == null || p.getId() == 0;
+		jobs.removeIf(jobPredicate);
+		
 		return jobsRepository.save(jobs);
 	}
 

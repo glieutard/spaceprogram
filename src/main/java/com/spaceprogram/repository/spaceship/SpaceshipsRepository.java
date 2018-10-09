@@ -11,6 +11,8 @@ import com.spaceprogram.model.spaceship.Spaceship;
 
 /**
  * @author GLieutard
+ * 
+ * Spaceships Repository
  *
  */
 public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer> {

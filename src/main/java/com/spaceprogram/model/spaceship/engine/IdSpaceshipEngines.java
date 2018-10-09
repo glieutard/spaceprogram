@@ -15,13 +15,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * @author GLieutard
  * 
- * Id Entity SpaceshipEngine
+ * Id Entity SpaceshipEngines
  *
  */
 @Embeddable
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiObject(description = "Id Entity SpaceshipEngine", show = false)
-public class IdSpaceshipEngine implements Serializable {
+@ApiObject(description = "Id Entity SpaceshipEngines", show = false)
+public class IdSpaceshipEngines implements Serializable {
 
 	/**
 	 * Id de version

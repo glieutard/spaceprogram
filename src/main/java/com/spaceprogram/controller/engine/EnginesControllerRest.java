@@ -3,6 +3,9 @@
  */
 package com.spaceprogram.controller.engine;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
@@ -73,8 +76,12 @@ public class EnginesControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.POST)
 	@ApiMethod(description = "Post engiens")
-	public @ApiResponseObject Iterable<Engine> postEngines(@RequestBody(required = true) Iterable<Engine> engines) {
+	public @ApiResponseObject Iterable<Engine> postEngines(@RequestBody(required = true) List<Engine> engines) {
 
+		// Suppression des enregistrement dont l'id n'est pas null
+		Predicate<Engine> enginePredicate = p -> p.getId() != null;
+		engines.removeIf(enginePredicate);
+		
 		return enginesRepository.save(engines);
 	}
 	
@@ -88,8 +95,12 @@ public class EnginesControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
 	@ApiMethod(description = "Post engines")
-	public @ApiResponseObject Iterable<Engine> putEngines(@RequestBody(required = true) Iterable<Engine> engines) {
+	public @ApiResponseObject Iterable<Engine> putEngines(@RequestBody(required = true) List<Engine> engines) {
 
+		// Suppression des enregistrement dont l'id est null ou à 0
+		Predicate<Engine> enginePredicate = p -> p.getId() == null || p.getId() == 0;
+		engines.removeIf(enginePredicate);
+		
 		return enginesRepository.save(engines);
 	}
 

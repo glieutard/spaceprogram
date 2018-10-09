@@ -5,38 +5,42 @@ package com.spaceprogram.model.spaceship.crew;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
 
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
  * @author GLieutard
  * 
- * Id Entity SpaceshipCrew
+ * Entity SpaceshipCrews
  *
  */
-@Embeddable
-@JsonIgnoreProperties(ignoreUnknown = true)
-@ApiObject(description = "Id Entity SpaceshipCrew", show = false)
-public class IdSpaceshipCrew implements Serializable {
+@Entity
+@Table(name = "spaceship_crews")
+@IdClass(IdSpaceshipCrews.class)
+@ApiObject(name = "SpaceshipCrews", description = "Entity SpaceshipCrews", show = false)
+public class SpaceshipCrews implements Serializable {
 
 	/**
 	 * Id de version
 	 */
-	private static final long serialVersionUID = -1390552035630340201L;
+	private static final long serialVersionUID = -5682113778821759934L;
 	
 	/**
-	 * id Spaceship
+	 * Id Spaceship
 	 */
+	@Id
 	@ApiObjectField(description = "Id Spaceship")
 	private Integer idSpaceship;
 	
 	/**
 	 * Id Crew
 	 */
+	@Id
 	@ApiObjectField(description = "Id Crew")
 	private Integer idCrew;
 
@@ -67,6 +71,5 @@ public class IdSpaceshipCrew implements Serializable {
 	public void setIdCrew(Integer idCrew) {
 		this.idCrew = idCrew;
 	}
-
 
 }

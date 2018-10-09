@@ -3,6 +3,9 @@
  */
 package com.spaceprogram.controller.crew;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
@@ -73,8 +76,12 @@ public class CrewsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.POST)
 	@ApiMethod(description = "Post engiens")
-	public @ApiResponseObject Iterable<Crew> postCrews(@RequestBody(required = true) Iterable<Crew> crews) {
+	public @ApiResponseObject Iterable<Crew> postCrews(@RequestBody(required = true) List<Crew> crews) {
 
+		// Suppression des enregistrement dont l'id n'est pas null
+		Predicate<Crew> crewPredicate = p -> p.getId() != null;
+		crews.removeIf(crewPredicate);
+		
 		return crewsRepository.save(crews);
 	}
 	
@@ -88,8 +95,12 @@ public class CrewsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
 	@ApiMethod(description = "Post crews")
-	public @ApiResponseObject Iterable<Crew> putCrews(@RequestBody(required = true) Iterable<Crew> crews) {
+	public @ApiResponseObject Iterable<Crew> putCrews(@RequestBody(required = true) List<Crew> crews) {
 
+		// Suppression des enregistrement dont l'id est null ou à 0
+		Predicate<Crew> crewPredicate = p -> p.getId() == null || p.getId() == 0;
+		crews.removeIf(crewPredicate);
+		
 		return crewsRepository.save(crews);
 	}
 

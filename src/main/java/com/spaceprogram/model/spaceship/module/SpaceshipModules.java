@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.spaceprogram.model.spaceship.crew;
+package com.spaceprogram.model.spaceship.module;
 
 import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -15,13 +16,14 @@ import org.jsondoc.core.annotation.ApiObjectField;
 /**
  * @author GLieutard
  * 
- * Entity SpaceshipCrew
+ * Entity SpaceshipModules
  *
  */
 @Entity
-@IdClass(IdSpaceshipCrew.class)
-@ApiObject(name = "SpaceshipCrew", description = "Entity SpaceshipCrew")
-public class SpaceshipCrew implements Serializable {
+@Table(name = "spaceship_modules")
+@IdClass(IdSpaceshipModules.class)
+@ApiObject(name = "SpaceshipModules", description = "Entity SpaceshipModules", show = false)
+public class SpaceshipModules implements Serializable {
 
 	/**
 	 * Id de version
@@ -36,11 +38,11 @@ public class SpaceshipCrew implements Serializable {
 	private Integer idSpaceship;
 	
 	/**
-	 * Id Crew
+	 * Id Module
 	 */
 	@Id
-	@ApiObjectField(description = "Id Crew")
-	private Integer idCrew;
+	@ApiObjectField(description = "Id Module")
+	private Integer idModule;
 
 	/**
 	 * @return the idSpaceship
@@ -57,17 +59,17 @@ public class SpaceshipCrew implements Serializable {
 	}
 
 	/**
-	 * @return the idCrew
+	 * @return the idModule
 	 */
-	public Integer getIdCrew() {
-		return idCrew;
+	public Integer getIdModule() {
+		return idModule;
 	}
 
 	/**
-	 * @param idCrew the idCrew to set
+	 * @param idModule the idModule to set
 	 */
-	public void setIdCrew(Integer idCrew) {
-		this.idCrew = idCrew;
+	public void setIdModule(Integer idModule) {
+		this.idModule = idModule;
 	}
 
 }

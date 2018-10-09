@@ -9,6 +9,8 @@ import com.spaceprogram.model.job.Job;
 
 /**
  * @author GLieutard
+ * 
+ * Jobs Repository
  *
  */
 public interface JobsRepository extends CrudRepository<Job, Integer> {

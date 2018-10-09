@@ -11,8 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -20,6 +21,8 @@ import org.jsondoc.core.annotation.ApiObjectField;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.spaceprogram.model.crew.Crew;
+import com.spaceprogram.model.engine.Engine;
+import com.spaceprogram.model.module.Module;
 import com.spaceprogram.model.spaceship.type.SpaceshipType;
 
 /**
@@ -92,18 +95,42 @@ public class Spaceship implements Serializable {
 	/**
 	 * Crews
 	 */
-	@Transient
-	@JsonInclude(value = Include.NON_NULL)
+//	@ElementCollection(targetClass=String.class) ///// A Tester en changeant les noms
+	@JsonInclude(value = Include.NON_EMPTY)
+	@OneToMany
+    @JoinTable(
+            name="spaceship_crews",
+            joinColumns = @JoinColumn( name="idSpaceship"),
+            inverseJoinColumns = @JoinColumn( name="idCrew")
+    )
 	@ApiObjectField(description = "Crews")
 	private List<Crew> crews;
 	
 	/**
 	 * Engines
 	 */
-	@Transient
-	@JsonInclude(value = Include.NON_NULL)
+	@JsonInclude(value = Include.NON_EMPTY)
+	@OneToMany
+    @JoinTable(
+            name="spaceship_engines",
+            joinColumns = @JoinColumn( name="idSpaceship"),
+            inverseJoinColumns = @JoinColumn( name="idEngine")
+    )
 	@ApiObjectField(description = "Engines")
-	private List<Crew> engines;
+	private List<Engine> engines;
+	
+	/**
+	 * Modules
+	 */
+	@JsonInclude(value = Include.NON_EMPTY)
+	@OneToMany
+    @JoinTable(
+            name="spaceship_modules",
+            joinColumns = @JoinColumn( name="idSpaceship"),
+            inverseJoinColumns = @JoinColumn( name="idModule")
+    )
+	@ApiObjectField(description = "Modules")
+	private List<Module> modules;
 	
 	/**
 	 * @return the id
@@ -234,15 +261,29 @@ public class Spaceship implements Serializable {
 	/**
 	 * @return the engines
 	 */
-	public List<Crew> getEngines() {
+	public List<Engine> getEngines() {
 		return engines;
 	}
 
 	/**
 	 * @param engines the engines to set
 	 */
-	public void setEngines(List<Crew> engines) {
+	public void setEngines(List<Engine> engines) {
 		this.engines = engines;
+	}
+
+	/**
+	 * @return the modules
+	 */
+	public List<Module> getModules() {
+		return modules;
+	}
+
+	/**
+	 * @param modules the modules to set
+	 */
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
 	}
 
 }
