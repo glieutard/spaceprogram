@@ -160,7 +160,8 @@ go
 iF OBJECT_ID('mission_spaceships') is null
 create table mission_spaceships (
     idMission int not null foreign key references mission (id) on delete cascade on update cascade,
-    idSpaceship int not null primary key foreign key references spaceship (id) on delete cascade on update cascade
+    idSpaceship int not null primary key foreign key references spaceship (id) on delete cascade on update cascade,
+	date datetime2 not null
 )
 go
 
