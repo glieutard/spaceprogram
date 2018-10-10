@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
@@ -24,6 +25,7 @@ import com.spaceprogram.model.job.Job;
  *
  */
 @Entity
+@Audited
 @ApiObject(name = "Crew", description = "Entity Crew")
 public class Crew implements Serializable {
 

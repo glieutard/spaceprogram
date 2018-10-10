@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
@@ -21,6 +22,7 @@ import org.jsondoc.core.annotation.ApiObjectField;
  *
  */
 @Entity
+@Audited
 @Table(name = "spaceship_type")
 @ApiObject(name = "SpaceshipType", description = "Entity SpaceshipType")
 public class SpaceshipType implements Serializable {
@@ -44,6 +46,36 @@ public class SpaceshipType implements Serializable {
 	@ApiObjectField(description = "Name")
 	private String name;
 
+	/**
+	 * Widdth
+	 */
+	@ApiObjectField(description = "Width")
+	private Integer width;
+	
+	/**
+	 * Length
+	 */
+	@ApiObjectField(description = "Length")
+	private Integer length;
+	
+	/**
+	 * Height
+	 */
+	@ApiObjectField(description = "Height")
+	private Integer height;
+	
+	/**
+	 * Weight
+	 */
+	@ApiObjectField(description = "Weight")
+	private Integer weight;
+
+	/**
+	 * Cargo Capacity
+	 */
+	@ApiObjectField(description = "Cargo Capacity")
+	private Integer cargoCapacity;
+	
 	/**
 	 * @return the id
 	 */
@@ -70,6 +102,76 @@ public class SpaceshipType implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public Integer getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return the length
+	 */
+	public Integer getLength() {
+		return length;
+	}
+
+	/**
+	 * @param length the length to set
+	 */
+	public void setLength(Integer length) {
+		this.length = length;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public Integer getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+
+	/**
+	 * @return the weight
+	 */
+	public Integer getWeight() {
+		return weight;
+	}
+
+	/**
+	 * @param weight the weight to set
+	 */
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	/**
+	 * @return the cargoCapacity
+	 */
+	public Integer getCargoCapacity() {
+		return cargoCapacity;
+	}
+
+	/**
+	 * @param cargoCapacity the cargoCapacity to set
+	 */
+	public void setCargoCapacity(Integer cargoCapacity) {
+		this.cargoCapacity = cargoCapacity;
 	}
 
 }

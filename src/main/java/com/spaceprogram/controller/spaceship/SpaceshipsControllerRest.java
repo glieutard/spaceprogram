@@ -6,6 +6,13 @@ package com.spaceprogram.controller.spaceship;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditEntity;
+import org.hibernate.envers.query.AuditQuery;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
@@ -38,6 +45,10 @@ public class SpaceshipsControllerRest {
 	
 	// URL en constante
 	final private static String path = "/v1/spaceships";
+
+	// Entity Manager for audit
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	// Injection respository
 	@Autowired
@@ -114,7 +125,7 @@ public class SpaceshipsControllerRest {
 		spaceships.removeIf(spaceshipPredicate);
 
 		// Suppression des enregistrement si moins de deux moteurs
-		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() == null || p.getEngines().size() < 2;
+		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() != null && p.getEngines().size() < 2;
 		spaceships.removeIf(spaceshipPredicateEngine);
 		
 		return spaceshipsRepository.save(spaceships);
@@ -172,4 +183,32 @@ public class SpaceshipsControllerRest {
 		return modulesRepository.findByIdSpaceship(id);
 	}
 
+	/**
+	 * Get spaceship history
+	 * 
+	 * @param
+	 * 		id int
+	 * 
+	 * @Return List<Spaceship>
+	 * o
+	 */
+	@RequestMapping(value = path + "/{id}/history", method = RequestMethod.GET)
+	@ApiMethod(description = "Get spaceship history")
+	public @ApiResponseObject List<Spaceship> getSpaceshipHistory(@ApiPathParam @PathVariable("id") Integer id) {
+
+		// Create the Audit Reader. It uses the EntityManager, which will be opened when
+	    // starting the new Transation and closed when the Transaction finishes.
+	    AuditReader reader = AuditReaderFactory.get(entityManager);
+
+	    // Create the query
+	    AuditQuery q = reader.createQuery().forRevisionsOfEntity(Spaceship.class, true, false);
+	    q.add(AuditEntity.id().eq(id));
+	    
+	    // Search the results
+	    @SuppressWarnings("unchecked")
+		List<Spaceship> audit = q.getResultList();
+	    
+	    return audit;
+	}
+	
 }

@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
@@ -32,6 +33,7 @@ import com.spaceprogram.model.spaceship.type.SpaceshipType;
  *
  */
 @Entity
+@Audited
 @ApiObject(name = "Spaceship", description = "Entity Spaceship")
 public class Spaceship implements Serializable {
 
@@ -57,45 +59,16 @@ public class Spaceship implements Serializable {
 	/**
 	 * Type
 	 */
+//	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@OneToOne
 	@JoinColumn(name = "idType", referencedColumnName = "id")
 	@ApiObjectField(description = "Type")
 	private SpaceshipType type;
 	
 	/**
-	 * Widdth
-	 */
-	@ApiObjectField(description = "Width")
-	private Integer width;
-	
-	/**
-	 * Length
-	 */
-	@ApiObjectField(description = "Length")
-	private Integer length;
-	
-	/**
-	 * Height
-	 */
-	@ApiObjectField(description = "Height")
-	private Integer height;
-	
-	/**
-	 * Weight
-	 */
-	@ApiObjectField(description = "Weight")
-	private Integer weight;
-	
-	/**
-	 * Cargoe Capacity
-	 */
-	@ApiObjectField(description = "Cargo Capacity")
-	private Integer cargoCapacity;
-	
-	/**
 	 * Crews
 	 */
-//	@ElementCollection(targetClass=String.class) ///// A Tester en changeant les noms
+//	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@JsonInclude(value = Include.NON_EMPTY)
 	@OneToMany
     @JoinTable(
@@ -109,6 +82,7 @@ public class Spaceship implements Serializable {
 	/**
 	 * Engines
 	 */
+//	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@JsonInclude(value = Include.NON_EMPTY)
 	@OneToMany
     @JoinTable(
@@ -122,6 +96,7 @@ public class Spaceship implements Serializable {
 	/**
 	 * Modules
 	 */
+//	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@JsonInclude(value = Include.NON_EMPTY)
 	@OneToMany
     @JoinTable(
@@ -172,76 +147,6 @@ public class Spaceship implements Serializable {
 	 */
 	public void setType(SpaceshipType type) {
 		this.type = type;
-	}
-
-	/**
-	 * @return the width
-	 */
-	public Integer getWidth() {
-		return width;
-	}
-
-	/**
-	 * @param width the width to set
-	 */
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the length
-	 */
-	public Integer getLength() {
-		return length;
-	}
-
-	/**
-	 * @param length the length to set
-	 */
-	public void setLength(Integer length) {
-		this.length = length;
-	}
-
-	/**
-	 * @return the height
-	 */
-	public Integer getHeight() {
-		return height;
-	}
-
-	/**
-	 * @param height the height to set
-	 */
-	public void setHeight(Integer height) {
-		this.height = height;
-	}
-
-	/**
-	 * @return the weight
-	 */
-	public Integer getWeight() {
-		return weight;
-	}
-
-	/**
-	 * @param weight the weight to set
-	 */
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
-
-	/**
-	 * @return the cargoCapacity
-	 */
-	public Integer getCargoCapacity() {
-		return cargoCapacity;
-	}
-
-	/**
-	 * @param cargoCapacity the cargoCapacity to set
-	 */
-	public void setCargoCapacity(Integer cargoCapacity) {
-		this.cargoCapacity = cargoCapacity;
 	}
 
 	/**

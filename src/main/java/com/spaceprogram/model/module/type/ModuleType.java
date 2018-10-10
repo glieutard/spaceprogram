@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
@@ -21,6 +22,7 @@ import org.jsondoc.core.annotation.ApiObjectField;
  *
  */
 @Entity
+@Audited
 @Table(name = "module_type")
 @ApiObject(name = "ModuleType", description = "Entity ModuleType")
 public class ModuleType implements Serializable {

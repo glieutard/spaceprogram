@@ -2,6 +2,10 @@
 				CREATION DES TABLES
 ***********************************************************************************/
 
+/*****************************************
+				VAISEAUX
+*****************************************/
+
 ----------------
 -- Table job --
 ----------------
@@ -31,7 +35,12 @@ go
 iF OBJECT_ID('spaceship_type') is null
 create table spaceship_type (
     id int identity(1, 1) primary key not null,
-    name nvarchar(50) not null
+    name nvarchar(50) not null,
+	width int not null,
+	length int not null,
+	height int not null,
+	weight int not null,
+	cargoCapacity int not null
 )
 go
 
@@ -42,12 +51,7 @@ iF OBJECT_ID('spaceship') is null
 create table spaceship (
     id int identity(1, 1) primary key not null,
     name nvarchar(50) not null,
-	idType int not null foreign key references spaceship_type (id) on delete cascade on update cascade,
-	width int not null,
-	[length] int not null,
-	height int not null,
-	[weight] int not null,
-	cargoCapacity int not null
+	idType int not null foreign key references spaceship_type (id) on delete cascade on update cascade
 )
 go
 
@@ -86,21 +90,15 @@ create table module (
 )
 go
 
-
 -----------------------------
 -- Table spaceship_engines --
 -----------------------------
 iF OBJECT_ID('spaceship_engines') is null
 create table spaceship_engines (
+	id int identity(1, 1) primary key not null,
     idSpaceship int not null foreign key references spaceship (id) on delete cascade on update cascade,
     idEngine int not null foreign key references engine (id) on delete cascade on update cascade
 )
-go
-
--- Index(es)
-if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_engines_pk' AND object_id = OBJECT_ID('spaceship_engines'))
-create unique index idx_spaceship_engines_pk
-	on spaceship_engines (idSpaceship, idEngine)
 go
 
 --------------------------
@@ -124,15 +122,195 @@ go
 -----------------------------
 iF OBJECT_ID('spaceship_modules') is null
 create table spaceship_modules (
+	id int identity(1, 1) primary key not null,
     idSpaceship int not null foreign key references spaceship (id) on delete cascade on update cascade,
     idModule int not null foreign key references module (id) on delete cascade on update cascade
 )
 go
 
--- Index(es)
-if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_modules_pk' AND object_id = OBJECT_ID('spaceship_modules'))
-create unique index idx_spaceship_modules_pk
-	on spaceship_modules (idSpaceship, idModule)
+/*****************************************
+				MISSIONS
+*****************************************/
+
+-------------------------
+-- Table mission_state --
+-------------------------
+iF OBJECT_ID('mission_state') is null
+create table mission_state (
+    id int identity(1, 1) primary key not null,
+    name nvarchar(50) not null
+)
+go
+
+-------------------
+-- Table mission --
+-------------------
+iF OBJECT_ID('mission') is null
+create table mission (
+    id int identity(1, 1) primary key not null,
+    name nvarchar(50) not null,
+	description nvarchar(max) not null,
+	idState int not null foreign key references mission_state (id) on delete cascade on update cascade
+)
+go
+
+------------------------------
+-- Table mission_spaceships --
+------------------------------
+iF OBJECT_ID('mission_spaceships') is null
+create table mission_spaceships (
+    idMission int not null foreign key references mission (id) on delete cascade on update cascade,
+    idSpaceship int not null primary key foreign key references spaceship (id) on delete cascade on update cascade
+)
+go
+
+
+/***********************************************************************************
+						CREATION TABLES HISTORIQUE
+***********************************************************************************/
+
+-------------------
+-- Table revingo --
+-------------------
+iF OBJECT_ID('revinfo') is null
+create table revinfo (
+    rev int identity(1, 1) primary key not null,
+    revtstmp bigint not null
+)
+go
+
+----------------
+-- Table job_aud --
+----------------
+iF OBJECT_ID('job_aud') is null
+create table job_aud (
+    id int not null,
+	rev int not null,
+	revtype smallint not null,
+    name nvarchar(50) not null
+)
+go
+
+--------------------
+-- Table crew_aud --
+--------------------
+iF OBJECT_ID('crew_aud') is null
+create table crew_aud (
+    id int not null,
+	rev int not null,
+	revtype smallint not null,
+    name nvarchar(50) not null,
+	age int not null,
+	sexe nvarchar(1) not null,
+	idJob int not null
+)
+go
+
+------------------------------
+-- Table spaceship_type_aud --
+------------------------------
+iF OBJECT_ID('spaceship_type_aud') is null
+create table spaceship_type_aud (
+    id int not null,
+	rev int not null,
+	revtype smallint not null,
+    name nvarchar(50) not null,
+	width int not null,
+	[length] int not null,
+	height int not null,
+	[weight] int not null,
+	cargoCapacity int not null
+)
+go
+
+-------------------------
+-- Table spaceship_aud --
+-------------------------
+iF OBJECT_ID('spaceship_aud') is null
+create table spaceship_aud (
+    id int not null,
+	rev int not null,
+	revtype smallint not null,
+    name nvarchar(50) not null,
+	idType int not null
+)
+go
+
+----------------------
+-- Table engine_aud --
+----------------------
+iF OBJECT_ID('engine_aud') is null
+create table engine_aud (
+    id int not null,
+	rev int not null,
+	revtype smallint not null,
+    name nvarchar(50) not null,
+	horsePower int not null,
+	[weight] int not null
+)
+go
+
+---------------------------
+-- Table module_type_aud --
+---------------------------
+iF OBJECT_ID('module_type_aud') is null
+create table module_type_aud (
+    id int not null,
+	rev int not null,
+	revtype smallint not null,
+    name nvarchar(50) not null
+)
+go
+
+----------------------
+-- Table module_aud --
+----------------------
+iF OBJECT_ID('module_aud') is null
+create table module_aud (
+    id int not null,
+	rev int not null,
+	revtype smallint not null,
+    name nvarchar(50) not null,
+	idType int not null,
+	firePower int null,
+	cargoCapacity int null
+)
+go
+
+---------------------------------
+-- Table spaceship_engines_aud --
+---------------------------------
+iF OBJECT_ID('spaceship_engines_aud') is null
+create table spaceship_engines_aud (
+	rev int not null,
+	revtype smallint not null,
+    idSpaceship int not null,
+    idEngine int not null
+)
+go
+
+------------------------------
+-- Table spaceship_crew_aud --
+------------------------------
+iF OBJECT_ID('spaceship_crews_aud') is null
+create table spaceship_crews_aud (
+    idSpaceship int not null,
+    idCrew int not null,
+	rev int not null,
+	revtype smallint not null,
+)
+go
+
+---------------------------------
+-- Table spaceship_modules_aud --
+---------------------------------
+iF OBJECT_ID('spaceship_modules_aud') is null
+create table spaceship_modules_aud (
+	rev int not null,
+	revtype smallint not null,
+    idSpaceship int not null,
+    idModule int not null
+)
 go
 
 
