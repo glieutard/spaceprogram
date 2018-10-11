@@ -101,20 +101,20 @@ create table spaceship_engines (
 )
 go
 
+-- Index(es)
+if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_engines_pk' AND object_id = OBJECT_ID('spaceship_engines'))
+create unique index idx_spaceship_engines_pk
+	on spaceship_engines (idSpaceship, idEngine)
+go
+
 --------------------------
 -- Table spaceship_crew --
 --------------------------
 iF OBJECT_ID('spaceship_crews') is null
 create table spaceship_crews (
     idSpaceship int not null foreign key references spaceship (id) on delete cascade on update cascade,
-    idCrew int not null foreign key references crew (id) on delete cascade on update cascade
+    idCrew int not null primary key foreign key references crew (id) on delete cascade on update cascade
 )
-go
-
--- Index(es)
-if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_crews_pk' AND object_id = OBJECT_ID('spaceship_crews'))
-create unique index idx_spaceship_crews_pk
-	on spaceship_crews (idSpaceship, idCrew)
 go
 
 -----------------------------
@@ -126,6 +126,12 @@ create table spaceship_modules (
     idSpaceship int not null foreign key references spaceship (id) on delete cascade on update cascade,
     idModule int not null foreign key references module (id) on delete cascade on update cascade
 )
+go
+
+-- Index(es)
+if not exists(SELECT * FROM sys.indexes WHERE name='idx_spaceship_modules_pk' AND object_id = OBJECT_ID('spaceship_modules'))
+create unique index idx_spaceship_modules_pk
+	on spaceship_modules (idSpaceship, idCrew)
 go
 
 /*****************************************

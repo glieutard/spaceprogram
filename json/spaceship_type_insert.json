@@ -1,0 +1,34 @@
+[
+    {
+        "name": "X-Wing",
+        "width": 1140,
+        "lenght": 1250,
+        "height": 230,
+        "weight": 10,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Y-Wing",
+        "width": 800,
+        "lenght": 1600,
+        "height": 230,
+        "weight": 10,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Light Cargo",
+        "width": 2560,
+        "lenght": 3475,
+        "height": 827,
+        "weight": 250,
+        "cargoCapacity": 100
+    },
+    {
+        "name": "A-Wing",
+        "width": 462,
+        "lenght": 768,
+        "height": 202,
+        "weight": 6,
+        "cargoCapacity": 0
+    }
+]

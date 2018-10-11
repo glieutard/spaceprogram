@@ -1,0 +1,14 @@
+[
+    {
+        "name": "backlog"
+    },
+    {
+        "name": "in progress"
+    },
+    {
+        "name": "failed"
+    },
+    {
+        "name": "accomplished"
+    }
+]

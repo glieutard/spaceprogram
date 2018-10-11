@@ -1,0 +1,66 @@
+[
+    {
+        "name": "Luke Skywalker",
+        "age": 19,
+        "sexe": "M",
+        "job": {
+            "id": 1
+        }
+    },
+    {
+        "name": "Leia Organa",
+        "age": 19,
+        "sexe": "F",
+        "job": {
+            "id": 5
+        }
+    },
+    {
+        "name": "Han Solo",
+        "age": 32,
+        "sexe": "M",
+        "job": {
+            "id": 1
+        }
+    },
+    {
+        "name": "Chewbacca",
+        "age": 200,
+        "sexe": "M",
+        "job": {
+            "id": 2
+        }
+    },
+    {
+        "name": "R2D2",
+        "age": 32,
+        "sexe": "M",
+        "job": {
+            "id": 3
+        }
+    },
+    {
+        "name": "C3PO",
+        "age": 32,
+        "sexe": "M",
+        "job": {
+            "id": 3
+        }
+    },
+    {
+        "name": "Palpatine",
+        "age": 82,
+        "sexe": "M",
+        "job": {
+            "id": 7
+        }
+    },
+    {
+        "name": "Wedge Antilles",
+        "age": 21,
+        "sexe": "M",
+        "job": {
+            "id": 1
+        }
+    }
+]

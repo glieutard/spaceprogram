@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Hyperdrive",
+        "horsePower": 750,
+        "weight": 45
+    },
+    {
+        "name": "Incom 4L4 fusial thrust engines",
+        "horsePower": 750,
+        "weight": 45
+    },
+    {
+        "name": "Novaldex K-88 Event Horizon sublight engines",
+        "horsePower": 750,
+        "weight": 45
+    },
+    {
+        "name": "Girodyne SRB42 sublight engines",
+        "horsePower": 750,
+        "weight": 45
+    }
+]
