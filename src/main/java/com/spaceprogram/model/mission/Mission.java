@@ -6,6 +6,9 @@ package com.spaceprogram.model.mission;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +23,7 @@ import org.jsondoc.core.annotation.ApiObjectField;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.spaceprogram.model.coordinates.Coordinates;
 import com.spaceprogram.model.mission.state.MissionState;
 import com.spaceprogram.model.spaceship.Spaceship;
 
@@ -30,6 +34,14 @@ import com.spaceprogram.model.spaceship.Spaceship;
  *
  */
 @Entity
+@AttributeOverrides({
+	@AttributeOverride(name = "baseCoordinates.x", column = @Column(name = "baseCoordinateX")),
+	@AttributeOverride(name = "baseCoordinates.y", column = @Column(name = "baseCoordinateY")),
+	@AttributeOverride(name = "baseCoordinates.z", column = @Column(name = "baseCoordinateZ")),
+	@AttributeOverride(name = "targetCoordinates.x", column = @Column(name = "targetCoordinateX")),
+	@AttributeOverride(name = "targetCoordinates.y", column = @Column(name = "targetCoordinateY")),
+	@AttributeOverride(name = "targetCoordinates.z", column = @Column(name = "targetCoordinateZ"))
+	})
 @ApiObject(name = "Mission", description = "Entity Mission")
 public class Mission implements Serializable {
 
@@ -71,7 +83,7 @@ public class Mission implements Serializable {
 	 * Spaceships
 	 */
 	@JsonInclude(value = Include.NON_EMPTY)
-	@OneToMany
+	@OneToMany()
     @JoinTable(
             name="mission_spaceships",
             joinColumns = @JoinColumn( name="idMission"),
@@ -79,6 +91,18 @@ public class Mission implements Serializable {
     )
 	@ApiObjectField(description = "Spaceships")
 	private List<Spaceship> spaceships;
+	
+	/**
+	 * Base Coordinates
+	 */
+	@ApiObjectField(description = "Base Coordinates")
+	private Coordinates baseCoordinates;
+
+	/**
+	 * Target Coordinates
+	 */
+	@ApiObjectField(description = "Target Coordinates")
+	private Coordinates targetCoordinates;
 	
 	/**
 	 * @return the id
@@ -148,6 +172,34 @@ public class Mission implements Serializable {
 	 */
 	public void setSpaceships(List<Spaceship> spaceships) {
 		this.spaceships = spaceships;
+	}
+
+	/**
+	 * @return the baseCoordinates
+	 */
+	public Coordinates getBaseCoordinates() {
+		return baseCoordinates;
+	}
+
+	/**
+	 * @param baseCoordinates the baseCoordinates to set
+	 */
+	public void setBaseCoordinates(Coordinates baseCoordinates) {
+		this.baseCoordinates = baseCoordinates;
+	}
+
+	/**
+	 * @return the targetCoordinates
+	 */
+	public Coordinates getTargetCoordinates() {
+		return targetCoordinates;
+	}
+
+	/**
+	 * @param targetCoordinates the targetCoordinates to set
+	 */
+	public void setTargetCoordinates(Coordinates targetCoordinates) {
+		this.targetCoordinates = targetCoordinates;
 	}
 
 }

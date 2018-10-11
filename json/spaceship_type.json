@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "name": "X-Wing",
+        "width": 150,
+        "lenght": 150,
+        "height": 75,
+        "weight": 250,
+        "cargoCapacity": 0
+    }
+]

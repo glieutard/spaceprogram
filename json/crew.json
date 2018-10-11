@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "name": "Luke Skywalker",
+        "age": 23,
+        "sexe": "M",
+        "job": {
+            "id": 1,
+            "name": "pilote"
+        }
+    }
+]

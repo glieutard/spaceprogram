@@ -150,7 +150,13 @@ create table mission (
     id int identity(1, 1) primary key not null,
     name nvarchar(50) not null,
 	description nvarchar(max) not null,
-	idState int not null foreign key references mission_state (id) on delete cascade on update cascade
+	idState int not null foreign key references mission_state (id) on delete cascade on update cascade,
+	baseCoordinateX int not null,
+	baseCoordinateY int not null,
+	baseCoordinateZ int not null,
+	targetCoordinateX int not null,
+	targetCoordinateY int not null,
+	targetCoordinateZ int not null,
 )
 go
 
@@ -161,7 +167,7 @@ iF OBJECT_ID('mission_spaceships') is null
 create table mission_spaceships (
     idMission int not null foreign key references mission (id) on delete cascade on update cascade,
     idSpaceship int not null primary key foreign key references spaceship (id) on delete cascade on update cascade,
-	date datetime2 not null
+	date datetime2 default getDate() not null
 )
 go
 
