@@ -9,19 +9,20 @@ import java.util.function.Predicate;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
+import org.jsondoc.core.annotation.ApiQueryParam;
 import org.jsondoc.core.annotation.ApiResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.controller.mission.spaceships.MissionsSpaceshipsController;
 import com.spaceprogram.model.mission.Mission;
 import com.spaceprogram.repository.mission.MissionsRepository;
-import com.spaceprogram.repository.mission.spaceship.MissionSpaceshipsRepository;
+import com.spaceprogram.repository.mission.spaceship.MissionsSpaceshipsRepository;
 import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
 
 /**
@@ -45,14 +46,10 @@ public class MissionsControllerRest {
 	private SpaceshipsRepository spaceshipsRepository;
 	
 	@Autowired
-	private MissionSpaceshipsRepository missionSpaceshipsRepository;
+	private MissionsSpaceshipsRepository missionSpaceshipsRepository;
 
 	@Autowired	
 	private MissionsSpaceshipsController missionsSpaceshipsController;
-	
-	// variables .properties
-	@Value("${speed.ratio}")
-	private Integer ratio;
 	
 	/**
 	 * Get all missions
@@ -62,15 +59,16 @@ public class MissionsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.GET)
 	@ApiMethod(description = "Get all missions")
-	public @ApiResponseObject Iterable<Mission> getMissions() {
+	public @ApiResponseObject Iterable<Mission> getMissions(
+			@ApiQueryParam @RequestParam(value = "detail", required = false) String detail) {
 
 		// Récupération des missions
 		Iterable<Mission> missions = missionsRepository.findAll();
 		
-		// Récupération des vaisseaux par mission
-		for (Mission mission : missions) {
-			mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
-		}
+		// Récupération des vaisseaux par mission si detail = full
+		if (detail.equals("full"))
+			for (Mission mission : missions)
+				mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
 		
 		// Return missions
 		return missions;
@@ -87,13 +85,16 @@ public class MissionsControllerRest {
 	 */
 	@RequestMapping(value = path + "/{id}", method = RequestMethod.GET)
 	@ApiMethod(description = "Get mission")
-	public @ApiResponseObject Mission getMission(@ApiPathParam @PathVariable("id") Integer id) {
+	public @ApiResponseObject Mission getMission(
+			@ApiPathParam @PathVariable("id") Integer id,
+			@ApiQueryParam @RequestParam(value = "detail", required = false) String detail) {
 
 		// Récupération de la mission
 		Mission mission = missionsRepository.findOne(id);
 		
-		// Récupération des vaisseaux de la mission
-		mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
+		// Récupération des vaisseaux de la mission si detail = full
+		if (detail.equals("full"))
+			mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
 		
 		// Return mission
 		return mission;

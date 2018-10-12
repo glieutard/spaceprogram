@@ -26,5 +26,12 @@ public interface EnginesRepository extends CrudRepository<Engine, Integer> {
 			nativeQuery = true)
 	List<Engine> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);
+	
+	/*
+	 * Is engine used
+	 */
+	@Query(value = "select case when count(*) > 0 then 1 else 0 end from spaceship_engines where idEngine = :idEngine", 
+			nativeQuery = true)
+	Boolean isUsed(@Param("idEngine") Integer idEngine);
 
 }

@@ -16,12 +16,14 @@ import org.hibernate.envers.query.AuditQuery;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
+import org.jsondoc.core.annotation.ApiQueryParam;
 import org.jsondoc.core.annotation.ApiResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.crew.Crew;
@@ -71,9 +73,23 @@ public class SpaceshipsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.GET)
 	@ApiMethod(description = "Get all spaceships")
-	public @ApiResponseObject Iterable<Spaceship> getSpaceships() {
+	public @ApiResponseObject Iterable<Spaceship> getSpaceships(
+			@ApiQueryParam @RequestParam(value = "detail", required = false) String detail) {
 
-		return spaceshipsRepository.findAll();
+		// Récupération des vaisseaux
+		Iterable<Spaceship> spaceships = spaceshipsRepository.findAll();
+		
+		// Si NON option détail à full, on ne renvoit pas l'équipage, les moteurs et les modules
+		if (!detail.equals("full")) {
+			for (Spaceship spaceship : spaceships) {
+				spaceship.setCrews(null);
+				spaceship.setEngines(null);
+				spaceship.setModules(null);
+			}
+		}
+		
+		// Retour des vaisseaux
+		return spaceships;
 	}
 	
 	/**
@@ -84,9 +100,22 @@ public class SpaceshipsControllerRest {
 	 */
 	@RequestMapping(value = path + "/{id}", method = RequestMethod.GET)
 	@ApiMethod(description = "Get spaceships")
-	public @ApiResponseObject Spaceship getSpaceship(@ApiPathParam @PathVariable("id") Integer id) {
+	public @ApiResponseObject Spaceship getSpaceship(
+			@ApiPathParam @PathVariable("id") Integer id,
+			@ApiQueryParam @RequestParam(value = "detail", required = false) String detail) {
 
-		return spaceshipsRepository.findOne(id);
+		// Récupération du vaisseau
+		Spaceship spaceship = spaceshipsRepository.findOne(id);
+
+		// Si NON option détail à full, on ne renvoit pas l'équipage, les moteurs et les modules
+		if (!detail.equals("full")) {
+			spaceship.setCrews(null);
+			spaceship.setEngines(null);
+			spaceship.setModules(null);
+		}
+
+		// Retour des vaisseaux
+		return spaceship;
 	}
 	
 	/**

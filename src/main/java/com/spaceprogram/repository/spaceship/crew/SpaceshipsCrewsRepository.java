@@ -11,9 +11,14 @@ import com.spaceprogram.model.spaceship.crew.SpaceshipCrews;
 /**
  * @author GLieutard
  * 
- * SpaceshipCrews Repository
+ * SpaceshipsCrews Repository
  *
  */
-public interface SpaceshipCrewsRepository extends CrudRepository<SpaceshipCrews, IdSpaceshipCrews> {
+public interface SpaceshipsCrewsRepository extends CrudRepository<SpaceshipCrews, IdSpaceshipCrews> {
+	
+	/*
+	 *  delete by idCrew
+	 */
+	void deleteByIdCrew(Integer idCrew);
 
 }

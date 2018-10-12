@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.module.Module;
 import com.spaceprogram.repository.module.ModulesRepository;
+import com.spaceprogram.repository.spaceship.module.SpaceshipsModulesRepository;
 
 /**
  * @author GLieutard
@@ -36,6 +37,9 @@ public class ModulesControllerRest {
 	// Injection respository
 	@Autowired
 	private ModulesRepository modulesRepository;
+	
+	@Autowired
+	private SpaceshipsModulesRepository spaceshipsModulesRepository;
 	
 	/**
 	 * Get all modules
@@ -113,6 +117,10 @@ public class ModulesControllerRest {
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Post modules")
 	public @ApiResponseObject void deleteModules(@RequestBody(required = true) Iterable<Module> modules) {
+
+		// Suppression des rattachements aux vaisseaux
+		for (Module module : modules)
+			spaceshipsModulesRepository.deleteByIdModule(module.getId());
 
 		modulesRepository.delete(modules);
 	}

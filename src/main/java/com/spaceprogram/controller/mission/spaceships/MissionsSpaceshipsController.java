@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 import com.spaceprogram.model.mission.Mission;
 import com.spaceprogram.model.mission.spaceship.MissionSpaceships;
 import com.spaceprogram.model.spaceship.Spaceship;
-import com.spaceprogram.repository.mission.spaceship.MissionSpaceshipsRepository;
+import com.spaceprogram.repository.mission.spaceship.MissionsSpaceshipsRepository;
 import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
 
 /**
  * @author GLieutard
  * 
- *         MissionsSpaceships Controller
+ * MissionsSpaceships Controller
  *
  */
 @Component
@@ -30,10 +30,10 @@ public class MissionsSpaceshipsController {
 	private SpaceshipsRepository spaceshipsRepository;
 
 	@Autowired
-	private MissionSpaceshipsRepository missionSpaceshipsRepository;
+	private MissionsSpaceshipsRepository missionSpaceshipsRepository;
 
 	/**
-	 * Post missions spaceships by mission
+	 * Post spaceships by mission
 	 * 
 	 * @param Mission
 	 *            mission
@@ -65,7 +65,7 @@ public class MissionsSpaceshipsController {
 	}
 
 	/**
-	 * Put missions spaceships by mission
+	 * Put spaceships by mission
 	 * 
 	 * @param Mission
 	 *            mission

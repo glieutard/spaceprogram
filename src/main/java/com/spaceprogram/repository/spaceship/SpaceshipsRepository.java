@@ -25,6 +25,6 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	@Query(value = "select s.* from spaceships s join mission_spaceships ms on(s.id = ms.idSpaceship) where se.idMission = :idMission", 
 			nativeQuery = true)
 	List<Spaceship> findByIdMission(
-			@Param("idSpaceship") Integer idMission);
+			@Param("idMission") Integer idMission);
 	
 }

@@ -112,8 +112,12 @@ public class JobsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Post jobs")
-	public @ApiResponseObject void deleteJobs(@RequestBody(required = true) Iterable<Job> jobs) {
+	public @ApiResponseObject void deleteJobs(@RequestBody(required = true) List<Job> jobs) {
 
+		// Retrait des jobs utilisés
+		Predicate<Job> jobPredicate = p -> jobsRepository.isUsed(p.getId());
+		jobs.removeIf(jobPredicate);
+		
 		jobsRepository.delete(jobs);
 	}
 	

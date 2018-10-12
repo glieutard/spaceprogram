@@ -112,8 +112,12 @@ public class SpaceshipTypesControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Post spaceshipTypes")
-	public @ApiResponseObject void deleteSpaceshipTypes(@RequestBody(required = true) Iterable<SpaceshipType> spaceshipTypes) {
+	public @ApiResponseObject void deleteSpaceshipTypes(@RequestBody(required = true) List<SpaceshipType> spaceshipTypes) {
 
+		// Retrait des tyoes utilisés
+		Predicate<SpaceshipType> spaceshipTypePredicate = p -> spaceshipTypesRepository.isUsed(p.getId());
+		spaceshipTypes.removeIf(spaceshipTypePredicate);
+		
 		spaceshipTypesRepository.delete(spaceshipTypes);
 	}
 	

@@ -11,9 +11,14 @@ import com.spaceprogram.model.spaceship.engine.SpaceshipEngines;
 /**
  * @author GLieutard
  * 
- * SpaceshipEngines Repository
+ * SpaceshipsEngines Repository
  *
  */
-public interface SpaceshipEnginesRepository extends CrudRepository<SpaceshipEngines, IdSpaceshipEngines> {
+public interface SpaceshipsEnginesRepository extends CrudRepository<SpaceshipEngines, IdSpaceshipEngines> {
+	
+	/*
+	 * Delete by idEngine
+	 */
+	void deleteByIdEngine(Integer idEngine);
 
 }

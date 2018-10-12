@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.engine.Engine;
 import com.spaceprogram.repository.engine.EnginesRepository;
+import com.spaceprogram.repository.spaceship.engine.SpaceshipsEnginesRepository;
 
 /**
  * @author GLieutard
@@ -36,6 +37,9 @@ public class EnginesControllerRest {
 	// Injection respository
 	@Autowired
 	private EnginesRepository enginesRepository;
+	
+	@Autowired
+	private SpaceshipsEnginesRepository spaceshipsEnginesRepository;
 	
 	/**
 	 * Get all engins
@@ -112,7 +116,15 @@ public class EnginesControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Post engines")
-	public @ApiResponseObject void deleteEngines(@RequestBody(required = true) Iterable<Engine> engines) {
+	public @ApiResponseObject void deleteEngines(@RequestBody(required = true) List<Engine> engines) {
+
+		// Retrait des moteurs utilisés
+		Predicate<Engine> enginePredicate = p -> enginesRepository.isUsed(p.getId());
+		engines.removeIf(enginePredicate);
+		
+		// Suppression des rattachements aux vaisseaux
+		for (Engine engine : engines)
+			spaceshipsEnginesRepository.deleteByIdEngine(engine.getId());
 
 		enginesRepository.delete(engines);
 	}

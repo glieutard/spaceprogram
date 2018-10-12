@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.crew.Crew;
 import com.spaceprogram.repository.crew.CrewsRepository;
+import com.spaceprogram.repository.spaceship.crew.SpaceshipsCrewsRepository;
 
 /**
  * @author GLieutard
@@ -36,6 +37,9 @@ public class CrewsControllerRest {
 	// Injection respository
 	@Autowired
 	private CrewsRepository crewsRepository;
+	
+	@Autowired
+	private SpaceshipsCrewsRepository spaceshipsCrewsRepository;
 	
 	/**
 	 * Get all crews
@@ -112,7 +116,15 @@ public class CrewsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Post crews")
-	public @ApiResponseObject void deleteCrews(@RequestBody(required = true) Iterable<Crew> crews) {
+	public @ApiResponseObject void deleteCrews(@RequestBody(required = true) List<Crew> crews) {
+		
+		// Retrait des membres d'équipage dont les vaisseaux sont en mission
+		Predicate<Crew> crewPredicate = p -> crewsRepository.isInMission(p.getId());
+		crews.removeIf(crewPredicate);
+		
+		// Suppression des rattachements aux vaisseaux
+		for (Crew crew : crews)
+			spaceshipsCrewsRepository.deleteByIdCrew(crew.getId());
 
 		crewsRepository.delete(crews);
 	}

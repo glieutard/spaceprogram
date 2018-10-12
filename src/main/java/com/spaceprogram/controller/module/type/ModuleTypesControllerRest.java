@@ -112,8 +112,12 @@ public class ModuleTypesControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Post moduleTypes")
-	public @ApiResponseObject void deleteModuleTypes(@RequestBody(required = true) Iterable<ModuleType> moduleTypes) {
+	public @ApiResponseObject void deleteModuleTypes(@RequestBody(required = true) List<ModuleType> moduleTypes) {
 
+		// Retrait des types utilisés
+		Predicate<ModuleType> moduleTypePredicate = p -> moduleTypesRepository.isUsed(p.getId());
+		moduleTypes.removeIf(moduleTypePredicate);
+		
 		moduleTypesRepository.delete(moduleTypes);
 	}
 	

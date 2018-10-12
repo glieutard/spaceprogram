@@ -13,15 +13,19 @@ import com.spaceprogram.model.mission.spaceship.MissionSpaceships;
 /**
  * @author GLieutard
  * 
- * MissionSpaceships Repository
+ * MissionsSpaceships Repository
  *
  */
-public interface MissionSpaceshipsRepository extends CrudRepository<MissionSpaceships, IdMissionSpaceships> {
+public interface MissionsSpaceshipsRepository extends CrudRepository<MissionSpaceships, IdMissionSpaceships> {
 
-	// Delete by idMission
+	/*
+	 *  Delete by idMission
+	 */
 	void deleteByIdMission(Integer idMission);
 	
-	// Find by idMission
+	/*
+	 *  Find by idMission
+	 */
 	List<MissionSpaceships> findByIdMission(Integer idMission);
 	
 }

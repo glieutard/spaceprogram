@@ -27,4 +27,13 @@ public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 	List<Crew> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);
 	
+	/*
+	 * is crew in mission
+	 */
+	@Query(value = "select count(*) from mission_spaceships ms"
+			+ " join spaceship s on (s.id = ms.idSpaceship)"
+			+ " join spaceship_crews sc on (s.id = sc.idSpaceship)"
+			+ " where sc.idCrew = :idCrew", nativeQuery = true)
+	Boolean isInMission(@Param("idCrew") Integer idCrew);
+	
 }

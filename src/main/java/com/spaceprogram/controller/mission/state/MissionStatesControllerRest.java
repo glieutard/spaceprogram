@@ -3,16 +3,12 @@
  */
 package com.spaceprogram.controller.mission.state;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
 import org.jsondoc.core.annotation.ApiResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,55 +62,55 @@ public class MissionStatesControllerRest {
 		return missionStatesRepository.findOne(id);
 	}
 	
-	/**
-	 * Post missionStates
-	 * 
-	 * @param List<MissionState>
-	 * 
-	 * @Return List<MissionState>
-	 * 
-	 */
-	@RequestMapping(value = path, method = RequestMethod.POST)
-	@ApiMethod(description = "Post missionStates")
-	public @ApiResponseObject Iterable<MissionState> postMissionStates(@RequestBody(required = true) List<MissionState> missionStates) {
-
-		// Suppression des enregistrement dont l'id n'est pas null
-		Predicate<MissionState> missionStatePredicate = p -> p.getId() != null;
-		missionStates.removeIf(missionStatePredicate);
-		
-		return missionStatesRepository.save(missionStates);
-	}
-	
-	/**
-	 * Put missionStates
-	 * 
-	 * @param List<MissionState>
-	 * 
-	 * @Return List<MissionState>
-	 * 
-	 */
-	@RequestMapping(value = path, method = RequestMethod.PUT)
-	@ApiMethod(description = "Post missionStates")
-	public @ApiResponseObject Iterable<MissionState> putMissionStates(@RequestBody(required = true) List<MissionState> missionStates) {
-
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<MissionState> missionStatePredicate = p -> p.getId() == null || p.getId() == 0;
-		missionStates.removeIf(missionStatePredicate);
-		
-		return missionStatesRepository.save(missionStates);
-	}
-
-	/**
-	 * Delete missionStates
-	 * 
-	 * @param List<MissionState>
-	 * 
-	 */
-	@RequestMapping(value = path, method = RequestMethod.DELETE)
-	@ApiMethod(description = "Post missionStates")
-	public @ApiResponseObject void deleteMissionStates(@RequestBody(required = true) Iterable<MissionState> missionStates) {
-
-		missionStatesRepository.delete(missionStates);
-	}
+//	/**
+//	 * Post missionStates
+//	 * 
+//	 * @param List<MissionState>
+//	 * 
+//	 * @Return List<MissionState>
+//	 * 
+//	 */
+//	@RequestMapping(value = path, method = RequestMethod.POST)
+//	@ApiMethod(description = "Post missionStates")
+//	public @ApiResponseObject Iterable<MissionState> postMissionStates(@RequestBody(required = true) List<MissionState> missionStates) {
+//
+//		// Suppression des enregistrement dont l'id n'est pas null
+//		Predicate<MissionState> missionStatePredicate = p -> p.getId() != null;
+//		missionStates.removeIf(missionStatePredicate);
+//		
+//		return missionStatesRepository.save(missionStates);
+//	}
+//	
+//	/**
+//	 * Put missionStates
+//	 * 
+//	 * @param List<MissionState>
+//	 * 
+//	 * @Return List<MissionState>
+//	 * 
+//	 */
+//	@RequestMapping(value = path, method = RequestMethod.PUT)
+//	@ApiMethod(description = "Post missionStates")
+//	public @ApiResponseObject Iterable<MissionState> putMissionStates(@RequestBody(required = true) List<MissionState> missionStates) {
+//
+//		// Suppression des enregistrement dont l'id est null ou à 0
+//		Predicate<MissionState> missionStatePredicate = p -> p.getId() == null || p.getId() == 0;
+//		missionStates.removeIf(missionStatePredicate);
+//		
+//		return missionStatesRepository.save(missionStates);
+//	}
+//
+//	/**
+//	 * Delete missionStates
+//	 * 
+//	 * @param List<MissionState>
+//	 * 
+//	 */
+//	@RequestMapping(value = path, method = RequestMethod.DELETE)
+//	@ApiMethod(description = "Post missionStates")
+//	public @ApiResponseObject void deleteMissionStates(@RequestBody(required = true) Iterable<MissionState> missionStates) {
+//
+//		missionStatesRepository.delete(missionStates);
+//	}
 	
 }
