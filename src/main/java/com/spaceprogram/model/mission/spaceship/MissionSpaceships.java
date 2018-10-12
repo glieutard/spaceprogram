@@ -30,6 +30,16 @@ public class MissionSpaceships implements Serializable {
 	 * Id de version
 	 */
 	private static final long serialVersionUID = 5842251820686806004L;
+	
+	/**
+	 * Constructeurs
+	 */
+	public MissionSpaceships () {}
+	public MissionSpaceships (Integer idMission, Integer idSpaceship, Date date) {
+		this.idMission = idMission;
+		this.idSpaceship = idSpaceship;
+		this.date = date;
+	}
 
 	/**
 	 * Id Mission

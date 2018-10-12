@@ -71,7 +71,7 @@ public class SpaceshipsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.GET)
 	@ApiMethod(description = "Get all spaceships")
-	public @ApiResponseObject List<Spaceship> getSpaceships() {
+	public @ApiResponseObject Iterable<Spaceship> getSpaceships() {
 
 		return spaceshipsRepository.findAll();
 	}

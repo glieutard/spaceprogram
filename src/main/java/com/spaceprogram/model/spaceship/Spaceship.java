@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
@@ -21,6 +23,7 @@ import org.jsondoc.core.annotation.ApiObjectField;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.spaceprogram.model.coordinates.Coordinates;
 import com.spaceprogram.model.crew.Crew;
 import com.spaceprogram.model.engine.Engine;
 import com.spaceprogram.model.module.Module;
@@ -59,8 +62,7 @@ public class Spaceship implements Serializable {
 	/**
 	 * Type
 	 */
-//	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "idType", referencedColumnName = "id")
 	@ApiObjectField(description = "Type")
 	private SpaceshipType type;
@@ -70,7 +72,7 @@ public class Spaceship implements Serializable {
 	 */
 //	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@JsonInclude(value = Include.NON_EMPTY)
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinTable(
             name="spaceship_crews",
             joinColumns = @JoinColumn( name="idSpaceship"),
@@ -82,9 +84,8 @@ public class Spaceship implements Serializable {
 	/**
 	 * Engines
 	 */
-//	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@JsonInclude(value = Include.NON_EMPTY)
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinTable(
             name="spaceship_engines",
             joinColumns = @JoinColumn( name="idSpaceship"),
@@ -96,9 +97,8 @@ public class Spaceship implements Serializable {
 	/**
 	 * Modules
 	 */
-//	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@JsonInclude(value = Include.NON_EMPTY)
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinTable(
             name="spaceship_modules",
             joinColumns = @JoinColumn( name="idSpaceship"),
@@ -106,6 +106,14 @@ public class Spaceship implements Serializable {
     )
 	@ApiObjectField(description = "Modules")
 	private List<Module> modules;
+
+	/**
+	 * Spaceships
+	 */
+	@JsonInclude(value = Include.NON_EMPTY)
+	@Transient
+	@ApiObjectField(description = "Coordinates")
+	private Coordinates coordinates;
 	
 	/**
 	 * @return the id
@@ -189,6 +197,20 @@ public class Spaceship implements Serializable {
 	 */
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
+	}
+
+	/**
+	 * @return the coordinates
+	 */
+	public Coordinates getCoordinates() {
+		return coordinates;
+	}
+
+	/**
+	 * @param coordinates the coordinates to set
+	 */
+	public void setCoordinates(Coordinates coordinates) {
+		this.coordinates = coordinates;
 	}
 
 }

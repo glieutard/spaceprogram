@@ -14,9 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -83,12 +82,7 @@ public class Mission implements Serializable {
 	 * Spaceships
 	 */
 	@JsonInclude(value = Include.NON_EMPTY)
-	@OneToMany()
-    @JoinTable(
-            name="mission_spaceships",
-            joinColumns = @JoinColumn( name="idMission"),
-            inverseJoinColumns = @JoinColumn( name="idSpaceship")
-    )
+	@Transient
 	@ApiObjectField(description = "Spaceships")
 	private List<Spaceship> spaceships;
 	

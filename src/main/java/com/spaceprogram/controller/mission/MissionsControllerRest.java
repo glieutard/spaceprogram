@@ -11,14 +11,18 @@ import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
 import org.jsondoc.core.annotation.ApiResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spaceprogram.controller.mission.spaceships.MissionsSpaceshipsController;
 import com.spaceprogram.model.mission.Mission;
 import com.spaceprogram.repository.mission.MissionsRepository;
+import com.spaceprogram.repository.mission.spaceship.MissionSpaceshipsRepository;
+import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
 
 /**
  * @author GLieutard
@@ -37,6 +41,19 @@ public class MissionsControllerRest {
 	@Autowired
 	private MissionsRepository missionsRepository;
 	
+	@Autowired
+	private SpaceshipsRepository spaceshipsRepository;
+	
+	@Autowired
+	private MissionSpaceshipsRepository missionSpaceshipsRepository;
+
+	@Autowired	
+	private MissionsSpaceshipsController missionsSpaceshipsController;
+	
+	// variables .properties
+	@Value("${speed.ratio}")
+	private Integer ratio;
+	
 	/**
 	 * Get all missions
 	 * 
@@ -47,7 +64,16 @@ public class MissionsControllerRest {
 	@ApiMethod(description = "Get all missions")
 	public @ApiResponseObject Iterable<Mission> getMissions() {
 
-		return missionsRepository.findAll();
+		// Récupération des missions
+		Iterable<Mission> missions = missionsRepository.findAll();
+		
+		// Récupération des vaisseaux par mission
+		for (Mission mission : missions) {
+			mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
+		}
+		
+		// Return missions
+		return missions;
 	}
 	
 	/**
@@ -63,7 +89,14 @@ public class MissionsControllerRest {
 	@ApiMethod(description = "Get mission")
 	public @ApiResponseObject Mission getMission(@ApiPathParam @PathVariable("id") Integer id) {
 
-		return missionsRepository.findOne(id);
+		// Récupération de la mission
+		Mission mission = missionsRepository.findOne(id);
+		
+		// Récupération des vaisseaux de la mission
+		mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
+		
+		// Return mission
+		return mission;
 	}
 	
 	/**
@@ -82,7 +115,17 @@ public class MissionsControllerRest {
 		Predicate<Mission> missionPredicate = p -> p.getId() != null;
 		missions.removeIf(missionPredicate);
 		
-		return missionsRepository.save(missions);
+		// sauvegarde des missions
+		Iterable<Mission> savedMissions = missionsRepository.save(missions);
+
+		// Sauvegarde des vaisseaux rattachés par mission
+		for (Mission mission : savedMissions) {
+			mission.setSpaceships(missionsSpaceshipsController.postByMission(mission));
+		}
+		
+		// Liste en retour
+		return savedMissions;
+		
 	}
 	
 	/**
@@ -101,7 +144,17 @@ public class MissionsControllerRest {
 		Predicate<Mission> missionPredicate = p -> p.getId() == null || p.getId() == 0;
 		missions.removeIf(missionPredicate);
 		
-		return missionsRepository.save(missions);
+		// sauvegarde des missions
+		Iterable<Mission> savedMissions = missionsRepository.save(missions);
+
+		// Gestion des vaisseaux suivant le statut de mission
+		for (Mission mission : savedMissions) {
+			mission.setSpaceships(missionsSpaceshipsController.putByMission(mission));
+		}
+		
+		// Liste en retour
+		return savedMissions;
+		
 	}
 
 	/**
@@ -114,6 +167,11 @@ public class MissionsControllerRest {
 	@ApiMethod(description = "Post missions")
 	public @ApiResponseObject void deleteMissions(@RequestBody(required = true) Iterable<Mission> missions) {
 
+		// Récupération des vaisseaux par mission
+		for (Mission mission : missions) {
+			missionSpaceshipsRepository.deleteByIdMission(mission.getId());
+		}
+		
 		missionsRepository.delete(missions);
 	}
 	
