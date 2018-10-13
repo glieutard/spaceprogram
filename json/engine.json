@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "name": "Nuclear Drive - Main Drive",
-        "horsePower": 750,
-        "weight": 45
+        "name": "Hyperdrive",
+        "horsePower": 0,
+        "weight": 2
     }
 ]

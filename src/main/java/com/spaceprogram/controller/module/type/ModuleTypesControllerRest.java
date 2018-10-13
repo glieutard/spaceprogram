@@ -94,7 +94,7 @@ public class ModuleTypesControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
-	@ApiMethod(description = "Post moduleTypes")
+	@ApiMethod(description = "Put moduleTypes")
 	public @ApiResponseObject Iterable<ModuleType> putModuleTypes(@RequestBody(required = true) List<ModuleType> moduleTypes) {
 
 		// Suppression des enregistrement dont l'id est null ou à 0
@@ -111,7 +111,7 @@ public class ModuleTypesControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
-	@ApiMethod(description = "Post moduleTypes")
+	@ApiMethod(description = "Delete moduleTypes")
 	public @ApiResponseObject void deleteModuleTypes(@RequestBody(required = true) List<ModuleType> moduleTypes) {
 
 		// Retrait des types utilisés

@@ -98,7 +98,7 @@ public class CrewsControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
-	@ApiMethod(description = "Post crews")
+	@ApiMethod(description = "Put crews")
 	public @ApiResponseObject Iterable<Crew> putCrews(@RequestBody(required = true) List<Crew> crews) {
 
 		// Suppression des enregistrement dont l'id est null ou à 0
@@ -115,7 +115,7 @@ public class CrewsControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
-	@ApiMethod(description = "Post crews")
+	@ApiMethod(description = "Delete crews")
 	public @ApiResponseObject void deleteCrews(@RequestBody(required = true) List<Crew> crews) {
 		
 		// Retrait des membres d'équipage dont les vaisseaux sont en mission

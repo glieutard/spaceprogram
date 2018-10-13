@@ -27,4 +27,11 @@ public interface ModulesRepository extends CrudRepository<Module, Integer> {
 	List<Module> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);
 
+	/*
+	 * Is moduke used
+	 */
+	@Query(value = "select case when count(*) > 0 then 1 else 0 end from spaceship_modules where id = :idModule", 
+			nativeQuery = true)
+	Boolean isUsed(@Param("idModule") Integer idModule);
+
 }

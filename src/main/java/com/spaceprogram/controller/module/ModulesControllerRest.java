@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.module.Module;
 import com.spaceprogram.repository.module.ModulesRepository;
-import com.spaceprogram.repository.spaceship.module.SpaceshipsModulesRepository;
 
 /**
  * @author GLieutard
@@ -37,9 +36,6 @@ public class ModulesControllerRest {
 	// Injection respository
 	@Autowired
 	private ModulesRepository modulesRepository;
-	
-	@Autowired
-	private SpaceshipsModulesRepository spaceshipsModulesRepository;
 	
 	/**
 	 * Get all modules
@@ -98,7 +94,7 @@ public class ModulesControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
-	@ApiMethod(description = "Post modules")
+	@ApiMethod(description = "Put modules")
 	public @ApiResponseObject Iterable<Module> putModules(@RequestBody(required = true) List<Module> modules) {
 
 		// Suppression des enregistrement dont l'id est null ou à 0
@@ -115,13 +111,13 @@ public class ModulesControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
-	@ApiMethod(description = "Post modules")
-	public @ApiResponseObject void deleteModules(@RequestBody(required = true) Iterable<Module> modules) {
+	@ApiMethod(description = "Delete modules")
+	public @ApiResponseObject void deleteModules(@RequestBody(required = true) List<Module> modules) {
 
-		// Suppression des rattachements aux vaisseaux
-		for (Module module : modules)
-			spaceshipsModulesRepository.deleteByIdModule(module.getId());
-
+		// Retrait des jobs utilisés
+		Predicate<Module> modulePredicate = p -> modulesRepository.isUsed(p.getId());
+		modules.removeIf(modulePredicate);
+		
 		modulesRepository.delete(modules);
 	}
 

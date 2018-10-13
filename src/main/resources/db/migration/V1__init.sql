@@ -157,12 +157,12 @@ create table mission (
     name nvarchar(50) not null,
 	description nvarchar(max) not null,
 	idState int not null foreign key references mission_state (id) on delete cascade on update cascade,
-	baseCoordinateX int not null,
-	baseCoordinateY int not null,
-	baseCoordinateZ int not null,
-	targetCoordinateX int not null,
-	targetCoordinateY int not null,
-	targetCoordinateZ int not null,
+	baseCoordinateX real not null,
+	baseCoordinateY real not null,
+	baseCoordinateZ real not null,
+	targetCoordinateX real not null,
+	targetCoordinateY real not null,
+	targetCoordinateZ real not null,
 )
 go
 

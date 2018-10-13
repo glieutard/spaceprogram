@@ -90,7 +90,7 @@ public class MissionStatesControllerRest {
 //	 * 
 //	 */
 //	@RequestMapping(value = path, method = RequestMethod.PUT)
-//	@ApiMethod(description = "Post missionStates")
+//	@ApiMethod(description = "Put missionStates")
 //	public @ApiResponseObject Iterable<MissionState> putMissionStates(@RequestBody(required = true) List<MissionState> missionStates) {
 //
 //		// Suppression des enregistrement dont l'id est null ou à 0
@@ -107,7 +107,7 @@ public class MissionStatesControllerRest {
 //	 * 
 //	 */
 //	@RequestMapping(value = path, method = RequestMethod.DELETE)
-//	@ApiMethod(description = "Post missionStates")
+//	@ApiMethod(description = "Delete missionStates")
 //	public @ApiResponseObject void deleteMissionStates(@RequestBody(required = true) Iterable<MissionState> missionStates) {
 //
 //		missionStatesRepository.delete(missionStates);

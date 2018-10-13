@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Luke Skywalker",
-        "age": 23,
+        "age": 19,
         "sexe": "M",
         "job": {
             "id": 1,

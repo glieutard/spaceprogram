@@ -67,15 +67,6 @@ public class Crew implements Serializable {
     @JoinColumn(name = "idJob", referencedColumnName = "id")
 	@ApiObjectField(description = "Job")
 	private Job job;
-	
-//	/**
-//	 * Detail
-//	 */
-//    @OneToMany(fetch=FetchType.LAZY)
-//    @JoinColumn(name = "FDCECH", referencedColumnName = "FECECH")
-//    @OrderBy("FDNBJO DESC")
-//	@ApiObjectField(description = "détail")
-//	private List<BillBookDetail> detail;
 
 	/**
 	 * @return the id

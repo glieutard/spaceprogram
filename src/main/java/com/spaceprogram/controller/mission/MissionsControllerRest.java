@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.controller.mission.spaceships.MissionsSpaceshipsController;
+import com.spaceprogram.controller.spaceship.coordinates.SpaceshipsCoordinatesController;
+import com.spaceprogram.model.coordinates.Coordinates;
 import com.spaceprogram.model.mission.Mission;
+import com.spaceprogram.model.spaceship.Spaceship;
 import com.spaceprogram.repository.mission.MissionsRepository;
 import com.spaceprogram.repository.mission.spaceship.MissionsSpaceshipsRepository;
 import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
@@ -50,6 +53,9 @@ public class MissionsControllerRest {
 
 	@Autowired	
 	private MissionsSpaceshipsController missionsSpaceshipsController;
+	
+	@Autowired
+	private SpaceshipsCoordinatesController spaceshipsCoordinatesController;
 	
 	/**
 	 * Get all missions
@@ -138,7 +144,7 @@ public class MissionsControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
-	@ApiMethod(description = "Post missions")
+	@ApiMethod(description = "Put missions")
 	public @ApiResponseObject Iterable<Mission> putMissions(@RequestBody(required = true) List<Mission> missions) {
 
 		// Suppression des enregistrement dont l'id est null ou à 0
@@ -165,15 +171,61 @@ public class MissionsControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
-	@ApiMethod(description = "Post missions")
+	@ApiMethod(description = "Delete missions")
 	public @ApiResponseObject void deleteMissions(@RequestBody(required = true) Iterable<Mission> missions) {
 
-		// Récupération des vaisseaux par mission
+		// Suppression des vaisseaux par mission
 		for (Mission mission : missions) {
 			missionSpaceshipsRepository.deleteByIdMission(mission.getId());
 		}
 		
 		missionsRepository.delete(missions);
+	}
+
+	/**
+	 * Get spaceships by mission
+	 * 
+	 * @param
+	 * 		id int
+	 * 
+	 * @Return List<Spaceship>
+	 * o
+	 */
+	@RequestMapping(value = path + "/{id}/spaceships", method = RequestMethod.GET)
+	@ApiMethod(description = "Get spaceships by mission")
+	public @ApiResponseObject List<Spaceship> getSpaceshipsByMission(
+			@ApiPathParam @PathVariable("id") Integer id,
+			@ApiQueryParam @RequestParam(value = "detail", required = false) String detail) {
+
+		// List of spaceships by mission
+		List<Spaceship> spaceships = spaceshipsRepository.findByIdMission(id);
+
+		// Si detail == full récupération des coordonnnées
+		if (detail.equals("full"))
+			for (Spaceship spaceship : spaceships)
+				spaceship.setCoordinates(spaceshipsCoordinatesController.getBySpaceship(spaceship.getId()));
+
+	    return spaceships;
+	}
+
+	/**
+	 * Get spaceship coordinates by mission/spaceship
+	 * 
+	 * @param
+	 * 		idMission int
+	 * 		idSpaceship
+	 * 
+	 * @Return Coordiantes
+	 * o
+	 */
+	@RequestMapping(value = path + "/{idMission}/spaceships/{idSpaceship}", method = RequestMethod.GET)
+	@ApiMethod(description = "Get spaceships by mission")
+	public @ApiResponseObject Coordinates getSpaceshipCoordinatesByMissionSpaceship(
+			@ApiPathParam @PathVariable("idMission") Integer idMission,
+			@ApiPathParam @PathVariable("idSpaceship") Integer idSpaceship) {
+
+		return spaceshipsCoordinatesController.getBySpaceship(idSpaceship);
+
 	}
 	
 }

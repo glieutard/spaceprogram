@@ -94,7 +94,7 @@ public class JobsControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
-	@ApiMethod(description = "Post jobs")
+	@ApiMethod(description = "Put jobs")
 	public @ApiResponseObject Iterable<Job> putJobs(@RequestBody(required = true) List<Job> jobs) {
 
 		// Suppression des enregistrement dont l'id est null ou à 0
@@ -111,7 +111,7 @@ public class JobsControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
-	@ApiMethod(description = "Post jobs")
+	@ApiMethod(description = "Delete jobs")
 	public @ApiResponseObject void deleteJobs(@RequestBody(required = true) List<Job> jobs) {
 
 		// Retrait des jobs utilisés

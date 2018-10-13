@@ -62,7 +62,7 @@ public class Spaceship implements Serializable {
 	/**
 	 * Type
 	 */
-	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToOne
 	@JoinColumn(name = "idType", referencedColumnName = "id")
 	@ApiObjectField(description = "Type")
 	private SpaceshipType type;

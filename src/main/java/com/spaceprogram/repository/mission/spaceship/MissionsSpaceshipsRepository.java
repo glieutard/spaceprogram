@@ -27,5 +27,10 @@ public interface MissionsSpaceshipsRepository extends CrudRepository<MissionSpac
 	 *  Find by idMission
 	 */
 	List<MissionSpaceships> findByIdMission(Integer idMission);
+
+	/*
+	 *  Find by idSpaceship
+	 */
+	MissionSpaceships findByIdSpaceship(Integer idSpaceship);
 	
 }

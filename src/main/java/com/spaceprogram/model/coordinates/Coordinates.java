@@ -29,59 +29,59 @@ public class Coordinates implements Serializable {
 	 * Coordinate X
 	 */
 	@ApiObjectField(description = "Coordinate X")
-	private int x;
+	private double x;
 	
 	/**
 	 * Coordinate Y
 	 */
 	@ApiObjectField(description = "Coordinate Y")
-	private int y;
+	private double y;
 	
 	/**
 	 * Coordinate Z
 	 */
 	@ApiObjectField(description = "Coordinate Z")
-	private int z;
+	private double z;
 
 	/**
 	 * @return the x
 	 */
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
 	/**
 	 * @param x the x to set
 	 */
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
 	/**
 	 * @return the y
 	 */
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
 	/**
 	 * @param y the y to set
 	 */
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
 	/**
 	 * @return the z
 	 */
-	public int getZ() {
+	public double getZ() {
 		return z;
 	}
 
 	/**
 	 * @param z the z to set
 	 */
-	public void setZ(int z) {
+	public void setZ(double z) {
 		this.z = z;
 	}
 

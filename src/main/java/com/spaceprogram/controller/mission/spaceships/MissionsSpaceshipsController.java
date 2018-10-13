@@ -6,6 +6,7 @@ package com.spaceprogram.controller.mission.spaceships;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,10 @@ public class MissionsSpaceshipsController {
 	 * 
 	 */
 	public List<Spaceship> postByMission(Mission mission) {
+		
+		// Suppression des vaisseaux déjà en mission
+		Predicate<Spaceship> spaceshipPredicate = p -> spaceshipsRepository.isInMission(p.getId());
+		mission.getSpaceships().removeIf(spaceshipPredicate);
 
 		// Création de la liste des vaisseaux par mission à enregistrer
 		List<MissionSpaceships> missionSpaceships = new ArrayList<MissionSpaceships>();
@@ -74,6 +79,14 @@ public class MissionsSpaceshipsController {
 	 * 
 	 */
 	public List<Spaceship> putByMission(Mission mission) {
+		
+		// Si liste des vaisseaux à null, on récupère celle enregistrée
+		if (mission.getSpaceships() == null)
+			mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
+
+		// Suppression des vaisseaux déjà en mission
+		Predicate<Spaceship> spaceshipPredicate = p -> spaceshipsRepository.isInAnotherMission(mission.getId(), p.getId());
+		mission.getSpaceships().removeIf(spaceshipPredicate);
 
 		// Création de la liste des vaisseaux par mission à enregistrer
 		List<MissionSpaceships> missionSpaceships = new ArrayList<MissionSpaceships>();
