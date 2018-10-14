@@ -1,21 +1,21 @@
 [
     {
         "id": 1,
-        "name": "X-Wing 01",
+        "name": "X-Wing Red Five",
         "type":{
             "id": 1,
             "name": "X-Wing",
-            "width": 150,
-            "lenght": 150,
-            "height": 75,
-            "weight": 250,
+            "width": 1140,
+            "lenght": 1250,
+            "height": 230,
+            "weight": 10,
             "cargoCapacity": 0
         },
         "crews": [
             {
                 "id": 1,
                 "name": "Luke Skywalker",
-                "age": 23,
+                "age": 19,
                 "sexe": "M",
                 "job": {
                     "id": 1,
@@ -26,27 +26,27 @@
         "engines": [
             {
                 "id": 1,
-                "name": "Nuclear Drive - Main Drive",
-                "horsePower": 750,
-                "weight": 45
+                "name": "Hyperdrive",
+                "horsePower": 0,
+                "weight": 2
             },
             {
                 "id": 2,
-                "name": "Nuclear Drive - Subsidiary Drive",
-                "horsePower": 350,
-                "weight": 20
+                "name": "Incom 4L4 fusial thrust engines",
+                "horsePower": 750,
+                "weight": 4
             }
         ],
         "modules": [
             {
                 "id": 1,
-                "name": "Canon Blaster",
+                "name": "Laser canons",
                 "type": {
                     "id": 1,
                     "name": "weapon"
                 },
                 "firePower": 15,
-                "cargoCapacity": null
+                "cargoCapacity": 0
             }
         ]
     }

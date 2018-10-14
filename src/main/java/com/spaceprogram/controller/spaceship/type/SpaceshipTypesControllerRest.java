@@ -115,7 +115,7 @@ public class SpaceshipTypesControllerRest {
 	public @ApiResponseObject void deleteSpaceshipTypes(@RequestBody(required = true) List<SpaceshipType> spaceshipTypes) {
 
 		// Retrait des tyoes utilisés
-		Predicate<SpaceshipType> spaceshipTypePredicate = p -> spaceshipTypesRepository.isUsed(p.getId());
+		Predicate<SpaceshipType> spaceshipTypePredicate = p -> spaceshipTypesRepository.isUsed(p.getId()) == 1;
 		spaceshipTypes.removeIf(spaceshipTypePredicate);
 		
 		spaceshipTypesRepository.delete(spaceshipTypes);

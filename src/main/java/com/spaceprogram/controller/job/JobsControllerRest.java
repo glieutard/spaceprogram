@@ -115,7 +115,7 @@ public class JobsControllerRest {
 	public @ApiResponseObject void deleteJobs(@RequestBody(required = true) List<Job> jobs) {
 
 		// Retrait des jobs utilisés
-		Predicate<Job> jobPredicate = p -> jobsRepository.isUsed(p.getId());
+		Predicate<Job> jobPredicate = p -> jobsRepository.isUsed(p.getId()) == 1;
 		jobs.removeIf(jobPredicate);
 		
 		jobsRepository.delete(jobs);

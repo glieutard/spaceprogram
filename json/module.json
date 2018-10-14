@@ -1,12 +1,12 @@
 [
     {
         "id": 1,
-        "name": "Canon Blaster",
+        "name": "Laser canons",
         "type": {
             "id": 1,
-            "name": "weapon"
+            "name": "armament"
         },
         "firePower": 15,
-        "cargoCapacity": null
+        "cargoCapacity": 0
     }
 ]

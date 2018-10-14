@@ -115,7 +115,7 @@ public class EnginesControllerRest {
 	public @ApiResponseObject void deleteEngines(@RequestBody(required = true) List<Engine> engines) {
 
 		// Retrait des moteurs utilisés
-		Predicate<Engine> enginePredicate = p -> enginesRepository.isUsed(p.getId());
+		Predicate<Engine> enginePredicate = p -> enginesRepository.isUsed(p.getId()) == 1;
 		engines.removeIf(enginePredicate);
 		
 		enginesRepository.delete(engines);

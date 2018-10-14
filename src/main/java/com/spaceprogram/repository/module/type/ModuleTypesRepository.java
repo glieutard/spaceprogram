@@ -22,6 +22,6 @@ public interface ModuleTypesRepository extends CrudRepository<ModuleType, Intege
 	 */
 	@Query(value = "select case when count(*) > 0 then 1 else 0 end from module where idType = :idType", 
 			nativeQuery = true)
-	Boolean isUsed(@Param("idType") Integer idType);
+	Integer isUsed(@Param("idType") Integer idType);
 
 }

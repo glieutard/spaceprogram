@@ -34,6 +34,6 @@ public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 			+ " join spaceship s on (s.id = ms.idSpaceship)"
 			+ " join spaceship_crews sc on (s.id = sc.idSpaceship)"
 			+ " where sc.idCrew = :idCrew", nativeQuery = true)
-	Boolean isInMission(@Param("idCrew") Integer idCrew);
+	Integer isInMission(@Param("idCrew") Integer idCrew);
 	
 }

@@ -115,7 +115,7 @@ public class ModuleTypesControllerRest {
 	public @ApiResponseObject void deleteModuleTypes(@RequestBody(required = true) List<ModuleType> moduleTypes) {
 
 		// Retrait des types utilisés
-		Predicate<ModuleType> moduleTypePredicate = p -> moduleTypesRepository.isUsed(p.getId());
+		Predicate<ModuleType> moduleTypePredicate = p -> moduleTypesRepository.isUsed(p.getId()) == 1;
 		moduleTypes.removeIf(moduleTypePredicate);
 		
 		moduleTypesRepository.delete(moduleTypes);

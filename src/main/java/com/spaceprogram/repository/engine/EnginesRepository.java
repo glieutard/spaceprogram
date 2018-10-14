@@ -32,6 +32,6 @@ public interface EnginesRepository extends CrudRepository<Engine, Integer> {
 	 */
 	@Query(value = "select case when count(*) > 0 then 1 else 0 end from spaceship_engines where idEngine = :idEngine", 
 			nativeQuery = true)
-	Boolean isUsed(@Param("idEngine") Integer idEngine);
+	Integer isUsed(@Param("idEngine") Integer idEngine);
 
 }

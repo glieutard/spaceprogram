@@ -22,7 +22,7 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	/**
 	 * find spaceships by mission
 	 */
-	@Query(value = "select s.* from spaceships s join mission_spaceships ms on(s.id = ms.idSpaceship) where se.idMission = :idMission", 
+	@Query(value = "select s.* from spaceship s join mission_spaceships ms on(s.id = ms.idSpaceship) where ms.idMission = :idMission", 
 			nativeQuery = true)
 	List<Spaceship> findByIdMission(
 			@Param("idMission") Integer idMission);
@@ -32,7 +32,7 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	 */
 	@Query(value = "select case when count(*) > 0 then 1 else 0 end from mission_spaceships where idSpaceship = :idSpaceship", 
 			nativeQuery = true)
-	Boolean isInMission(@Param("idSpaceship") Integer idSpaceship);
+	Integer isInMission(@Param("idSpaceship") Integer idSpaceship);
 
 	/**
 	 * Is spaceship in another mission
@@ -40,7 +40,7 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	@Query(value = "select case when count(*) > 0 then 1 else 0 end from mission_spaceships"
 			+ " where idMission = :idMission and idSpaceship = :idSpaceship", 
 			nativeQuery = true)
-	Boolean isInAnotherMission(
+	Integer isInAnotherMission(
 			@Param("idMission") Integer idMission,
 			@Param("idSpaceship") Integer idSpaceship);
 	

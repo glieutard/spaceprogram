@@ -1,0 +1,104 @@
+[
+    {
+        "name": "X-Wing Red Five",
+        "type":{
+            "id": 1
+        },
+        "crews": [
+            {
+                "id": 1
+            },
+            {
+                "id": 5
+            }
+        ],
+        "engines": [
+            {
+                "id": 1
+            },
+            {
+                "id": 2
+            }
+        ],
+        "modules": [
+            {
+                "id": 1
+            },
+            {
+                "id": 2
+            }
+        ]
+    },
+    {
+        "name": "X-Wing Red Two",
+        "type":{
+            "id": 1
+        },
+        "crews": [
+            {
+                "id": 8
+            }
+        ],
+        "engines": [
+            {
+                "id": 1
+            },
+            {
+                "id": 2
+            }
+        ],
+        "modules": [
+            {
+                "id": 1
+            },
+            {
+                "id": 2
+            }
+        ]
+    },
+    {
+        "name": "Millennium Falcon",
+        "type":{
+            "id": 3
+        },
+        "crews": [
+            {
+                "id": 3
+            },
+            {
+                "id": 4
+            }
+        ],
+        "engines": [
+            {
+                "id": 1
+            },
+            {
+                "id": 4
+            }
+        ],
+        "modules": [
+            {
+                "id": 3
+            },
+            {
+                "id": 4
+            },
+            {
+                "id": 5
+            },
+            {
+                "id": 6
+            },
+            {
+                "id": 7
+            },
+            {
+                "id": 8
+            },
+            {
+                "id": 9
+            }
+        ]
+    }
+]

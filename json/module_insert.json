@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Laser canons",
+        "type": {
+            "id": 1
+        },
+        "firePower": 15,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Deflector shields",
+        "type": {
+            "id": 3
+        },
+        "firePower": 0,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Quadrex power core",
+        "type": {
+            "id": 2
+        },
+        "firePower": 0,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Incom N2I-4 power converter",
+        "type": {
+            "id": 2
+        },
+        "firePower": 0,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Konesayr TLB power converter",
+        "type": {
+            "id": 2
+        },
+        "firePower": 0,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Torplex fore deflector shield generator",
+        "type": {
+            "id": 3
+        },
+        "firePower": 0,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Siep-Irol passive sensor antenna",
+        "type": {
+            "id": 4
+        },
+        "firePower": 0,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Rubicon navigation computer",
+        "type": {
+            "id": 5
+        },
+        "firePower": 0,
+        "cargoCapacity": 0
+    },
+    {
+        "name": "Corellian Engineering Corporation AG-2G quad laser cannons",
+        "type": {
+            "id": 1
+        },
+        "firePower": 30,
+        "cargoCapacity": 0
+    }
+]

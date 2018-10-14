@@ -22,6 +22,6 @@ public interface JobsRepository extends CrudRepository<Job, Integer> {
 	 */
 	@Query(value = "select case when count(*) > 0 then 1 else 0 end from crew where idJob = :idJob", 
 			nativeQuery = true)
-	Boolean isUsed(@Param("idJob") Integer idJob);
+	Integer isUsed(@Param("idJob") Integer idJob);
 
 }

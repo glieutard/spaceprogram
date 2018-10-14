@@ -119,7 +119,7 @@ public class CrewsControllerRest {
 	public @ApiResponseObject void deleteCrews(@RequestBody(required = true) List<Crew> crews) {
 		
 		// Retrait des membres d'équipage dont les vaisseaux sont en mission
-		Predicate<Crew> crewPredicate = p -> crewsRepository.isInMission(p.getId());
+		Predicate<Crew> crewPredicate = p -> crewsRepository.isInMission(p.getId())== 1;
 		crews.removeIf(crewPredicate);
 		
 		// Suppression des rattachements aux vaisseaux

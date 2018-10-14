@@ -1,10 +1,10 @@
 [
 	{
-	{
 		"name": "Save Princess Leila Organa",
 		"description": "Infiltrate the Death Star and save Princess Leila Organa",
 		"state": {
-			"id": 2
+			"id": 2,
+			"name": "in progress"
 		},
 		"baseCoordinates": {
 			"x": 1.156,
@@ -16,59 +16,5 @@
 			"y": 12.185,
 			"z": 13.654
 		}
-	},
-		"spaceships": [
-			{
-				"id": 1,
-				"name": "X-Wing 01",
-				"type": {
-					"id": 1,
-					"name": "X-Wing",
-					"width": 150,
-					"lenght": 150,
-					"height": 75,
-					"weight": 250,
-					"cargoCapacity": 0
-				},
-				"crews": [
-					{
-						"id": 1,
-						"name": "Luke Skywalker",
-						"age": 23,
-						"sexe": "M",
-						"job": {
-							"id": 1,
-							"name": "pilote"
-						}
-					}
-				],
-				"engines": [
-					{
-						"id": 1,
-						"name": "Nuclear Drive - Main Drive",
-						"horsePower": 750,
-						"weight": 45
-					},
-					{
-						"id": 2,
-						"name": "Nuclear Drive - Subsidiary Drive",
-						"horsePower": 350,
-						"weight": 20
-					}
-				],
-				"modules": [
-					{
-						"id": 1,
-						"name": "Canon Blaster",
-						"type": {
-							"id": 1,
-							"name": "weapon"
-						},
-						"firePower": 15,
-						"cargoCapacity": null
-					}
-				]
-			}
-		]
 	}
 ]

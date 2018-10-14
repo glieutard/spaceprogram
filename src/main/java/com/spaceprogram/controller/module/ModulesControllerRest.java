@@ -115,7 +115,7 @@ public class ModulesControllerRest {
 	public @ApiResponseObject void deleteModules(@RequestBody(required = true) List<Module> modules) {
 
 		// Retrait des jobs utilisés
-		Predicate<Module> modulePredicate = p -> modulesRepository.isUsed(p.getId());
+		Predicate<Module> modulePredicate = p -> modulesRepository.isUsed(p.getId()) == 1;
 		modules.removeIf(modulePredicate);
 		
 		modulesRepository.delete(modules);

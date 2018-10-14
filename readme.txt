@@ -3,7 +3,6 @@ Travail restant à effectuer :
 Des contrôles restent à ajouter pour les erreurs renvoyées par SQL.
 Tests à créer.
 Tests des dernières modifications à faire.
-Script d'insertion des données. Tables ok !
 
 
 
