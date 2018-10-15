@@ -47,8 +47,12 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	/**
 	 * Find mass by spaceship
 	 */
-	@Query(value = "select s.weight + se.totalweight from spaceship"
-			+ " join (select idSpaceship, sum(weight) totalweight from spaceship_engines) se on (s.id = se.idSpaceship)"
+	@Query(value = "select st.weight + se.totalweight from spaceship s"
+			+ " join spaceship_type st on (st.id = s.idType)"
+			+ " join (select idSpaceship, sum(weight) totalweight from spaceship_engines se, engine e"
+			+ " where se.idEngine = e.id"
+			+ " group by idSpaceship) se"
+			+ " on (s.id = se.idSpaceship)"
 			+ " where s.id = :idSpaceship", 
 			nativeQuery = true)
 	Integer findMassByIdSpaceship(@Param("idSpaceship") Integer idSpaceship);
@@ -56,7 +60,9 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	/**
 	 * Find power by spaceship
 	 */
-	@Query(value = "select sum(horsePower) power from spaceship_engines where idSpaceship = :idSpaceship", 
+	@Query(value = "select sum(horsePower) power from spaceship_engines se"
+			+ " join engine e on (se.idEngine = e.id)"
+			+ " where idSpaceship = :idSpaceship", 
 			nativeQuery = true)
 	Integer findPowerByIdSpaceship(@Param("idSpaceship") Integer idSpaceship);
 

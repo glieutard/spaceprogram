@@ -72,7 +72,7 @@ public class MissionsControllerRest {
 		Iterable<Mission> missions = missionsRepository.findAll();
 		
 		// Récupération des vaisseaux par mission si detail = full
-		if (detail.equals("full"))
+		if (detail != null && detail.equals("full"))
 			for (Mission mission : missions)
 				mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
 		
@@ -99,7 +99,7 @@ public class MissionsControllerRest {
 		Mission mission = missionsRepository.findOne(id);
 		
 		// Récupération des vaisseaux de la mission si detail = full
-		if (detail.equals("full"))
+		if (detail != null && detail.equals("full"))
 			mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
 		
 		// Return mission
@@ -205,7 +205,7 @@ public class MissionsControllerRest {
 		List<Spaceship> spaceships = spaceshipsRepository.findByIdMission(id);
 
 		// Si detail == full récupération des coordonnnées
-		if (detail.equals("full"))
+		if (detail != null && detail.equals("full"))
 			for (Spaceship spaceship : spaceships)
 				spaceship.setCoordinates(spaceshipsCoordinatesController.getBySpaceship(spaceship.getId()));
 

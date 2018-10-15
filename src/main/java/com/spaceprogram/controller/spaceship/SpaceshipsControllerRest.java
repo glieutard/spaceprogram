@@ -79,6 +79,10 @@ public class SpaceshipsControllerRest {
 		// Récupération des vaisseaux
 		Iterable<Spaceship> spaceships = spaceshipsRepository.findAll();
 		
+		// Pour éviter le null pointer
+		if (detail == null)
+			detail = new String();
+		
 		// Si NON option détail à full, on ne renvoit pas l'équipage, les moteurs et les modules
 		if (!detail.equals("full")) {
 			for (Spaceship spaceship : spaceships) {
@@ -107,6 +111,10 @@ public class SpaceshipsControllerRest {
 		// Récupération du vaisseau
 		Spaceship spaceship = spaceshipsRepository.findOne(id);
 
+		// Pour éviter le null pointer
+		if (detail == null)
+			detail = new String();
+		
 		// Si NON option détail à full, on ne renvoit pas l'équipage, les moteurs et les modules
 		if (!detail.equals("full")) {
 			spaceship.setCrews(null);

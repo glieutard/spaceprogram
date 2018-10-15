@@ -1,7 +1,9 @@
 Travail restant à effectuer :
 
 Des contrôles restent à ajouter pour les erreurs renvoyées par SQL.
-Tests à créer.
+=> Champs non renseignés
+=> ...
+Tests à créer. (en cours)
 Tests des dernières modifications à faire.
 
 

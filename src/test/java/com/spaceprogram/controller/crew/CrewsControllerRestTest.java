@@ -211,7 +211,6 @@ public class CrewsControllerRestTest {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
-		crews.get(0).setId(3);
 		crews.get(0).setName("test insert 3");
 		crews.get(0).setAge(100);
 		crews.get(0).setSexe(null);

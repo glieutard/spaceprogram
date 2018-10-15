@@ -84,13 +84,18 @@ public class SpaceshipsCoordinatesController {
 		Integer power = spaceshipsRepository.findPowerByIdSpaceship(id);
 		
 		// Distance parcourue potentielle
-		double distanceTraveled  = (double)mass / (double)Math.pow((double)power, 2.0) / 1000.0 * ratio * (double)difference;
+		double distanceTraveled  = (double)power / (double)Math.pow((double)mass, 2.0) / 1000.0 * ratio * (double)difference;
 		
 		// Si Cible atteinte, on reste à la cible
 		if (distanceTraveled * Math.abs(distanceX) / distanceTotal > Math.abs(distanceX)) {
 			coordinates = mission.getTargetCoordinates();
 			return coordinates;
 		}
+		
+		// Calcul des nouvelles coordonnées
+		coordinates.setX(coordinates.getX() + distanceTraveled * Math.abs(distanceX) / distanceTotal);
+		coordinates.setY(coordinates.getY() + distanceTraveled * Math.abs(distanceY) / distanceTotal);
+		coordinates.setZ(coordinates.getZ() + distanceTraveled * Math.abs(distanceZ) / distanceTotal);
 		
 		// Retourne les coordonnées
 		return coordinates;
