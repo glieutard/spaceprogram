@@ -128,8 +128,8 @@ public class SpaceshipsControllerRest {
 	@ApiMethod(description = "Put spaceships")
 	public @ApiResponseObject Iterable<Spaceship> putSpaceships(@RequestBody(required = true) List<Spaceship> spaceships) {
 
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<Spaceship> spaceshipPredicateId = p -> p.getId() == null || p.getId() == 0;
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Spaceship> spaceshipPredicateId = p -> spaceshipsRepository.countById(p.getId()) != 1;
 		spaceships.removeIf(spaceshipPredicateId);
 
 		// Suppression des enregistrement si moins de deux moteurs
@@ -168,7 +168,11 @@ public class SpaceshipsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Delete spaceships")
-	public @ApiResponseObject void deleteSpaceships(@RequestBody(required = true) Iterable<Spaceship> spaceships) {
+	public @ApiResponseObject void deleteSpaceships(@RequestBody(required = true) List<Spaceship> spaceships) {
+
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Spaceship> spaceshipPredicateId = p -> spaceshipsRepository.countById(p.getId()) != 1;
+		spaceships.removeIf(spaceshipPredicateId);
 
 		spaceshipsRepository.delete(spaceships);
 	}

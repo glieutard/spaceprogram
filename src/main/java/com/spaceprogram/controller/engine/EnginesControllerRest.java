@@ -97,8 +97,8 @@ public class EnginesControllerRest {
 	@ApiMethod(description = "Put engines")
 	public @ApiResponseObject Iterable<Engine> putEngines(@RequestBody(required = true) List<Engine> engines) {
 
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<Engine> enginePredicate = p -> p.getId() == null || p.getId() == 0;
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Engine> enginePredicate = p -> enginesRepository.countById(p.getId()) != 1;
 		engines.removeIf(enginePredicate);
 		
 		return enginesRepository.save(engines);
@@ -114,8 +114,8 @@ public class EnginesControllerRest {
 	@ApiMethod(description = "Delete engines")
 	public @ApiResponseObject void deleteEngines(@RequestBody(required = true) List<Engine> engines) {
 
-		// Retrait des moteurs utilisés
-		Predicate<Engine> enginePredicate = p -> enginesRepository.isUsed(p.getId()) == 1;
+		// Retrait des moteurs utilisés && dont l'id n'existe pas
+		Predicate<Engine> enginePredicate = p -> enginesRepository.isUsed(p.getId()) || enginesRepository.countById(p.getId()) != 1;
 		engines.removeIf(enginePredicate);
 		
 		enginesRepository.delete(engines);

@@ -50,7 +50,6 @@ Il faut comparer la liste entrante et sortante pour determiner les anomalies.
 
 POST : Il n'est possible d'enregistrer que des nouveaux enregistrements
 PUT : Il n'est possible que de mettre à jour
-=> Si l'id n'existe pas, une erreur SQL est renvoyée.
 
 Il n'est pas possible de supprimer un élément utilisé (ex: si un Job est associé à un Crew, on ne peut pas le supprimer).
 Il n'est pas possible de créer ou modifier un Vaisseau qui a moins de deux moteurs.

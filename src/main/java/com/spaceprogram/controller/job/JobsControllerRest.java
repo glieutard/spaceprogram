@@ -97,8 +97,8 @@ public class JobsControllerRest {
 	@ApiMethod(description = "Put jobs")
 	public @ApiResponseObject Iterable<Job> putJobs(@RequestBody(required = true) List<Job> jobs) {
 
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<Job> jobPredicate = p -> p.getId() == null || p.getId() == 0;
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Job> jobPredicate = p -> jobsRepository.countById(p.getId()) != 1;
 		jobs.removeIf(jobPredicate);
 		
 		return jobsRepository.save(jobs);
@@ -114,8 +114,8 @@ public class JobsControllerRest {
 	@ApiMethod(description = "Delete jobs")
 	public @ApiResponseObject void deleteJobs(@RequestBody(required = true) List<Job> jobs) {
 
-		// Retrait des jobs utilisés
-		Predicate<Job> jobPredicate = p -> jobsRepository.isUsed(p.getId()) == 1;
+		// Retrait des jobs utilisés && l'id n'existe pas
+		Predicate<Job> jobPredicate = p -> jobsRepository.isUsed(p.getId()) || jobsRepository.countById(p.getId()) != 1;
 		jobs.removeIf(jobPredicate);
 		
 		jobsRepository.delete(jobs);

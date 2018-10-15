@@ -76,6 +76,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- flyway -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>	
+
 		<!-- Envers : historisation -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

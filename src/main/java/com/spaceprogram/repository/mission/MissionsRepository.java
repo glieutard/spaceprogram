@@ -15,4 +15,9 @@ import com.spaceprogram.model.mission.Mission;
  */
 public interface MissionsRepository extends CrudRepository<Mission, Integer> {
 
+	/**
+	 * Count by id
+	 */
+	Long countById(Integer id);
+
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.crew.Crew;
 import com.spaceprogram.repository.crew.CrewsRepository;
+import com.spaceprogram.repository.job.JobsRepository;
 import com.spaceprogram.repository.spaceship.crew.SpaceshipsCrewsRepository;
 
 /**
@@ -37,6 +38,9 @@ public class CrewsControllerRest {
 	// Injection respository
 	@Autowired
 	private CrewsRepository crewsRepository;
+	
+	@Autowired
+	private JobsRepository jobsRepository;
 	
 	@Autowired
 	private SpaceshipsCrewsRepository spaceshipsCrewsRepository;
@@ -85,6 +89,10 @@ public class CrewsControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<Crew> crewPredicate = p -> p.getId() != null;
 		crews.removeIf(crewPredicate);
+
+		// Suppression des enregistrement dont le job n'existe pas
+		Predicate<Crew> crewJobPredicate = p -> p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
+		crews.removeIf(crewJobPredicate);
 		
 		return crewsRepository.save(crews);
 	}
@@ -101,9 +109,13 @@ public class CrewsControllerRest {
 	@ApiMethod(description = "Put crews")
 	public @ApiResponseObject Iterable<Crew> putCrews(@RequestBody(required = true) List<Crew> crews) {
 
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<Crew> crewPredicate = p -> p.getId() == null || p.getId() == 0;
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Crew> crewPredicate = p -> crewsRepository.countById(p.getId()) != 1;
 		crews.removeIf(crewPredicate);
+
+		// Suppression des enregistrement dont le job n'existe pas
+		Predicate<Crew> crewJobPredicate = p -> p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
+		crews.removeIf(crewJobPredicate);
 		
 		return crewsRepository.save(crews);
 	}
@@ -118,8 +130,8 @@ public class CrewsControllerRest {
 	@ApiMethod(description = "Delete crews")
 	public @ApiResponseObject void deleteCrews(@RequestBody(required = true) List<Crew> crews) {
 		
-		// Retrait des membres d'équipage dont les vaisseaux sont en mission
-		Predicate<Crew> crewPredicate = p -> crewsRepository.isInMission(p.getId())== 1;
+		// Retrait des membres d'équipage dont les vaisseaux sont en mission && l'id n'existe pas
+		Predicate<Crew> crewPredicate = p -> crewsRepository.isInMission(p.getId()) || crewsRepository.countById(p.getId()) != 1;
 		crews.removeIf(crewPredicate);
 		
 		// Suppression des rattachements aux vaisseaux

@@ -30,17 +30,17 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	/**
 	 * Is spaceship in mission
 	 */
-	@Query(value = "select case when count(*) > 0 then 1 else 0 end from mission_spaceships where idSpaceship = :idSpaceship", 
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from mission_spaceships where idSpaceship = :idSpaceship", 
 			nativeQuery = true)
-	Integer isInMission(@Param("idSpaceship") Integer idSpaceship);
+	Boolean isInMission(@Param("idSpaceship") Integer idSpaceship);
 
 	/**
 	 * Is spaceship in another mission
 	 */
-	@Query(value = "select case when count(*) > 0 then 1 else 0 end from mission_spaceships"
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from mission_spaceships"
 			+ " where idMission = :idMission and idSpaceship = :idSpaceship", 
 			nativeQuery = true)
-	Integer isInAnotherMission(
+	Boolean isInAnotherMission(
 			@Param("idMission") Integer idMission,
 			@Param("idSpaceship") Integer idSpaceship);
 	
@@ -59,5 +59,10 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	@Query(value = "select sum(horsePower) power from spaceship_engines where idSpaceship = :idSpaceship", 
 			nativeQuery = true)
 	Integer findPowerByIdSpaceship(@Param("idSpaceship") Integer idSpaceship);
+
+	/**
+	 * Count by id
+	 */
+	Long countById(Integer id);
 
 }

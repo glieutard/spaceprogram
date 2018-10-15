@@ -147,8 +147,8 @@ public class MissionsControllerRest {
 	@ApiMethod(description = "Put missions")
 	public @ApiResponseObject Iterable<Mission> putMissions(@RequestBody(required = true) List<Mission> missions) {
 
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<Mission> missionPredicate = p -> p.getId() == null || p.getId() == 0;
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Mission> missionPredicate = p -> missionsRepository.countById(p.getId()) != 1;
 		missions.removeIf(missionPredicate);
 		
 		// sauvegarde des missions
@@ -172,8 +172,12 @@ public class MissionsControllerRest {
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
 	@ApiMethod(description = "Delete missions")
-	public @ApiResponseObject void deleteMissions(@RequestBody(required = true) Iterable<Mission> missions) {
+	public @ApiResponseObject void deleteMissions(@RequestBody(required = true) List<Mission> missions) {
 
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Mission> missionPredicate = p -> missionsRepository.countById(p.getId()) != 1;
+		missions.removeIf(missionPredicate);
+		
 		// Suppression des vaisseaux par mission
 		for (Mission mission : missions) {
 			missionSpaceshipsRepository.deleteByIdMission(mission.getId());

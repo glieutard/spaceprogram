@@ -94,11 +94,11 @@ public class SpaceshipTypesControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.PUT)
-	@ApiMethod(description = "Post spaceshipTypes")
+	@ApiMethod(description = "Put spaceshipTypes")
 	public @ApiResponseObject Iterable<SpaceshipType> putSpaceshipTypes(@RequestBody(required = true) List<SpaceshipType> spaceshipTypes) {
 
 		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<SpaceshipType> spaceshipTypePredicate = p -> p.getId() == null || p.getId() == 0;
+		Predicate<SpaceshipType> spaceshipTypePredicate = p -> spaceshipTypesRepository.countById(p.getId()) != 1;
 		spaceshipTypes.removeIf(spaceshipTypePredicate);
 		
 		return spaceshipTypesRepository.save(spaceshipTypes);
@@ -111,11 +111,12 @@ public class SpaceshipTypesControllerRest {
 	 * 
 	 */
 	@RequestMapping(value = path, method = RequestMethod.DELETE)
-	@ApiMethod(description = "Post spaceshipTypes")
+	@ApiMethod(description = "Delete spaceshipTypes")
 	public @ApiResponseObject void deleteSpaceshipTypes(@RequestBody(required = true) List<SpaceshipType> spaceshipTypes) {
 
 		// Retrait des tyoes utilisés
-		Predicate<SpaceshipType> spaceshipTypePredicate = p -> spaceshipTypesRepository.isUsed(p.getId()) == 1;
+		Predicate<SpaceshipType> spaceshipTypePredicate = p -> spaceshipTypesRepository.isUsed(p.getId()) 
+				|| spaceshipTypesRepository.countById(p.getId()) != 1;
 		spaceshipTypes.removeIf(spaceshipTypePredicate);
 		
 		spaceshipTypesRepository.delete(spaceshipTypes);

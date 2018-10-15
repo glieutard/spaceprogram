@@ -17,11 +17,16 @@ import com.spaceprogram.model.job.Job;
  */
 public interface JobsRepository extends CrudRepository<Job, Integer> {
 	
-	/*
+	/**
 	 * Is job used
 	 */
-	@Query(value = "select case when count(*) > 0 then 1 else 0 end from crew where idJob = :idJob", 
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from crew where idJob = :idJob", 
 			nativeQuery = true)
-	Integer isUsed(@Param("idJob") Integer idJob);
+	Boolean isUsed(@Param("idJob") Integer idJob);
+	
+	/**
+	 * Count by id
+	 */
+	Long countById(Integer id);
 
 }

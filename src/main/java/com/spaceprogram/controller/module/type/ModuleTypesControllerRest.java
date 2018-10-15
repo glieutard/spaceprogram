@@ -97,8 +97,8 @@ public class ModuleTypesControllerRest {
 	@ApiMethod(description = "Put moduleTypes")
 	public @ApiResponseObject Iterable<ModuleType> putModuleTypes(@RequestBody(required = true) List<ModuleType> moduleTypes) {
 
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<ModuleType> moduleTypePredicate = p -> p.getId() == null || p.getId() == 0;
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<ModuleType> moduleTypePredicate = p -> moduleTypesRepository.countById(p.getId()) != 1;
 		moduleTypes.removeIf(moduleTypePredicate);
 		
 		return moduleTypesRepository.save(moduleTypes);
@@ -114,8 +114,8 @@ public class ModuleTypesControllerRest {
 	@ApiMethod(description = "Delete moduleTypes")
 	public @ApiResponseObject void deleteModuleTypes(@RequestBody(required = true) List<ModuleType> moduleTypes) {
 
-		// Retrait des types utilisés
-		Predicate<ModuleType> moduleTypePredicate = p -> moduleTypesRepository.isUsed(p.getId()) == 1;
+		// Retrait des types utilisés et dont l'id n'existe pas
+		Predicate<ModuleType> moduleTypePredicate = p -> moduleTypesRepository.isUsed(p.getId()) || moduleTypesRepository.countById(p.getId()) != 1;
 		moduleTypes.removeIf(moduleTypePredicate);
 		
 		moduleTypesRepository.delete(moduleTypes);

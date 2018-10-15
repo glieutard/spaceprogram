@@ -97,8 +97,8 @@ public class ModulesControllerRest {
 	@ApiMethod(description = "Put modules")
 	public @ApiResponseObject Iterable<Module> putModules(@RequestBody(required = true) List<Module> modules) {
 
-		// Suppression des enregistrement dont l'id est null ou à 0
-		Predicate<Module> modulePredicate = p -> p.getId() == null || p.getId() == 0;
+		// Suppression des enregistrement dont l'id n'existe pas
+		Predicate<Module> modulePredicate = p -> modulesRepository.countById(p.getId()) != 1;
 		modules.removeIf(modulePredicate);
 		
 		return modulesRepository.save(modules);
@@ -114,8 +114,8 @@ public class ModulesControllerRest {
 	@ApiMethod(description = "Delete modules")
 	public @ApiResponseObject void deleteModules(@RequestBody(required = true) List<Module> modules) {
 
-		// Retrait des jobs utilisés
-		Predicate<Module> modulePredicate = p -> modulesRepository.isUsed(p.getId()) == 1;
+		// Retrait des jobs utilisés et dont l'id n'existe pas
+		Predicate<Module> modulePredicate = p -> modulesRepository.isUsed(p.getId()) || modulesRepository.countById(p.getId()) != 1;
 		modules.removeIf(modulePredicate);
 		
 		modulesRepository.delete(modules);

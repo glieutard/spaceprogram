@@ -45,7 +45,7 @@ public class MissionsSpaceshipsController {
 	public List<Spaceship> postByMission(Mission mission) {
 		
 		// Suppression des vaisseaux déjà en mission
-		Predicate<Spaceship> spaceshipPredicate = p -> spaceshipsRepository.isInMission(p.getId()) == 1;
+		Predicate<Spaceship> spaceshipPredicate = p -> spaceshipsRepository.isInMission(p.getId());
 		mission.getSpaceships().removeIf(spaceshipPredicate);
 
 		// Création de la liste des vaisseaux par mission à enregistrer
@@ -85,7 +85,7 @@ public class MissionsSpaceshipsController {
 			mission.setSpaceships(spaceshipsRepository.findByIdMission(mission.getId()));
 
 		// Suppression des vaisseaux déjà en mission
-		Predicate<Spaceship> spaceshipPredicate = p -> spaceshipsRepository.isInAnotherMission(mission.getId(), p.getId()) == 1;
+		Predicate<Spaceship> spaceshipPredicate = p -> spaceshipsRepository.isInAnotherMission(mission.getId(), p.getId());
 		mission.getSpaceships().removeIf(spaceshipPredicate);
 
 		// Création de la liste des vaisseaux par mission à enregistrer

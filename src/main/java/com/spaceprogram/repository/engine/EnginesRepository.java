@@ -30,8 +30,13 @@ public interface EnginesRepository extends CrudRepository<Engine, Integer> {
 	/*
 	 * Is engine used
 	 */
-	@Query(value = "select case when count(*) > 0 then 1 else 0 end from spaceship_engines where idEngine = :idEngine", 
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_engines where idEngine = :idEngine", 
 			nativeQuery = true)
-	Integer isUsed(@Param("idEngine") Integer idEngine);
+	Boolean isUsed(@Param("idEngine") Integer idEngine);
+
+	/**
+	 * Count by id
+	 */
+	Long countById(Integer id);
 
 }

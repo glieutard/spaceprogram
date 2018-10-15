@@ -200,7 +200,7 @@ create table job_aud (
     id int not null,
 	rev int not null,
 	revtype smallint not null,
-    name nvarchar(250) not null
+    name nvarchar(250) null
 )
 go
 
@@ -212,10 +212,10 @@ create table crew_aud (
     id int not null,
 	rev int not null,
 	revtype smallint not null,
-    name nvarchar(250) not null,
-	age int not null,
-	sexe nvarchar(1) not null,
-	idJob int not null
+    name nvarchar(250) null,
+	age int null,
+	sexe nvarchar(1) null,
+	idJob int null
 )
 go
 
@@ -227,12 +227,12 @@ create table spaceship_type_aud (
     id int not null,
 	rev int not null,
 	revtype smallint not null,
-    name nvarchar(250) not null,
-	width int not null,
-	[length] int not null,
-	height int not null,
-	[weight] int not null,
-	cargoCapacity int not null
+    name nvarchar(250) null,
+	width int null,
+	[length] int null,
+	height int null,
+	[weight] int null,
+	cargoCapacity int null
 )
 go
 
@@ -244,8 +244,8 @@ create table spaceship_aud (
     id int not null,
 	rev int not null,
 	revtype smallint not null,
-    name nvarchar(250) not null,
-	idType int not null
+    name nvarchar(250) null,
+	idType int null
 )
 go
 
@@ -257,9 +257,9 @@ create table engine_aud (
     id int not null,
 	rev int not null,
 	revtype smallint not null,
-    name nvarchar(250) not null,
-	horsePower int not null,
-	[weight] int not null
+    name nvarchar(250) null,
+	horsePower int null,
+	[weight] int null
 )
 go
 
@@ -271,7 +271,7 @@ create table module_type_aud (
     id int not null,
 	rev int not null,
 	revtype smallint not null,
-    name nvarchar(250) not null
+    name nvarchar(250) null
 )
 go
 
@@ -284,7 +284,7 @@ create table module_aud (
 	rev int not null,
 	revtype smallint not null,
     name nvarchar(250) not null,
-	idType int not null,
+	idType int null,
 	firePower int null,
 	cargoCapacity int null
 )
@@ -297,8 +297,8 @@ iF OBJECT_ID('spaceship_engines_aud') is null
 create table spaceship_engines_aud (
 	rev int not null,
 	revtype smallint not null,
-    idSpaceship int not null,
-    idEngine int not null
+    idSpaceship int null,
+    idEngine int null
 )
 go
 
@@ -310,7 +310,7 @@ create table spaceship_crews_aud (
     idSpaceship int not null,
     idCrew int not null,
 	rev int not null,
-	revtype smallint not null,
+	revtype smallint null,
 )
 go
 
@@ -321,8 +321,8 @@ iF OBJECT_ID('spaceship_modules_aud') is null
 create table spaceship_modules_aud (
 	rev int not null,
 	revtype smallint not null,
-    idSpaceship int not null,
-    idModule int not null
+    idSpaceship int null,
+    idModule int null
 )
 go
 
