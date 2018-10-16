@@ -3,6 +3,7 @@
  */
 package com.spaceprogram.controller.spaceship.coordinates;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,13 +69,17 @@ public class SpaceshipsCoordinatesController {
 		if (missionSpaceship.getDate() == null)
 			return coordinates;
 		
+		// Vérification que le vaisseau a un pilote
+		if (!spaceshipsRepository.hasAPilote(id))
+			return coordinates;
+		
 		// Récupération de la différence en secondes
 		long difference = (new Date().getTime() - missionSpaceship.getDate().getTime()) / 1000;
 		
 		// Différences de coordonnées entre la base et la cible
-		double distanceX = mission.getBaseCoordinates().getX() - mission.getTargetCoordinates().getX();
-		double distanceY = mission.getBaseCoordinates().getY() - mission.getTargetCoordinates().getY();
-		double distanceZ = mission.getBaseCoordinates().getZ() - mission.getTargetCoordinates().getZ();
+		double distanceX = mission.getBaseCoordinates().getX().doubleValue() - mission.getTargetCoordinates().getX().doubleValue();
+		double distanceY = mission.getBaseCoordinates().getY().doubleValue() - mission.getTargetCoordinates().getY().doubleValue();
+		double distanceZ = mission.getBaseCoordinates().getZ().doubleValue() - mission.getTargetCoordinates().getZ().doubleValue();
 		double distanceTotal = Math.abs(distanceX) + Math.abs(distanceY) + Math.abs(distanceZ);
 		
 		// Récupération de la masse totale du vaisseau
@@ -93,9 +98,9 @@ public class SpaceshipsCoordinatesController {
 		}
 		
 		// Calcul des nouvelles coordonnées
-		coordinates.setX(coordinates.getX() + distanceTraveled * Math.abs(distanceX) / distanceTotal);
-		coordinates.setY(coordinates.getY() + distanceTraveled * Math.abs(distanceY) / distanceTotal);
-		coordinates.setZ(coordinates.getZ() + distanceTraveled * Math.abs(distanceZ) / distanceTotal);
+		coordinates.setX(new BigDecimal(coordinates.getX().doubleValue() + distanceTraveled * Math.abs(distanceX) / distanceTotal));
+		coordinates.setY(new BigDecimal(coordinates.getY().doubleValue() + distanceTraveled * Math.abs(distanceY) / distanceTotal));
+		coordinates.setZ(new BigDecimal(coordinates.getZ().doubleValue() + distanceTraveled * Math.abs(distanceZ) / distanceTotal));
 		
 		// Retourne les coordonnées
 		return coordinates;

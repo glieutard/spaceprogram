@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +39,7 @@ import com.spaceprogram.model.spaceship.type.SpaceshipType;
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = { "spring.config.name: spaceprogram" }, classes = { SpaceprogramApplication.class })
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SpaceshipTypesControllerRestTest {
 
 	// Injections
@@ -60,7 +63,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getSpaceshipType() throws Exception {
+	public void test01GetSpaceshipType() throws Exception {
 
 		this.mvc.perform(get("/v1/spaceshipTypes/1"))
 				.andExpect(status().isOk())
@@ -94,7 +97,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getSpaceshipTypes() throws Exception {
+	public void test02GetSpaceshipTypes() throws Exception {
 
 	    this.mvc.perform(get("/v1/spaceshipTypes"))
 	            .andExpect(status().isOk())
@@ -121,7 +124,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postSpaceshipTypes() throws Exception {
+	public void test03PostSpaceshipTypes() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -151,7 +154,7 @@ public class SpaceshipTypesControllerRestTest {
 				.andExpect(jsonPath("$.[0].cargoCapacity", is(0)))
 				.andExpect(jsonPath("$.[1].id", is(6)))
 				.andExpect(jsonPath("$.[1].name", is("test insert 2")))
-				.andExpect(jsonPath("$.[1].width", is(200)))
+				.andExpect(jsonPath("$.[1].width", is(100)))
 				.andExpect(jsonPath("$.[1].length", is(200)))
 				.andExpect(jsonPath("$.[1].height", is(200)))
 				.andExpect(jsonPath("$.[1].weight", is(20)))
@@ -165,7 +168,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postSpaceshipTypesWithId() throws Exception {
+	public void test04PostSpaceshipTypesWithId() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -189,7 +192,7 @@ public class SpaceshipTypesControllerRestTest {
 				.andExpect(jsonPath("$.length()", is(1)))
 				.andExpect(jsonPath("$.[0].id", is(7)))
 				.andExpect(jsonPath("$.[0].name", is("test insert 4")))
-				.andExpect(jsonPath("$.[0].width", is(200)))
+				.andExpect(jsonPath("$.[0].width", is(100)))
 				.andExpect(jsonPath("$.[0].length", is(200)))
 				.andExpect(jsonPath("$.[0].height", is(200)))
 				.andExpect(jsonPath("$.[0].weight", is(20)))
@@ -203,7 +206,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putSpaceshipTypes() throws Exception {
+	public void test05PutSpaceshipTypes() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -239,7 +242,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putSpaceshipTypesWithoutId() throws Exception {
+	public void test06PutSpaceshipTypesWithoutId() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -272,7 +275,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putSpaceshipTypesWithBadId() throws Exception {
+	public void test07PutSpaceshipTypesWithBadId() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -296,7 +299,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteSpaceshipTypes() throws Exception {
+	public void test08DeleteSpaceshipTypes() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -321,7 +324,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteSpaceshipTypesWithoutId() throws Exception {
+	public void test09DeleteSpaceshipTypesWithoutId() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -342,7 +345,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteSpaceshipTypesWithBadId() throws Exception {
+	public void test10DeleteSpaceshipTypesWithBadId() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());
@@ -363,7 +366,7 @@ public class SpaceshipTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteSpaceshipTypesWithUsedId() throws Exception {
+	public void test11DeleteSpaceshipTypesWithUsedId() throws Exception {
 
 		List<SpaceshipType> spaceshipTypes = new ArrayList<SpaceshipType>();
 		spaceshipTypes.add(new SpaceshipType());

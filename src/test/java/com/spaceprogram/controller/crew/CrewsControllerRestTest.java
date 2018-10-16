@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +40,7 @@ import com.spaceprogram.model.job.Job;
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = { "spring.config.name: spaceprogram" }, classes = { SpaceprogramApplication.class })
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CrewsControllerRestTest {
 
 	// Injections
@@ -61,7 +64,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getCrew() throws Exception {
+	public void test01GetCrew() throws Exception {
 
 		this.mvc.perform(get("/v1/crews/1"))
 				.andExpect(status().isOk())
@@ -93,7 +96,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getCrews() throws Exception {
+	public void test02GetCrews() throws Exception {
 
 	    this.mvc.perform(get("/v1/crews"))
 	            .andExpect(status().isOk())
@@ -104,10 +107,10 @@ public class CrewsControllerRestTest {
 				.andExpect(jsonPath("$.[0].job.id", is(1)))
 				.andExpect(jsonPath("$.[0].job.name", is("pilote")))
 	            .andExpect(jsonPath("$.[1].name", is("Leia Organa")))
-				.andExpect(jsonPath("$.[0].age", is(19)))
-				.andExpect(jsonPath("$.[0].sexe", is("F")))
-				.andExpect(jsonPath("$.[0].job.id", is(5)))
-				.andExpect(jsonPath("$.[0].job.name", is("general")))
+				.andExpect(jsonPath("$.[1].age", is(19)))
+				.andExpect(jsonPath("$.[1].sexe", is("F")))
+				.andExpect(jsonPath("$.[1].job.id", is(5)))
+				.andExpect(jsonPath("$.[1].job.name", is("general")))
 	            .andExpect(jsonPath("$.[7].name", is("Wedge Antilles")));
 	}
 
@@ -117,7 +120,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postCrews() throws Exception {
+	public void test03PostCrews() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -149,7 +152,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postCrewsWithId() throws Exception {
+	public void test04PostCrewsWithId() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -180,7 +183,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postCrewsWithoutJob() throws Exception {
+	public void test05PostCrewsWithoutJob() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -207,7 +210,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postCrewsWithNullFields() throws Exception {
+	public void test06PostCrewsWithNullFields() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -218,7 +221,7 @@ public class CrewsControllerRestTest {
 		crews.get(0).getJob().setId(1);
 
 		this.mvc.perform(post("/v1/crews").contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(crews))).andExpect(status().isBadRequest())
+				.content(mapper.writeValueAsString(crews))).andExpect(status().isOk())
 				.andExpect(jsonPath("$.length()", is(0)));
 		
 	}
@@ -229,7 +232,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putCrews() throws Exception {
+	public void test07PutCrews() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -263,7 +266,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putCrewsWithoutId() throws Exception {
+	public void test08PutCrewsWithoutId() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -294,7 +297,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putCrewsWithBadId() throws Exception {
+	public void test09PutCrewsWithBadId() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -317,7 +320,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putCrewsWithoutJob() throws Exception {
+	public void test10PutCrewsWithoutJob() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -344,7 +347,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putCrewsWithNullFields() throws Exception {
+	public void test11PutCrewsWithNullFields() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -356,7 +359,7 @@ public class CrewsControllerRestTest {
 		crews.get(0).getJob().setId(1);
 
 		this.mvc.perform(put("/v1/crews").contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(crews))).andExpect(status().isBadRequest())
+				.content(mapper.writeValueAsString(crews))).andExpect(status().isOk())
 				.andExpect(jsonPath("$.length()", is(0)));
 		
 	}
@@ -367,7 +370,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteCrews() throws Exception {
+	public void test12DeleteCrews() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -392,7 +395,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteCrewsWithoutId() throws Exception {
+	public void test13DeleteCrewsWithoutId() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());
@@ -413,7 +416,7 @@ public class CrewsControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteCrewsWithBadId() throws Exception {
+	public void test14DeleteCrewsWithBadId() throws Exception {
 
 		List<Crew> crews = new ArrayList<Crew>();
 		crews.add(new Crew());

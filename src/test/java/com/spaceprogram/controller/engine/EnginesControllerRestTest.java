@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +39,7 @@ import com.spaceprogram.model.engine.Engine;
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = { "spring.config.name: spaceprogram" }, classes = { SpaceprogramApplication.class })
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EnginesControllerRestTest {
 
 	// Injections
@@ -60,7 +63,7 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getEngine() throws Exception {
+	public void test01GetEngine() throws Exception {
 
 		this.mvc.perform(get("/v1/engines/1"))
 				.andExpect(status().isOk())
@@ -88,7 +91,7 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getEngines() throws Exception {
+	public void test02GetEngines() throws Exception {
 
 	    this.mvc.perform(get("/v1/engines"))
 	            .andExpect(status().isOk())
@@ -109,13 +112,13 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postEngines() throws Exception {
+	public void test03PostEngines() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
 		engines.get(0).setName("test insert 1");
 		engines.get(0).setHorsePower(0);
-		engines.get(0).setWeight(0);
+		engines.get(0).setWeight(10);
 		engines.add(new Engine());
 		engines.get(1).setName("test insert 2");
 		engines.get(1).setHorsePower(10);
@@ -127,7 +130,7 @@ public class EnginesControllerRestTest {
 				.andExpect(jsonPath("$.[0].id", is(5)))
 				.andExpect(jsonPath("$.[0].name", is("test insert 1")))
 				.andExpect(jsonPath("$.[0].horsePower", is(0)))
-				.andExpect(jsonPath("$.[0].weight", is(0)))
+				.andExpect(jsonPath("$.[0].weight", is(10)))
 				.andExpect(jsonPath("$.[1].id", is(6)))
 				.andExpect(jsonPath("$.[1].name", is("test insert 2")))
 				.andExpect(jsonPath("$.[1].horsePower", is(10)))
@@ -141,18 +144,18 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postEnginesWithId() throws Exception {
+	public void test04PostEnginesWithId() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
 		engines.get(0).setId(3);
 		engines.get(0).setName("test insert 3");
 		engines.get(0).setHorsePower(0);
-		engines.get(0).setWeight(0);
+		engines.get(0).setWeight(10);
 		engines.add(new Engine());
 		engines.get(1).setName("test insert 4");
 		engines.get(1).setHorsePower(0);
-		engines.get(1).setWeight(0);
+		engines.get(1).setWeight(10);
 
 		this.mvc.perform(post("/v1/engines").contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(engines))).andExpect(status().isOk())
@@ -168,14 +171,14 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putEngines() throws Exception {
+	public void test05PutEngines() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
 		engines.get(0).setId(5);
 		engines.get(0).setName("test update 1");
 		engines.get(0).setHorsePower(0);
-		engines.get(0).setWeight(0);
+		engines.get(0).setWeight(10);
 		engines.add(new Engine());
 		engines.get(1).setId(6);
 		engines.get(1).setName("test update 2");
@@ -188,7 +191,7 @@ public class EnginesControllerRestTest {
 				.andExpect(jsonPath("$.[0].id", is(5)))
 				.andExpect(jsonPath("$.[0].name", is("test update 1")))
 				.andExpect(jsonPath("$.[0].horsePower", is(0)))
-				.andExpect(jsonPath("$.[0].weight", is(0)))
+				.andExpect(jsonPath("$.[0].weight", is(10)))
 				.andExpect(jsonPath("$.[1].id", is(6)))
 				.andExpect(jsonPath("$.[1].name", is("test update 2")))
 				.andExpect(jsonPath("$.[1].horsePower", is(10)))
@@ -202,18 +205,18 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putEnginesWithoutId() throws Exception {
+	public void test06PutEnginesWithoutId() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
 		engines.get(0).setId(5);
 		engines.get(0).setName("test update 3");
 		engines.get(0).setHorsePower(0);
-		engines.get(0).setWeight(0);
+		engines.get(0).setWeight(10);
 		engines.add(new Engine());
 		engines.get(1).setName("test update 4");
 		engines.get(1).setHorsePower(0);
-		engines.get(1).setWeight(0);
+		engines.get(1).setWeight(10);
 
 		this.mvc.perform(put("/v1/engines").contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(engines))).andExpect(status().isOk())
@@ -229,14 +232,14 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putEnginesWithBadId() throws Exception {
+	public void test07PutEnginesWithBadId() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
 		engines.get(0).setId(100);
 		engines.get(0).setName("test update 5");
 		engines.get(0).setHorsePower(0);
-		engines.get(0).setWeight(0);
+		engines.get(0).setWeight(10);
 
 		this.mvc.perform(put("/v1/engines").contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(engines))).andExpect(status().isOk())
@@ -250,7 +253,7 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteEngines() throws Exception {
+	public void test08DeleteEngines() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
@@ -275,7 +278,7 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteEnginesWithoutId() throws Exception {
+	public void test09DeleteEnginesWithoutId() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
@@ -296,7 +299,7 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteEnginesWithBadId() throws Exception {
+	public void test10DeleteEnginesWithBadId() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());
@@ -317,7 +320,7 @@ public class EnginesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteEnginesWithUsedId() throws Exception {
+	public void test11DeleteEnginesWithUsedId() throws Exception {
 
 		List<Engine> engines = new ArrayList<Engine>();
 		engines.add(new Engine());

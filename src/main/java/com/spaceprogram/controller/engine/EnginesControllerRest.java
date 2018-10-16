@@ -81,6 +81,12 @@ public class EnginesControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<Engine> enginePredicate = p -> p.getId() != null;
 		engines.removeIf(enginePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Engine> engineInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getHorsePower() == null
+				|| p.getWeight() == null || p.getWeight().equals(0);
+		engines.removeIf(engineInfoPredicate);
 		
 		return enginesRepository.save(engines);
 	}
@@ -100,6 +106,12 @@ public class EnginesControllerRest {
 		// Suppression des enregistrement dont l'id n'existe pas
 		Predicate<Engine> enginePredicate = p -> enginesRepository.countById(p.getId()) != 1;
 		engines.removeIf(enginePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Engine> engineInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getHorsePower() == null
+				|| p.getWeight() == null || p.getWeight().equals(0);
+		engines.removeIf(engineInfoPredicate);
 		
 		return enginesRepository.save(engines);
 	}

@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +39,7 @@ import com.spaceprogram.model.module.type.ModuleType;
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = { "spring.config.name: spaceprogram" }, classes = { SpaceprogramApplication.class })
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ModuleTypesControllerRestTest {
 
 	// Injections
@@ -60,7 +63,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getModuleType() throws Exception {
+	public void test01GetModuleType() throws Exception {
 
 		this.mvc.perform(get("/v1/moduleTypes/1"))
 				.andExpect(status().isOk())
@@ -84,7 +87,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getModuleTypes() throws Exception {
+	public void test02GetModuleTypes() throws Exception {
 
 	    this.mvc.perform(get("/v1/moduleTypes"))
 	            .andExpect(status().isOk())
@@ -103,7 +106,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postModuleTypes() throws Exception {
+	public void test03PostModuleTypes() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -127,7 +130,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void postModuleTypesWithId() throws Exception {
+	public void test04PostModuleTypesWithId() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -150,7 +153,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putModuleTypes() throws Exception {
+	public void test05PutModuleTypes() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -176,7 +179,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putModuleTypesWithoutId() throws Exception {
+	public void test06PutModuleTypesWithoutId() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -199,7 +202,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void putModuleTypesWithBadId() throws Exception {
+	public void test07PutModuleTypesWithBadId() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -218,7 +221,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteModuleTypes() throws Exception {
+	public void test08DeleteModuleTypes() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -243,7 +246,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteModuleTypesWithoutId() throws Exception {
+	public void test09DeleteModuleTypesWithoutId() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -264,7 +267,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteModuleTypesWithBadId() throws Exception {
+	public void test10DeleteModuleTypesWithBadId() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());
@@ -285,7 +288,7 @@ public class ModuleTypesControllerRestTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteModuleTypesWithUsedId() throws Exception {
+	public void test11DeleteModuleTypesWithUsedId() throws Exception {
 
 		List<ModuleType> moduleTypes = new ArrayList<ModuleType>();
 		moduleTypes.add(new ModuleType());

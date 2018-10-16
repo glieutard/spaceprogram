@@ -81,6 +81,14 @@ public class SpaceshipTypesControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<SpaceshipType> spaceshipTypePredicate = p -> p.getId() != null;
 		spaceshipTypes.removeIf(spaceshipTypePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<SpaceshipType> spaceshipTypeInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getHeight() == null || p.getHeight() == 0
+				|| p.getLength() == null || p.getLength() == 0
+				|| p.getWidth() == null || p.getWidth() == 0
+				|| p.getWeight() == null || p.getWeight() == 0;
+		spaceshipTypes.removeIf(spaceshipTypeInfoPredicate);
 		
 		return spaceshipTypesRepository.save(spaceshipTypes);
 	}
@@ -100,6 +108,14 @@ public class SpaceshipTypesControllerRest {
 		// Suppression des enregistrement dont l'id est null ou à 0
 		Predicate<SpaceshipType> spaceshipTypePredicate = p -> spaceshipTypesRepository.countById(p.getId()) != 1;
 		spaceshipTypes.removeIf(spaceshipTypePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<SpaceshipType> spaceshipTypeInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getHeight() == null || p.getHeight() == 0
+				|| p.getLength() == null || p.getLength() == 0
+				|| p.getWidth() == null || p.getWidth() == 0
+				|| p.getWeight() == null || p.getWeight() == 0;
+		spaceshipTypes.removeIf(spaceshipTypeInfoPredicate);
 		
 		return spaceshipTypesRepository.save(spaceshipTypes);
 	}

@@ -30,7 +30,7 @@ public interface ModulesRepository extends CrudRepository<Module, Integer> {
 	/*
 	 * Is moduke used
 	 */
-	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_modules where id = :idModule", 
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_modules where idModule = :idModule", 
 			nativeQuery = true)
 	Boolean isUsed(@Param("idModule") Integer idModule);
 

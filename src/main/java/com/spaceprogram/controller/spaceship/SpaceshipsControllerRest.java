@@ -34,6 +34,7 @@ import com.spaceprogram.repository.crew.CrewsRepository;
 import com.spaceprogram.repository.engine.EnginesRepository;
 import com.spaceprogram.repository.module.ModulesRepository;
 import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
+import com.spaceprogram.repository.spaceship.type.SpaceshipTypesRepository;
 
 /**
  * @author GLieutard
@@ -55,6 +56,9 @@ public class SpaceshipsControllerRest {
 	// Injection respository
 	@Autowired
 	private SpaceshipsRepository spaceshipsRepository;
+	
+	@Autowired
+	private SpaceshipTypesRepository spaceshipTypesRepository;
 	
 	@Autowired
 	private CrewsRepository crewsRepository;
@@ -116,7 +120,7 @@ public class SpaceshipsControllerRest {
 			detail = new String();
 		
 		// Si NON option détail à full, on ne renvoit pas l'équipage, les moteurs et les modules
-		if (!detail.equals("full")) {
+		if (!detail.equals("full") && spaceship != null) {
 			spaceship.setCrews(null);
 			spaceship.setEngines(null);
 			spaceship.setModules(null);
@@ -141,9 +145,32 @@ public class SpaceshipsControllerRest {
 		spaceships.removeIf(spaceshipPredicateId);
 
 		// Suppression des enregistrement si moins de deux moteurs
-		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() == null || p.getEngines().size() < 2;
+		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() != null && p.getEngines().size() < 2;
 		spaceships.removeIf(spaceshipPredicateEngine);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Spaceship> spaceshipInfoPredicate = p -> p.getName() == null || p.getName().equals("") 
+				|| p.getType() == null || spaceshipTypesRepository.countById(p.getType().getId()) != 1;
+		spaceships.removeIf(spaceshipInfoPredicate);
 		
+		// Récupération des listes passées à null
+		for (Spaceship spaceship : spaceships) {
+			
+			// Récupération de l'équipage si à null
+			if (spaceship.getCrews() == null)
+				spaceship.setCrews(this.getCrewsBySpaceship(spaceship.getId()));
+
+			// Récupération des moteurs si à null
+			if (spaceship.getEngines() == null)
+				spaceship.setEngines(this.getEnginesBySpaceship(spaceship.getId()));
+
+			// Récupération des modules si à null
+			if (spaceship.getModules() == null)
+				spaceship.setModules(this.getModulesBySpaceship(spaceship.getId()));
+			
+		}
+		
+		// Sauvegarde & retour
 		return spaceshipsRepository.save(spaceships);
 	}
 	
@@ -162,8 +189,13 @@ public class SpaceshipsControllerRest {
 		spaceships.removeIf(spaceshipPredicate);
 
 		// Suppression des enregistrement si moins de deux moteurs
-		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() != null && p.getEngines().size() < 2;
+		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() == null || p.getEngines().size() < 2;
 		spaceships.removeIf(spaceshipPredicateEngine);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Spaceship> spaceshipInfoPredicate = p -> p.getName() == null || p.getName().equals("") 
+				|| p.getType() == null || spaceshipTypesRepository.countById(p.getType().getId()) != 1;
+		spaceships.removeIf(spaceshipInfoPredicate);
 		
 		return spaceshipsRepository.save(spaceships);
 	}

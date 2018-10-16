@@ -43,6 +43,16 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	Boolean isInAnotherMission(
 			@Param("idMission") Integer idMission,
 			@Param("idSpaceship") Integer idSpaceship);
+
+	/**
+	 * Has spaceship a pilote
+	 */
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_crew sc"
+			+ " join crew c on (sc.idCrew = c.id)"
+			+ " where sc.idSpaceship = :idSpaceship and c.idJob = 1", 
+			nativeQuery = true)
+	Boolean hasAPilote(
+			@Param("idSpaceship") Integer idSpaceship);
 	
 	/**
 	 * Find mass by spaceship

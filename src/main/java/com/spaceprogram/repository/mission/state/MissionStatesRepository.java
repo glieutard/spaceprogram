@@ -15,4 +15,9 @@ import com.spaceprogram.model.mission.state.MissionState;
  */
 public interface MissionStatesRepository extends CrudRepository<MissionState, Integer> {
 
+	/**
+	 * Count by id
+	 */
+	Long countById(Integer id);
+	
 }

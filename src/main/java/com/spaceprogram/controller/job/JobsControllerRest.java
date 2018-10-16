@@ -81,6 +81,10 @@ public class JobsControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<Job> jobPredicate = p -> p.getId() != null;
 		jobs.removeIf(jobPredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Job> jobInfoPredicate = p -> p.getName() == null || p.getName().equals("");
+		jobs.removeIf(jobInfoPredicate);
 		
 		return jobsRepository.save(jobs);
 	}
@@ -100,6 +104,10 @@ public class JobsControllerRest {
 		// Suppression des enregistrement dont l'id n'existe pas
 		Predicate<Job> jobPredicate = p -> jobsRepository.countById(p.getId()) != 1;
 		jobs.removeIf(jobPredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Job> jobInfoPredicate = p -> p.getName() == null || p.getName().equals("");
+		jobs.removeIf(jobInfoPredicate);
 		
 		return jobsRepository.save(jobs);
 	}

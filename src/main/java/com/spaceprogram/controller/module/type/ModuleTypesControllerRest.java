@@ -81,6 +81,10 @@ public class ModuleTypesControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<ModuleType> moduleTypePredicate = p -> p.getId() != null;
 		moduleTypes.removeIf(moduleTypePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<ModuleType> moduleTypeInfoPredicate = p -> p.getName() == null || p.getName().equals("");
+		moduleTypes.removeIf(moduleTypeInfoPredicate);
 		
 		return moduleTypesRepository.save(moduleTypes);
 	}
@@ -100,6 +104,10 @@ public class ModuleTypesControllerRest {
 		// Suppression des enregistrement dont l'id n'existe pas
 		Predicate<ModuleType> moduleTypePredicate = p -> moduleTypesRepository.countById(p.getId()) != 1;
 		moduleTypes.removeIf(moduleTypePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<ModuleType> moduleTypeInfoPredicate = p -> p.getName() == null || p.getName().equals("");
+		moduleTypes.removeIf(moduleTypeInfoPredicate);
 		
 		return moduleTypesRepository.save(moduleTypes);
 	}

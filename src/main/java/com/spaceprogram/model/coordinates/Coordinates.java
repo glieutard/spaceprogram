@@ -4,6 +4,7 @@
 package com.spaceprogram.model.coordinates;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Embeddable;
 
@@ -29,59 +30,59 @@ public class Coordinates implements Serializable {
 	 * Coordinate X
 	 */
 	@ApiObjectField(description = "Coordinate X")
-	private double x;
+	private BigDecimal x;
 	
 	/**
 	 * Coordinate Y
 	 */
 	@ApiObjectField(description = "Coordinate Y")
-	private double y;
+	private BigDecimal y;
 	
 	/**
 	 * Coordinate Z
 	 */
 	@ApiObjectField(description = "Coordinate Z")
-	private double z;
+	private BigDecimal z;
 
 	/**
 	 * @return the x
 	 */
-	public double getX() {
+	public BigDecimal getX() {
 		return x;
 	}
 
 	/**
 	 * @param x the x to set
 	 */
-	public void setX(double x) {
+	public void setX(BigDecimal x) {
 		this.x = x;
 	}
 
 	/**
 	 * @return the y
 	 */
-	public double getY() {
+	public BigDecimal getY() {
 		return y;
 	}
 
 	/**
 	 * @param y the y to set
 	 */
-	public void setY(double y) {
+	public void setY(BigDecimal y) {
 		this.y = y;
 	}
 
 	/**
 	 * @return the z
 	 */
-	public double getZ() {
+	public BigDecimal getZ() {
 		return z;
 	}
 
 	/**
 	 * @param z the z to set
 	 */
-	public void setZ(double z) {
+	public void setZ(BigDecimal z) {
 		this.z = z;
 	}
 

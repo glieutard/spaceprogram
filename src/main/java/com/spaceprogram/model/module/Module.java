@@ -16,6 +16,7 @@ import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.spaceprogram.model.module.type.ModuleType;
@@ -29,6 +30,7 @@ import com.spaceprogram.model.module.type.ModuleType;
 @Entity
 @Audited
 @ApiObject(name = "Module", description = "Entity Module")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Module implements Serializable {
 
 	/**

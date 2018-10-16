@@ -26,6 +26,7 @@ import com.spaceprogram.model.mission.Mission;
 import com.spaceprogram.model.spaceship.Spaceship;
 import com.spaceprogram.repository.mission.MissionsRepository;
 import com.spaceprogram.repository.mission.spaceship.MissionsSpaceshipsRepository;
+import com.spaceprogram.repository.mission.state.MissionStatesRepository;
 import com.spaceprogram.repository.spaceship.SpaceshipsRepository;
 
 /**
@@ -44,6 +45,9 @@ public class MissionsControllerRest {
 	// Injection respository
 	@Autowired
 	private MissionsRepository missionsRepository;
+	
+	@Autowired
+	private MissionStatesRepository missionStatesRepository;
 	
 	@Autowired
 	private SpaceshipsRepository spaceshipsRepository;
@@ -121,6 +125,15 @@ public class MissionsControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<Mission> missionPredicate = p -> p.getId() != null;
 		missions.removeIf(missionPredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Mission> missionInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getDescription() == null || p.getDescription().equals("")
+				|| p.getState() == null || p.getState().getId() == null || missionStatesRepository.countById(p.getState().getId()) != 1
+				|| p.getBaseCoordinates() == null || p.getTargetCoordinates() == null
+				|| p.getBaseCoordinates().getX() == null || p.getBaseCoordinates().getY() == null || p.getBaseCoordinates().getZ() == null
+				|| p.getTargetCoordinates().getX() == null || p.getTargetCoordinates().getY() == null || p.getTargetCoordinates().getZ() == null;
+		missions.removeIf(missionInfoPredicate);
 		
 		// sauvegarde des missions
 		Iterable<Mission> savedMissions = missionsRepository.save(missions);
@@ -150,6 +163,15 @@ public class MissionsControllerRest {
 		// Suppression des enregistrement dont l'id n'existe pas
 		Predicate<Mission> missionPredicate = p -> missionsRepository.countById(p.getId()) != 1;
 		missions.removeIf(missionPredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Mission> missionInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getDescription() == null || p.getDescription().equals("")
+				|| p.getState() == null || p.getState().getId() == null || missionStatesRepository.countById(p.getState().getId()) != 1
+				|| p.getBaseCoordinates() == null || p.getTargetCoordinates() == null
+				|| p.getBaseCoordinates().getX() == null || p.getBaseCoordinates().getY() == null || p.getBaseCoordinates().getZ() == null
+				|| p.getTargetCoordinates().getX() == null || p.getTargetCoordinates().getY() == null || p.getTargetCoordinates().getZ() == null;
+		missions.removeIf(missionInfoPredicate);
 		
 		// sauvegarde des missions
 		Iterable<Mission> savedMissions = missionsRepository.save(missions);

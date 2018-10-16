@@ -283,7 +283,7 @@ create table module_aud (
     id int not null,
 	rev int not null,
 	revtype smallint not null,
-    name nvarchar(250) not null,
+    name nvarchar(250) null,
 	idType int null,
 	firePower int null,
 	cargoCapacity int null
@@ -518,17 +518,13 @@ SET IDENTITY_INSERT [dbo].[mission] ON
 
 INSERT [dbo].[mission] ([id], [name], [description], [idState], [baseCoordinateX], [baseCoordinateY], [baseCoordinateZ], [targetCoordinateX], [targetCoordinateY], [targetCoordinateZ]) VALUES (1, N'Save Princess Leila Organa', N'Infiltrate the Death Star and save Princess Leila Organa', 2, 1.156, 2.785, 3.365, 11.103, 12.185, 13.654)
 INSERT [dbo].[mission] ([id], [name], [description], [idState], [baseCoordinateX], [baseCoordinateY], [baseCoordinateZ], [targetCoordinateX], [targetCoordinateY], [targetCoordinateZ]) VALUES (2, N'Destroy the Death Star', N'Use our new weapon to destroy the Death Star.', 1, 1.156, 2.785, 3.365, 11.103, 12.185, 13.654)
-INSERT [dbo].[mission] ([id], [name], [description], [idState], [baseCoordinateX], [baseCoordinateY], [baseCoordinateZ], [targetCoordinateX], [targetCoordinateY], [targetCoordinateZ]) VALUES (3, N'Save Princess Leila Organa', N'Infiltrate the Death Star and save Princess Leila Organa', 2, 1.156, 2.785, 3.365, 11.103, 12.185, 13.654)
-INSERT [dbo].[mission] ([id], [name], [description], [idState], [baseCoordinateX], [baseCoordinateY], [baseCoordinateZ], [targetCoordinateX], [targetCoordinateY], [targetCoordinateZ]) VALUES (4, N'Destroy the Death Star', N'Use our new weapon to destroy the Death Star.', 1, 1.156, 2.785, 3.365, 11.103, 12.185, 13.654)
-INSERT [dbo].[mission] ([id], [name], [description], [idState], [baseCoordinateX], [baseCoordinateY], [baseCoordinateZ], [targetCoordinateX], [targetCoordinateY], [targetCoordinateZ]) VALUES (5, N'Save Princess Leila Organa', N'Infiltrate the Death Star and save Princess Leila Organa', 2, 1.156, 2.785, 3.365, 11.103, 12.185, 13.654)
-INSERT [dbo].[mission] ([id], [name], [description], [idState], [baseCoordinateX], [baseCoordinateY], [baseCoordinateZ], [targetCoordinateX], [targetCoordinateY], [targetCoordinateZ]) VALUES (6, N'Destroy the Death Star', N'Use our new weapon to destroy the Death Star.', 1, 1.156, 2.785, 3.365, 11.103, 12.185, 13.654)
 
 SET IDENTITY_INSERT [dbo].[mission] OFF
 
 ------------------------------
 -- Table mission_spaceships --
 ------------------------------
-INSERT [dbo].[mission_spaceships] ([idMission], [idSpaceship], [date]) VALUES (6, 1, NULL)
+INSERT [dbo].[mission_spaceships] ([idMission], [idSpaceship], [date]) VALUES (2, 1, NULL)
 INSERT [dbo].[mission_spaceships] ([idMission], [idSpaceship], [date]) VALUES (1, 2, CAST(N'2018-10-14T19:06:58.2790000' AS DateTime2))
 
 ---------------------------

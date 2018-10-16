@@ -16,6 +16,7 @@ import org.hibernate.envers.Audited;
 import org.jsondoc.core.annotation.ApiObject;
 import org.jsondoc.core.annotation.ApiObjectField;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spaceprogram.model.job.Job;
 
 /**
@@ -27,6 +28,7 @@ import com.spaceprogram.model.job.Job;
 @Entity
 @Audited
 @ApiObject(name = "Crew", description = "Entity Crew")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Crew implements Serializable {
 
 	/**

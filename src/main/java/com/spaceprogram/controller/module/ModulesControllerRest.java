@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spaceprogram.model.module.Module;
 import com.spaceprogram.repository.module.ModulesRepository;
+import com.spaceprogram.repository.module.type.ModuleTypesRepository;
 
 /**
  * @author GLieutard
@@ -36,6 +37,9 @@ public class ModulesControllerRest {
 	// Injection respository
 	@Autowired
 	private ModulesRepository modulesRepository;
+	
+	@Autowired
+	private ModuleTypesRepository moduleTypesRepository;
 	
 	/**
 	 * Get all modules
@@ -81,6 +85,11 @@ public class ModulesControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<Module> modulePredicate = p -> p.getId() != null;
 		modules.removeIf(modulePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Module> moduleInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getType() == null || moduleTypesRepository.countById(p.getType().getId()) != 1;
+		modules.removeIf(moduleInfoPredicate);
 		
 		return modulesRepository.save(modules);
 	}
@@ -100,6 +109,11 @@ public class ModulesControllerRest {
 		// Suppression des enregistrement dont l'id n'existe pas
 		Predicate<Module> modulePredicate = p -> modulesRepository.countById(p.getId()) != 1;
 		modules.removeIf(modulePredicate);
+
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Module> moduleInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getType() == null || moduleTypesRepository.countById(p.getType().getId()) != 1;
+		modules.removeIf(moduleInfoPredicate);
 		
 		return modulesRepository.save(modules);
 	}

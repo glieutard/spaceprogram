@@ -91,8 +91,15 @@ public class CrewsControllerRest {
 		crews.removeIf(crewPredicate);
 
 		// Suppression des enregistrement dont le job n'existe pas
-		Predicate<Crew> crewJobPredicate = p -> p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
-		crews.removeIf(crewJobPredicate);
+//		Predicate<Crew> crewJobPredicate = p -> p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
+//		crews.removeIf(crewJobPredicate);
+		
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Crew> crewInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getSexe() == null || p.getSexe().equals("")
+				|| p.getAge() == null || p.getAge().equals(0)
+				|| p.getJob() == null || p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
+		crews.removeIf(crewInfoPredicate);
 		
 		return crewsRepository.save(crews);
 	}
@@ -114,8 +121,15 @@ public class CrewsControllerRest {
 		crews.removeIf(crewPredicate);
 
 		// Suppression des enregistrement dont le job n'existe pas
-		Predicate<Crew> crewJobPredicate = p -> p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
-		crews.removeIf(crewJobPredicate);
+//		Predicate<Crew> crewJobPredicate = p -> p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
+//		crews.removeIf(crewJobPredicate);
+		
+		// Suppression des enregistrements dont il manque une information
+		Predicate<Crew> crewInfoPredicate = p -> p.getName() == null || p.getName().equals("")
+				|| p.getSexe() == null || p.getSexe().equals("")
+				|| p.getAge() == null || p.getAge().equals(0)
+				|| p.getJob().getId() == null || jobsRepository.countById(p.getJob().getId()) != 1;
+		crews.removeIf(crewInfoPredicate);
 		
 		return crewsRepository.save(crews);
 	}

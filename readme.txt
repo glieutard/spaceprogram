@@ -1,10 +1,9 @@
 Travail restant à effectuer :
 
 Des contrôles restent à ajouter pour les erreurs renvoyées par SQL.
-=> Champs non renseignés
-=> ...
+Tester existence crew engine type etc ...
 Tests à créer. (en cours)
-Tests des dernières modifications à faire.
+Passer par une base de données virtuelle pour les tests
 
 
 
@@ -53,6 +52,11 @@ Il faut comparer la liste entrante et sortante pour determiner les anomalies.
 POST : Il n'est possible d'enregistrer que des nouveaux enregistrements
 PUT : Il n'est possible que de mettre à jour
 
+Il est nécessaire de renseigner tous les champs à l'exception (en mise à jour) :
+- Spaceships : crews, engines, modules
+- Missions : spaceships
+Pour ces deux entités, les listes sont conservées en mise à jour.
+
 Il n'est pas possible de supprimer un élément utilisé (ex: si un Job est associé à un Crew, on ne peut pas le supprimer).
 Il n'est pas possible de créer ou modifier un Vaisseau qui a moins de deux moteurs.
 Il n'est pas possible d'affecter un membre d'équipage à deux vaisseaux. => Provoque une erreur SQL
@@ -70,9 +74,11 @@ Ces statuts sont testés pour gérer les vaisseaux :
 2 - Les vaisseaux partent en mission et leurs coordonnées évoluent
 3&4 - La mission est terminée, les vaisseaux sont détachés (simulant le retour à la base)
 
+Les coordonnées des vaisseaux ne sont calculées que s'il y a un pilote dans le vaisseau (id 1 en dur).
+
 Pour Spaceships et Missions, il est possible d'ajouter l'option detail == full pour retourner plus d'informations (get et get/id)
 - spaceships : retourne les modules, engines et crews
-- missions : retourne les vaisseaux (non full)
+- missions : retourne les vaisseaux (full without coordinates)
 - missions/id/spaceships : retourne les coordonnées
 
 
