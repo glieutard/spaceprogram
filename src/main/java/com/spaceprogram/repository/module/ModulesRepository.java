@@ -5,6 +5,8 @@ package com.spaceprogram.repository.module;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +19,7 @@ import com.spaceprogram.model.module.Module;
  * Modules Repository
  *
  */
+@Transactional
 public interface ModulesRepository extends CrudRepository<Module, Integer> {
 
 	/*

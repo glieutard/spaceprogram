@@ -3,6 +3,8 @@
  */
 package com.spaceprogram.repository.spaceship.type;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +17,7 @@ import com.spaceprogram.model.spaceship.type.SpaceshipType;
  * SpaceshipTypes Repository
  *
  */
+@Transactional
 public interface SpaceshipTypesRepository extends CrudRepository<SpaceshipType, Integer> {
 
 	/*

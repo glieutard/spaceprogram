@@ -5,6 +5,8 @@ package com.spaceprogram.repository.crew;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +19,7 @@ import com.spaceprogram.model.crew.Crew;
  * Crews Repository
  *
  */
+@Transactional
 public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 
 	/*

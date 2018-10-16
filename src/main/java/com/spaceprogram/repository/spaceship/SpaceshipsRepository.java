@@ -5,6 +5,8 @@ package com.spaceprogram.repository.spaceship;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +19,7 @@ import com.spaceprogram.model.spaceship.Spaceship;
  * Spaceships Repository
  *
  */
+@Transactional
 public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer> {
 	
 	/**
@@ -38,7 +41,7 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	 * Is spaceship in another mission
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from mission_spaceships"
-			+ " where idMission = :idMission and idSpaceship = :idSpaceship", 
+			+ " where idMission <> :idMission and idSpaceship = :idSpaceship", 
 			nativeQuery = true)
 	Boolean isInAnotherMission(
 			@Param("idMission") Integer idMission,

@@ -3,6 +3,8 @@
  */
 package com.spaceprogram.repository.mission;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.spaceprogram.model.mission.Mission;
@@ -13,6 +15,7 @@ import com.spaceprogram.model.mission.Mission;
  * Missions Repository
  *
  */
+@Transactional
 public interface MissionsRepository extends CrudRepository<Mission, Integer> {
 
 	/**

@@ -3,6 +3,8 @@
  */
 package com.spaceprogram.repository.mission.state;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.spaceprogram.model.mission.state.MissionState;
@@ -13,6 +15,7 @@ import com.spaceprogram.model.mission.state.MissionState;
  * MissionStates Repository
  *
  */
+@Transactional
 public interface MissionStatesRepository extends CrudRepository<MissionState, Integer> {
 
 	/**
