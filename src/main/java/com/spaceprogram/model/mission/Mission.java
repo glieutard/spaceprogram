@@ -169,8 +169,10 @@ public class Mission implements Serializable {
 		if (spaceships != null)
 			for (int i = 0; i < spaceships.size(); i++)
 				for (int j = i + 1; j < spaceships.size(); j++)
-					if (spaceships.get(i).getId() == spaceships.get(j).getId())
+					if (spaceships.get(i).getId() == spaceships.get(j).getId()) {
 						spaceships.remove(j);
+						j--;
+					}
 
 		this.spaceships = spaceships;
 	}

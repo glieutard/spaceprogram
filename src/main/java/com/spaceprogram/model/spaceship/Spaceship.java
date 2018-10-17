@@ -177,8 +177,10 @@ public class Spaceship implements Serializable {
 		if (crews != null)
 			for (int i = 0; i < crews.size(); i++)
 				for (int j = i + 1; j < crews.size(); j++)
-					if (crews.get(i).getId() == crews.get(j).getId())
+					if (crews.get(i).getId() == crews.get(j).getId()) {
 						crews.remove(j);
+						j--;
+					}
 
 		this.crews = crews;
 	}
@@ -198,8 +200,10 @@ public class Spaceship implements Serializable {
 		if (engines != null)
 			for (int i = 0; i < engines.size(); i++)
 				for (int j = i + 1; j < engines.size(); j++)
-					if (engines.get(i).getId() == engines.get(j).getId())
+					if (engines.get(i).getId() == engines.get(j).getId()) {
 						engines.remove(j);
+						j--;
+					}
 
 		this.engines = engines;
 	}
@@ -219,8 +223,10 @@ public class Spaceship implements Serializable {
 		if (modules != null)
 			for (int i = 0; i < modules.size(); i++)
 				for (int j = i + 1; j < modules.size(); j++)
-					if (modules.get(i).getId() == modules.get(j).getId())
+					if (modules.get(i).getId() == modules.get(j).getId()) {
 						modules.remove(j);
+						j--;
+					}
 
 		this.modules = modules;
 	}

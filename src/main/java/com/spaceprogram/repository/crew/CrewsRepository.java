@@ -48,6 +48,13 @@ public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 			@Param("idSpaceship") Integer idSpaceship, 
 			@Param("idCrew") Integer idCrew);
 
+	/*
+	 * is crew in a spaceship
+	 */
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_crews sc"
+			+ " where sc.idCrew = :idCrew", nativeQuery = true)
+	Boolean isInASpaceship(@Param("idCrew") Integer idCrew);
+
 	/**
 	 * Count by id
 	 */

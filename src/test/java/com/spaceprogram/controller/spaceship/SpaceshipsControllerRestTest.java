@@ -177,6 +177,8 @@ public class SpaceshipsControllerRestTest {
 		spaceships.get(0).getEngines().get(0).setId(1);;
 		spaceships.get(0).getEngines().add(new Engine());
 		spaceships.get(0).getEngines().get(1).setId(2);;
+		spaceships.get(0).getEngines().add(new Engine());
+		spaceships.get(0).getEngines().get(2).setId(2);;
 		spaceships.add(new Spaceship());
 		spaceships.get(1).setName("test insert 2");
 		spaceships.get(1).setType(new SpaceshipType());
@@ -189,9 +191,15 @@ public class SpaceshipsControllerRestTest {
 		spaceships.get(1).setCrews(new ArrayList<Crew>());
 		spaceships.get(1).getCrews().add(new Crew());
 		spaceships.get(1).getCrews().get(0).setId(6);
+		spaceships.get(1).getCrews().add(new Crew());
+		spaceships.get(1).getCrews().get(1).setId(6);
+		spaceships.get(1).getCrews().add(new Crew());
+		spaceships.get(1).getCrews().get(2).setId(1);
 		spaceships.get(1).setModules(new ArrayList<Module>());
 		spaceships.get(1).getModules().add(new Module());
 		spaceships.get(1).getModules().get(0).setId(1);
+		spaceships.get(1).getModules().add(new Module());
+		spaceships.get(1).getModules().get(1).setId(1);
 
 		this.mvc.perform(post("/v1/spaceships").contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(spaceships))).andExpect(status().isOk())

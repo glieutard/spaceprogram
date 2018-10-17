@@ -197,6 +197,8 @@ public class MissionsControllerRestTest {
 		missions.get(0).setSpaceships(new ArrayList<Spaceship>());
 		missions.get(0).getSpaceships().add(new Spaceship());
 		missions.get(0).getSpaceships().get(0).setId(3);
+		missions.get(0).getSpaceships().add(new Spaceship());
+		missions.get(0).getSpaceships().get(1).setId(3);
 		missions.add(new Mission());
 		missions.get(1).setName("test insert 2");
 		missions.get(1).setDescription("test insert 2");

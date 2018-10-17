@@ -232,7 +232,7 @@ public class SpaceshipsControllerRest {
 			// qu'il est déjà sur un autre vaisseau ou qu'il a été intégré dans un autre vaisseau à sauvegardé
 			if (spaceship.getCrews() != null) {
 				Predicate<Crew> crewPredicate = p -> p.getId() == null || crewsRepository.countById(p.getId()) != 1
-						|| crewsRepository.isInAnotherSpaceship(spaceship.getId(), p.getId()) || crews.contains(p);
+						|| crewsRepository.isInASpaceship(p.getId()) || crews.contains(p);
 				spaceship.getCrews().removeIf(crewPredicate);
 
 				// Insertion des membres d'équipage dans la liste pour contrôle
