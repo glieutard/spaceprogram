@@ -166,11 +166,12 @@ public class Mission implements Serializable {
 	 */
 	public void setSpaceships(List<Spaceship> spaceships) {
 
-		for (int i = 0;i < spaceships.size();i++)
-			for (int j = i+1;j < spaceships.size();j++)
-				if (spaceships.get(i).getId() == spaceships.get(j).getId())
-					spaceships.remove(j);
-		
+		if (spaceships != null)
+			for (int i = 0; i < spaceships.size(); i++)
+				for (int j = i + 1; j < spaceships.size(); j++)
+					if (spaceships.get(i).getId() == spaceships.get(j).getId())
+						spaceships.remove(j);
+
 		this.spaceships = spaceships;
 	}
 
