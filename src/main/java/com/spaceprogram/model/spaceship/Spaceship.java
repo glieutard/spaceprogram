@@ -72,7 +72,7 @@ public class Spaceship implements Serializable {
 	 */
 //	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@JsonInclude(value = Include.NON_EMPTY)
-	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="spaceship_crews",
             joinColumns = @JoinColumn( name="idSpaceship"),
@@ -114,7 +114,7 @@ public class Spaceship implements Serializable {
 	@Transient
 	@ApiObjectField(description = "Coordinates")
 	private Coordinates coordinates;
-	
+
 	/**
 	 * @return the id
 	 */
@@ -168,6 +168,17 @@ public class Spaceship implements Serializable {
 	 * @param crews the crews to set
 	 */
 	public void setCrews(List<Crew> crews) {
+//		if (crews != null) {
+//			HashSet<Crew> set = new HashSet<Crew>(crews);
+//			this.crews = new ArrayList<Crew>(set);
+//		}
+//		else this.crews = null;
+		
+		for (int i = 0;i < crews.size();i++)
+			for (int j = i+1;j < crews.size();j++)
+				if (crews.get(i).getId() == crews.get(j).getId())
+					crews.remove(j);
+		
 		this.crews = crews;
 	}
 
@@ -182,6 +193,12 @@ public class Spaceship implements Serializable {
 	 * @param engines the engines to set
 	 */
 	public void setEngines(List<Engine> engines) {
+		
+		for (int i = 0;i < engines.size();i++)
+			for (int j = i+1;j < engines.size();j++)
+				if (engines.get(i).getId() == engines.get(j).getId())
+					engines.remove(j);
+		
 		this.engines = engines;
 	}
 
@@ -196,6 +213,12 @@ public class Spaceship implements Serializable {
 	 * @param modules the modules to set
 	 */
 	public void setModules(List<Module> modules) {
+		
+		for (int i = 0;i < modules.size();i++)
+			for (int j = i+1;j < modules.size();j++)
+				if (modules.get(i).getId() == modules.get(j).getId())
+					modules.remove(j);
+		
 		this.modules = modules;
 	}
 

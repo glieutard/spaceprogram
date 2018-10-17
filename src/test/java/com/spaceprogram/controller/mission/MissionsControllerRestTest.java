@@ -318,6 +318,41 @@ public class MissionsControllerRestTest {
 	}
 
 	/**
+	 * Test postMissions with spaceship in mission
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void test06PostMissionsWithSpaceshipInMission() throws Exception {
+
+		List<Mission> missions = new ArrayList<Mission>();
+		missions.add(new Mission());
+		missions.get(0).setName("test insert spaceship in mission");
+		missions.get(0).setDescription("test insert spaceship in mission");
+		missions.get(0).setState(new MissionState());
+		missions.get(0).getState().setId(1);
+		missions.get(0).setBaseCoordinates(new Coordinates());
+		missions.get(0).getBaseCoordinates().setX(new BigDecimal(1.125));
+		missions.get(0).getBaseCoordinates().setY(new BigDecimal(2.125));
+		missions.get(0).getBaseCoordinates().setZ(new BigDecimal(3.125));
+		missions.get(0).setTargetCoordinates(new Coordinates());
+		missions.get(0).getTargetCoordinates().setX(new BigDecimal(10.125));
+		missions.get(0).getTargetCoordinates().setY(new BigDecimal(20.125));
+		missions.get(0).getTargetCoordinates().setZ(new BigDecimal(30.125));
+		missions.get(0).setSpaceships(new ArrayList<Spaceship>());
+		missions.get(0).getSpaceships().add(new Spaceship());
+		missions.get(0).getSpaceships().get(0).setId(3);
+
+		this.mvc.perform(post("/v1/missions").contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(missions))).andExpect(status().isOk())
+				.andExpect(jsonPath("$.length()", is(1)))
+				.andExpect(jsonPath("$.[0].id", is(5)))
+				.andExpect(jsonPath("$.[0].name", is("test insert spaceship in mission")))
+				.andExpect(jsonPath("$.[0].spaceships").doesNotExist());
+		
+	}
+
+	/**
 	 * Test putMissions
 	 * 
 	 * @throws Exception
@@ -491,6 +526,8 @@ public class MissionsControllerRestTest {
 		missions.get(0).setId(3);
 		missions.add(new Mission());
 		missions.get(1).setId(4);
+		missions.add(new Mission());
+		missions.get(2).setId(5);
 
 		this.mvc.perform(delete("/v1/missions").contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(missions))).andExpect(status().isOk());
@@ -541,6 +578,54 @@ public class MissionsControllerRestTest {
         		.andExpect(status().isOk())
         		.andExpect(jsonPath("$.length()", is(2)));
 		
+	}
+
+	/**
+	 * Test getSpaceshipsByMission
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void test15GetSpaceshipsByMission() throws Exception {
+
+		this.mvc.perform(get("/v1/missions/1/spaceships"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.length()", is(1)))
+				.andExpect(jsonPath("$.[0].id", is(2)))
+				.andExpect(jsonPath("$.[0].name", is("X-Wing Red Two")))
+				.andExpect(jsonPath("$.[0].coordinates").doesNotExist());
+
+	}
+
+	/**
+	 * Test getSpaceshipsByMission with detail == full
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void test16GetSpaceshipsByMissionFull() throws Exception {
+
+		this.mvc.perform(get("/v1/missions/1/spaceships?detail=full"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.length()", is(1)))
+				.andExpect(jsonPath("$.[0].id", is(2)))
+				.andExpect(jsonPath("$.[0].name", is("X-Wing Red Two")))
+				.andExpect(jsonPath("$.[0].coordinates").exists());
+
+	}
+
+	/**
+	 * Test getCoordinatesByMissionSpaceship with detail == full
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void test17GetCoordinatesByMissionSpaceship() throws Exception {
+
+		this.mvc.perform(get("/v1/missions/1/spaceships/2/coordinates"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").exists());
+
 	}
 
 }

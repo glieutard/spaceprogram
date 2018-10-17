@@ -3,6 +3,7 @@
  */
 package com.spaceprogram.controller.spaceship;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -141,12 +142,45 @@ public class SpaceshipsControllerRest {
 	public @ApiResponseObject Iterable<Spaceship> putSpaceships(@RequestBody(required = true) List<Spaceship> spaceships) {
 
 		// Suppression des enregistrement dont l'id n'existe pas
-		Predicate<Spaceship> spaceshipPredicateId = p -> spaceshipsRepository.countById(p.getId()) != 1;
+		Predicate<Spaceship> spaceshipPredicateId = p -> p.getId() == null || spaceshipsRepository.countById(p.getId()) != 1;
 		spaceships.removeIf(spaceshipPredicateId);
+		
+		// Liste des membres d'équipages à enregistrer pour supprimer les éventuels doublons envoyés
+		List<Crew> crews = new ArrayList<Crew>();
+
+		// Test des membres d'équipage, des moteurs et des modules
+		for (Spaceship spaceship : spaceships) {
+
+			// On retire tous les membres d'équipage avec un id à null ou inexistant,
+			// qu'il est déjà sur un autre vaisseau ou qu'il a été intégré dans un autre vaisseau à sauvegardé
+			if (spaceship.getCrews() != null) {
+				Predicate<Crew> crewPredicate = p -> p.getId() == null || crewsRepository.countById(p.getId()) != 1
+						|| crewsRepository.isInAnotherSpaceship(spaceship.getId(), p.getId()) || crews.contains(p);
+				spaceship.getCrews().removeIf(crewPredicate);
+
+				// Insertion des membres d'équipage dans la liste pour contrôle
+				crews.addAll(spaceship.getCrews());
+			}
+
+			// On retire tous les membres d'équipage avec un id à null ou inexistant
+			if (spaceship.getEngines() != null) {
+				Predicate<Engine> enginePredicate = p -> p.getId() == null
+						|| enginesRepository.countById(p.getId()) != 1;
+				spaceship.getEngines().removeIf(enginePredicate);
+			}
+
+			// On retire tous les membres d'équipage avec un id à null ou inexistant
+			if (spaceship.getModules() != null) {
+				Predicate<Module> modulePredicate = p -> p.getId() == null
+						|| modulesRepository.countById(p.getId()) != 1;
+				spaceship.getModules().removeIf(modulePredicate);
+			}
+
+		}
 
 		// Suppression des enregistrement si moins de deux moteurs
-		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() != null && p.getEngines().size() < 2;
-		spaceships.removeIf(spaceshipPredicateEngine);
+		Predicate<Spaceship> spaceshipEnginePredicate = p -> p.getEngines() != null && p.getEngines().size() < 2;
+		spaceships.removeIf(spaceshipEnginePredicate);
 
 		// Suppression des enregistrements dont il manque une information
 		Predicate<Spaceship> spaceshipInfoPredicate = p -> p.getName() == null || p.getName().equals("") 
@@ -187,6 +221,39 @@ public class SpaceshipsControllerRest {
 		// Suppression des enregistrement dont l'id n'est pas null
 		Predicate<Spaceship> spaceshipPredicate = p -> p.getId() != null;
 		spaceships.removeIf(spaceshipPredicate);
+
+		// Liste des membres d'équipages à enregistrer pour supprimer les éventuels doublons envoyés
+		List<Crew> crews = new ArrayList<Crew>();
+
+		// Test des membres d'équipage, des moteurs et des modules
+		for (Spaceship spaceship : spaceships) {
+
+			// On retire tous les membres d'équipage avec un id à null ou inexistant,
+			// qu'il est déjà sur un autre vaisseau ou qu'il a été intégré dans un autre vaisseau à sauvegardé
+			if (spaceship.getCrews() != null) {
+				Predicate<Crew> crewPredicate = p -> p.getId() == null || crewsRepository.countById(p.getId()) != 1
+						|| crewsRepository.isInAnotherSpaceship(spaceship.getId(), p.getId()) || crews.contains(p);
+				spaceship.getCrews().removeIf(crewPredicate);
+
+				// Insertion des membres d'équipage dans la liste pour contrôle
+				crews.addAll(spaceship.getCrews());
+			}
+
+			// On retire tous les membres d'équipage avec un id à null ou inexistant
+			if (spaceship.getEngines() != null) {
+				Predicate<Engine> enginePredicate = p -> p.getId() == null
+						|| enginesRepository.countById(p.getId()) != 1;
+				spaceship.getEngines().removeIf(enginePredicate);
+			}
+
+			// On retire tous les membres d'équipage avec un id à null ou inexistant
+			if (spaceship.getModules() != null) {
+				Predicate<Module> modulePredicate = p -> p.getId() == null
+						|| modulesRepository.countById(p.getId()) != 1;
+				spaceship.getModules().removeIf(modulePredicate);
+			}
+
+		}
 
 		// Suppression des enregistrement si moins de deux moteurs
 		Predicate<Spaceship> spaceshipPredicateEngine = p -> p.getEngines() == null || p.getEngines().size() < 2;

@@ -71,6 +71,28 @@ public class Crew implements Serializable {
 	private Job job;
 
 	/**
+	 * Equals
+	 * 
+	 * Redéfinition pour test égalité entre deux crews
+	 */
+	@Override
+	public boolean equals(Object object) {
+		return this.id == ((Crew) object).id;
+	}
+
+//	/**
+//	 * HashCode
+//	 * 
+//	 * Redéfinition pour test égalité entre deux crews
+//	 * 
+//	 */
+//	@Override
+//	public int hashCode()
+//	{
+//		return id;
+//	}
+
+	/**
 	 * @return the id
 	 */
 	public Integer getId() {

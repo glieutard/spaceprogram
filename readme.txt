@@ -1,9 +1,8 @@
 Travail restant à effectuer :
 
 Des contrôles restent à ajouter pour les erreurs renvoyées par SQL.
-Tester existence crew engine type etc ...
-Tests à créer. (en cours)
-Passer par une base de données virtuelle pour les tests
+Passer par une base de données virtuelle pour les tests ?
+=> Pour le moment, nécessite de recréer la base avant de lancer les tests .... 
 
 
 
@@ -61,11 +60,11 @@ Il n'est pas possible de supprimer un élément utilisé (ex: si un Job est asso
 Il n'est pas possible de créer ou modifier un Vaisseau qui a moins de deux moteurs.
 Il n'est pas possible d'affecter un membre d'équipage à deux vaisseaux. => Provoque une erreur SQL
 Il n'est pas possible d'envoyer un vaisseau dans deux missions différentes.
-Il n'est pas possible d'affecter plusieurs fois le même membre d'équipage, un moteur ou un module à un même vaisseau. => Provoque une erreur SQL
-Il n'est pas possible d'affecter plusieurs fois un vaisseau à une même mission. = Provoque une erreur SQL
+Il n'est pas possible d'affecter plusieurs fois le même membre d'équipage, un moteur ou un module à un même vaisseau.
+Il n'est pas possible d'affecter plusieurs fois un vaisseau à une même mission.
 Il n'est pas possible d'affecter des elements inexistants aux vaisseaux (crews, engines, modules, type) et aux missions (spaceships, type) => Provoque une erreur SQL
 
-Il n'y a pas d'option de restauration d'un vaisseau à un état antérieur en tant que tel.
+Il n'y a pas d'option de restauration d'un vaisseau à un état antérieur en tant que tel afin de rester dans la philosophie du RESTful.
 Pour se faire, il suffit simplement de faire une mise à jour du vaisseau avec les informations de l'état antérieur.
 
 Les status de mission sont figés. Il n'est donc possible que de les récupérer.
@@ -81,6 +80,11 @@ Pour Spaceships et Missions, il est possible d'ajouter l'option detail == full p
 - missions : retourne les vaisseaux (full without coordinates)
 - missions/id/spaceships : retourne les coordonnées
 
+
+
+
+Tests à ajouter :
+- id des objets & listes à null
 
 
 

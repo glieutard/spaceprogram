@@ -244,7 +244,7 @@ public class MissionsControllerRest {
 	 * @Return Coordiantes
 	 * o
 	 */
-	@RequestMapping(value = path + "/{idMission}/spaceships/{idSpaceship}", method = RequestMethod.GET)
+	@RequestMapping(value = path + "/{idMission}/spaceships/{idSpaceship}/coordinates", method = RequestMethod.GET)
 	@ApiMethod(description = "Get spaceships by mission")
 	public @ApiResponseObject Coordinates getSpaceshipCoordinatesByMissionSpaceship(
 			@ApiPathParam @PathVariable("idMission") Integer idMission,

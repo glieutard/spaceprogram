@@ -50,7 +50,7 @@ public interface SpaceshipsRepository extends CrudRepository<Spaceship, Integer>
 	/**
 	 * Has spaceship a pilote
 	 */
-	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_crew sc"
+	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_crews sc"
 			+ " join crew c on (sc.idCrew = c.id)"
 			+ " where sc.idSpaceship = :idSpaceship and c.idJob = 1", 
 			nativeQuery = true)
