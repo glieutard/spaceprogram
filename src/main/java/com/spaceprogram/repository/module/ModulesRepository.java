@@ -22,7 +22,7 @@ import com.spaceprogram.model.module.Module;
 @Transactional
 public interface ModulesRepository extends CrudRepository<Module, Integer> {
 
-	/*
+	/**
 	 * find modules by spaceships
 	 */
 	@Query(value = "select m.* from module m join spaceship_modules sm on(m.id = sm.idModule) where sm.idSpaceship = :idSpaceship", 
@@ -30,7 +30,7 @@ public interface ModulesRepository extends CrudRepository<Module, Integer> {
 	List<Module> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);
 
-	/*
+	/**
 	 * Is moduke used
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_modules where idModule = :idModule", 

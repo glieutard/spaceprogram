@@ -22,7 +22,7 @@ import com.spaceprogram.model.engine.Engine;
 @Transactional
 public interface EnginesRepository extends CrudRepository<Engine, Integer> {
 	
-	/*
+	/**
 	 * find engines by spaceships
 	 */
 	@Query(value = "select e.* from engine e join spaceship_engines se on(e.id = se.idEngine) where se.idSpaceship = :idSpaceship", 
@@ -30,7 +30,7 @@ public interface EnginesRepository extends CrudRepository<Engine, Integer> {
 	List<Engine> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);
 	
-	/*
+	/**
 	 * Is engine used
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_engines where idEngine = :idEngine", 

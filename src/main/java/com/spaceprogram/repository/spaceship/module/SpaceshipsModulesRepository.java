@@ -19,7 +19,7 @@ import com.spaceprogram.model.spaceship.module.SpaceshipModules;
 @Transactional
 public interface SpaceshipsModulesRepository extends CrudRepository<SpaceshipModules, IdSpaceshipModules> {
 	
-	/*
+	/**
 	 * Delete by id module
 	 */
 	void deleteByIdModule(Integer idModule);

@@ -19,7 +19,7 @@ import com.spaceprogram.model.spaceship.engine.SpaceshipEngines;
 @Transactional
 public interface SpaceshipsEnginesRepository extends CrudRepository<SpaceshipEngines, IdSpaceshipEngines> {
 	
-	/*
+	/**
 	 * Delete by idEngine
 	 */
 	void deleteByIdEngine(Integer idEngine);

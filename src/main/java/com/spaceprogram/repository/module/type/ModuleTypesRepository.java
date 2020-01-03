@@ -20,7 +20,7 @@ import com.spaceprogram.model.module.type.ModuleType;
 @Transactional
 public interface ModuleTypesRepository extends CrudRepository<ModuleType, Integer> {
 
-	/*
+	/**
 	 * Is type used
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from module where idType = :idType", 

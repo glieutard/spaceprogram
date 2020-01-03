@@ -20,7 +20,7 @@ import com.spaceprogram.model.spaceship.type.SpaceshipType;
 @Transactional
 public interface SpaceshipTypesRepository extends CrudRepository<SpaceshipType, Integer> {
 
-	/*
+	/**
 	 * Is type used
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship where idType = :idType", 

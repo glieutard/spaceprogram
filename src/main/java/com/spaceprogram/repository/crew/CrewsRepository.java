@@ -22,7 +22,7 @@ import com.spaceprogram.model.crew.Crew;
 @Transactional
 public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 
-	/*
+	/**
 	 * find crews by spaceships
 	 */
 	@Query(value = "select c.* from crew c join spaceship_crews sc on(c.id = sc.idCrew) where sc.idSpaceship = :idSpaceship", 
@@ -30,7 +30,7 @@ public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 	List<Crew> findByIdSpaceship(
 			@Param("idSpaceship") Integer idSpaceship);
 	
-	/*
+	/**
 	 * is crew in mission
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from mission_spaceships ms"
@@ -39,7 +39,7 @@ public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 			+ " where sc.idCrew = :idCrew", nativeQuery = true)
 	Boolean isInMission(@Param("idCrew") Integer idCrew);
 
-	/*
+	/**
 	 * is crew in another spaceship
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_crews sc"
@@ -48,7 +48,7 @@ public interface CrewsRepository extends CrudRepository<Crew, Integer> {
 			@Param("idSpaceship") Integer idSpaceship, 
 			@Param("idCrew") Integer idCrew);
 
-	/*
+	/**
 	 * is crew in a spaceship
 	 */
 	@Query(value = "select cast(case when count(*) > 0 then 1 else 0 end as bit) from spaceship_crews sc"

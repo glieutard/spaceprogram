@@ -19,7 +19,7 @@ import com.spaceprogram.model.spaceship.crew.SpaceshipCrews;
 @Transactional
 public interface SpaceshipsCrewsRepository extends CrudRepository<SpaceshipCrews, IdSpaceshipCrews> {
 	
-	/*
+	/**
 	 *  delete by idCrew
 	 */
 	void deleteByIdCrew(Integer idCrew);

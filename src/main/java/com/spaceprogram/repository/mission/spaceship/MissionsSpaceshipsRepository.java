@@ -21,7 +21,7 @@ import com.spaceprogram.model.mission.spaceship.MissionSpaceships;
 @Transactional
 public interface MissionsSpaceshipsRepository extends CrudRepository<MissionSpaceships, IdMissionSpaceships> {
 
-	/*
+	/**
 	 *  Delete by idMission
 	 */
 //	@Modifying
@@ -29,12 +29,12 @@ public interface MissionsSpaceshipsRepository extends CrudRepository<MissionSpac
 //	void deleteByIdMission(@Param("idMission") Integer idMission);
 	void deleteByIdMission(Integer idMission);
 	
-	/*
+	/**
 	 *  Find by idMission
 	 */
 	List<MissionSpaceships> findByIdMission(Integer idMission);
 
-	/*
+	/**
 	 *  Find by idSpaceship
 	 */
 	MissionSpaceships findByIdSpaceship(Integer idSpaceship);
